@@ -1,0 +1,22 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+
+# Getting Set Up
+
+
+```{r setup}
+library(rgl)
+library(dplyr)
+library(raster)
+library(scales)
+library(sf)
+library(sfdct)
+library(silicate)
+library(tidyr)
+library(viridis)
+
+```

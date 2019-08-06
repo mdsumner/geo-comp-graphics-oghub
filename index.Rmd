@@ -1,0 +1,11 @@
+---
+title: "Computational graphics structures for geo-spatial data"
+author: Michael Sumner
+description: Converting geo-spatial data into meshes suitable for computational graphics systems. 
+documentclass: book
+site: bookdown::bookdown_site
+---
+
+# About this
+
+This workshop is for R users familiar with spatial workflows looking to work with computational graphics tools, 3D visualization and modelling frameworks. 
