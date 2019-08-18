@@ -439,18 +439,18 @@ rglwidget()
 There's still a problem with what quadmesh can do. 
 
 ```{r raster-type}
-
-
-# two ways to think about raster data
 library(sf)
-p <- spex::polygonize(r)
-p$color_ <- colourvalues::colour_values(p$layer,  palette = t(col2rgb(palr::bathyDeepPal(10))))
-plot(st_geometry(p), col = p$color_)
-
 library(rgl)
 library(anglr)
 library(silicate)
 library(quadmesh)
+
+# two ways to think about raster data
+
+p <- spex::polygonize(r)
+p$color_ <- colourvalues::colour_values(p$layer,  palette = t(col2rgb(palr::bathyDeepPal(10))))
+plot(st_geometry(p), col = p$color_)
+
 tri <- copy_down(TRI(spex::polygonize(disaggregate(r, 4))), "layer")
 tri$object$color_ <- colourvalues::colour_values(tri$object$layer)
 
