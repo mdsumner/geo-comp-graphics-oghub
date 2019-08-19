@@ -11,9 +11,31 @@ editor_options:
 
 * What tools exist to convert data to meshes in R? 
 
-## Overview
+## Image textures
 
-* Teaching: 10 min
+This section requires a Mapbox API key, if you already use either the  `mapdeck` or `ceramic` package then you may have set up this key already. 
+
+To obtain a key, go to https://account.mapbox.com/access-tokens/, then store
+
+```
+MAPBOX_API_KEY=<yourkey>
+
+in ~/.Renviron\n\nSee 'help(ceramic::get_api_key)'"
+```
+
+Munster is 
+
+```{r ceramic}
+
+loc <- cbind(7 + 37.5/60, 51 + 57.6/60)
+buffer <- 50000
+library(ceramic)
+
+elev <- cc_elevation(loc, buffer, zoom = 8)
+im <- cc_location(loc, buffer, zoom = 11)
+qm <- quadmesh::quadmesh()
+```
+
 
 ## Transforming Spatial Data using modular 3D tools {.exercise}
 

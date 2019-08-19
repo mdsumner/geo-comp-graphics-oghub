@@ -135,23 +135,24 @@ img {
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li><a href="index.html#about-this"><span class="toc-section-number">1</span> About this</a></li>
+<li class="has-sub"><a href="index.html#about-this"><span class="toc-section-number">1</span> About this</a><ul>
+<li><a href="index.html#description-and-objectives"><span class="toc-section-number">1.1</span> Description and objectives</a></li>
+</ul></li>
 <li><a href="getting-set-up.html#getting-set-up"><span class="toc-section-number">2</span> Getting Set Up</a></li>
 <li class="has-sub"><a href="d-and-mesh-forms-of-spatial-data.html#d-and-mesh-forms-of-spatial-data"><span class="toc-section-number">3</span> 3D and mesh forms of spatial data</a><ul>
 <li><a href="d-and-mesh-forms-of-spatial-data.html#questions"><span class="toc-section-number">3.1</span> Questions</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#overview"><span class="toc-section-number">3.2</span> Overview</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#what-is-a-mesh"><span class="toc-section-number">3.3</span> What is a mesh?</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#geospatial-data"><span class="toc-section-number">3.4</span> Geospatial data</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#primitives"><span class="toc-section-number">3.5</span> Primitives</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#a-raster-is-a-mesh-implicitly"><span class="toc-section-number">3.6</span> A raster is a mesh (implicitly)</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#the-rgl-mesh3d-format"><span class="toc-section-number">3.7</span> the rgl mesh3d format</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#quadmesh-and-coordinate-systems"><span class="toc-section-number">3.8</span> Quadmesh and coordinate systems</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#summary"><span class="toc-section-number">3.9</span> Summary</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#rgl-miscellanea"><span class="toc-section-number">3.10</span> rgl miscellanea</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#what-is-a-mesh"><span class="toc-section-number">3.2</span> What is a mesh?</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#geospatial-data"><span class="toc-section-number">3.3</span> Geospatial data</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#primitives"><span class="toc-section-number">3.4</span> Primitives</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#a-raster-is-a-mesh-implicitly"><span class="toc-section-number">3.5</span> A raster is a mesh (implicitly)</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#the-rgl-mesh3d-format"><span class="toc-section-number">3.6</span> the rgl mesh3d format</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#quadmesh-and-coordinate-systems"><span class="toc-section-number">3.7</span> Quadmesh and coordinate systems</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#summary"><span class="toc-section-number">3.8</span> Summary</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#rgl-miscellanea"><span class="toc-section-number">3.9</span> rgl miscellanea</a></li>
 </ul></li>
 <li class="has-sub"><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-to-3d-forms"><span class="toc-section-number">4</span> Transforming spatial data to 3D forms</a><ul>
 <li><a href="transforming-spatial-data-to-3d-forms.html#questions-1"><span class="toc-section-number">4.1</span> Questions</a></li>
-<li><a href="transforming-spatial-data-to-3d-forms.html#overview-1"><span class="toc-section-number">4.2</span> Overview</a></li>
+<li><a href="transforming-spatial-data-to-3d-forms.html#overview"><span class="toc-section-number">4.2</span> Overview</a></li>
 <li><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-using-modular-3d-tools"><span class="toc-section-number">4.3</span> Transforming Spatial Data using modular 3D tools</a></li>
 <li><a href="transforming-spatial-data-to-3d-forms.html#on-cran"><span class="toc-section-number">4.4</span> On CRAN</a></li>
 <li><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><span class="toc-section-number">4.5</span> Quadmesh.</a></li>
@@ -172,7 +173,7 @@ img {
 <li>What tools exist to convert data to meshes in R?</li>
 </ul>
 </div>
-<div id="overview-1" class="section level2">
+<div id="overview" class="section level2">
 <h2><span class="header-section-number">4.2</span> Overview</h2>
 <ul>
 <li>Teaching: 10 min</li>
@@ -199,11 +200,11 @@ img {
 </div>
 <div id="quadmesh." class="section level2">
 <h2><span class="header-section-number">4.5</span> Quadmesh.</h2>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">quadmesh</span>(anyRasterDEM, <span class="dt">texture =</span> anyRasterRGB)</a>
-<a class="sourceLine" id="cb40-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>()</a>
-<a class="sourceLine" id="cb40-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="co">## play with aspect3d, light3d, ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">quadmesh</span>(anyRasterDEM, <span class="dt">texture =</span> anyRasterRGB)</a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>()</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="co">## play with aspect3d, light3d, ...</span></a></code></pre></div>
 <p>Triangulations, <code>sfdct</code> is no good because it’s very inefficient. <code>sf</code> is simply not suitable for mesh (a.k.a. <em>indexed</em>) forms of data.</p>
 </div>
 <div id="stuff-not-on-cran" class="section level2">
@@ -217,12 +218,12 @@ img {
 <div id="triangles-or-quads-in-hypertidy-wip" class="section level2">
 <h2><span class="header-section-number">4.7</span> Triangles or quads in hypertidy (WIP)</h2>
 <p>This is my work-in-progress approach to meshing any data structure.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co">## devtools::install_github(&quot;hypertidy/anglr&quot;)</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co">## devtools::install_github(&quot;hypertidy/silicate&quot;)</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw">library</span>(anglr)  </a>
-<a class="sourceLine" id="cb41-4" data-line-number="4">triangles &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(anySFpolygon), anyRasterDEM)</a>
-<a class="sourceLine" id="cb41-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb41-6" data-line-number="6">mesh &lt;-<span class="st"> </span><span class="kw">plot3d</span>(triangles)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co">## devtools::install_github(&quot;hypertidy/anglr&quot;)</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="co">## devtools::install_github(&quot;hypertidy/silicate&quot;)</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">library</span>(anglr)  </a>
+<a class="sourceLine" id="cb39-4" data-line-number="4">triangles &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(anySFpolygon), anyRasterDEM)</a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb39-6" data-line-number="6">mesh &lt;-<span class="st"> </span><span class="kw">plot3d</span>(triangles)</a></code></pre></div>
 
 </div>
 </div>

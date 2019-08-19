@@ -18,11 +18,6 @@ library(viridis)
 * What are meshes and topology?  
 * what is the relationship of meshes to geospatial raster/vector data?
 
-## Overview
-
-* Teaching: 20 min
-* Exercises: 5 min
-
 
 ## What is a mesh? 
 
@@ -48,9 +43,10 @@ Topology vs. geometry
 
 This line has **1-dimensional topology** depicted in **3-dimensional geometry**. 
 
-```{r}
-rgl.clear()
+```{r rgl-line, echo=TRUE}
 library(rgl)
+rgl.clear()
+
 (geometry <- cbind(x = c(0, 0.5, 1), y = c(0, 0.5, 1), z = c(0, 0, 0.8)))
 (topology1 <- rbind(.v0 = c(1, 2), .v1 = c(2, 3)))
 lines3d(geometry[t(topology1), ], lwd = 3, col = "firebrick")
@@ -66,7 +62,7 @@ rglwidget()
 
 This triangle has **2-dimensional topology** depicted in **3-dimensional geometry**. 
 
-```{r}
+```{r rgl-triangle, echo=TRUE}
 (topology2 <- rbind(.v0 = c(1, 2, 1), .v1 = c(2, 3, 1)))
 triangles3d(geometry[t(topology2), ], col = "firebrick")
 material3d(col = "black")
@@ -81,8 +77,6 @@ rglwidget()
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
 ## Geospatial data
 
 * raster
@@ -96,21 +90,12 @@ What is a raster?
 A layer of neighbouring rectangles? 
 
 ```{r what-raster, echo=FALSE}
+library(raster)
 ## What is a raster? 
 m <- matrix(c(seq(0, 0.5, length = 5), 
             seq(0.375, 0, length = 4)), 3)
 
-colpal <- function(n = 26, drop = 5) sf::sf.colors(n)[-seq_len(drop)]
-plot_values <- function(x) {
-  raster::plot(x, axes = FALSE, main = "value", box = FALSE, col = colpal()); 
-  text(coordinates(x), label = values(x))
-  raster::plot(extent(x), add = TRUE)
-}
-plot_cells <- function(x) {
-  raster::plot(x, axes = FALSE, main = "cell", legend = FALSE, box = FALSE, col = colpal()); 
-  raster::plot(extent(x), add = TRUE)
-  text(coordinates(x), label = sprintf("[%i]", seq_len(ncell(x))), cex = 0.8)
-}
+
 r <- setExtent(raster(m), extent(0, ncol(m), 0, nrow(m)))
 op <- par(mfcol = c(1, 2))
 plot_values(raster::raster(m))
@@ -125,16 +110,7 @@ Or a continuous fields between points?
 
 
 ```{r what-raster-2, echo=FALSE}
-plot_edges <- function(x, main = "") {
-  sc <- silicate::SC(spex::polygonize(x))
-  e <- silicate::sc_edge(sc)
-  v <- silicate::sc_vertex(sc)
-  x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
-  x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
-  plot(rbind(x0, x1)[c("x_", "y_")], asp = 1, type = "n", 
-       axes = FALSE, xlab = "", ylab = "", main = main)
-  graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, lty = 2)
-}
+
 op <- par(mfcol = c(1, 2))
 plot_edges(r, main = "points")
 points(coordinates(r), col = colpal(10, drop = 1)[scales::rescale(values(r), c(1, 9))], pch = 19, cex = 1.5)
@@ -214,18 +190,15 @@ What's the fill?
 In 3D, and to fill our polygons properly *as data*  - we need **primitives**. 
 
 
-
-
 ##  Primitives
 
-Terminology alert!  (This is *a working definition* of primitive, not everyone agrees.) 
+Terminology alert!  (This is my *working definition* of primitive for this topic, not everyone agrees.) 
 
 * Point - a single coordinate is a 0-dimensional primitive (vertex, coordinate)
 * Line  - a line segment between two coordinates is a 1-dimensional primitive (edge, segment)
 * Triangle - a triangle joining three coordinates is 2-dimensional primitive 
 
-
-Topology ain't geometry 
+*Topology is not geometry*
 
 (This is *topological* dimension. Every one of these types of shape can be depicted within a geometric space that is equal to or higher than the topological dimension.)
 
@@ -237,7 +210,7 @@ Topology can be 3D (tetrahedron) - imagine volumetric fill versus planar faces b
 
 To fill our polygon we need triangles. 
 
-```{r}
+```{r triangles-1, echo=FALSE}
 data("minimal_mesh", package = "silicate")
 tri <- sf::st_cast(sfdct::ct_triangulate(minimal_mesh, a = 0.01, D = TRUE))
 plot(tri)
@@ -245,13 +218,13 @@ plot(tri)
 
 Note that if we turn off the border, we don't notice the difference. 
 
-```{r}
+```{r triangles-2, echo=FALSE}
 plot(tri, border = NA)
 ```
 
 No tricky winding or even-odd rule to worry about, but we have lost our boundary around each distinct shape - we could find them by finding edges within a shape that are not shared by two triangles ...
 
-```{r}
+```{r triangles-3}
 plot(tri, border = NA, col = rainbow(10))
 ```
 
@@ -393,9 +366,6 @@ rglwidget()
 
 The situation for triangles is much the same, but we have `it` for the triangle index rather than `ib` for the quad index. In both cases the geometry is in the `vb` matrix. Models can have both quads and triangles, using the same set of vertices. 
 
-
-
-**Pop out to real example with quadmesh**. 
 
 
 

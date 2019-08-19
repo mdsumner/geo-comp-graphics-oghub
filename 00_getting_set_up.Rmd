@@ -7,18 +7,54 @@ editor_options:
 
 # Getting Set Up
 
+We suggest use of the package **remotes** which will avoid re-installing a package if the latest version is already installed. 
 
-TBD
+```{r install, eval=FALSE}
+if (!requireNamespace("remotes")) install.packages("remotes")
 
-```{r setup}
-library(rgl)
-library(dplyr)
-library(raster)
-library(scales)
-library(sf)
-library(sfdct)
-library(silicate)
-library(tidyr)
-library(viridis)
+pkgs <- c("ceramic", "dplyr", "quadmesh", "raster", "rgl", "scales", "sf", "sfdct", 
+"tidyr", "viridis")
 
+remotes::install_cran(pkgs)
+```
+
+Obtain some extra data sets that will be used in this session.
+
+```{r get-data,eval=FALSE}
+if (!file.exists("geo-comp-graphics.Rdata")) {
+ download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata", 
+               "geo-comp-graphics.Rdata", mode = "wb")
+}
+load("geo-comp-graphics.Rdata")
+
+```
+
+
+
+Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren't necessary for participants. 
+
+```{r install-github, eval=TRUE,echo=FALSE}
+##remotes::install_github(c("hypertidy/anglr", "hypertidy/silicate"))
+
+colpal <- function(n = 26, drop = 5) sf::sf.colors(n)[-seq_len(drop)]
+plot_values <- function(x) {
+  raster::plot(x, axes = FALSE, main = "value", box = FALSE, col = colpal()); 
+  text(coordinates(x), label = values(x))
+  raster::plot(extent(x), add = TRUE)
+}
+plot_cells <- function(x) {
+  raster::plot(x, axes = FALSE, main = "cell", legend = FALSE, box = FALSE, col = colpal()); 
+  raster::plot(extent(x), add = TRUE)
+  text(coordinates(x), label = sprintf("[%i]", seq_len(ncell(x))), cex = 0.8)
+}
+plot_edges <- function(x, main = "") {
+  sc <- silicate::SC(spex::polygonize(x))
+  e <- silicate::sc_edge(sc)
+  v <- silicate::sc_vertex(sc)
+  x0 <- e %>% dplyr::inner_join(v, c(".vx0" = "vertex_"))
+  x1 <- e %>% dplyr::inner_join(v, c(".vx1" = "vertex_"))
+  plot(rbind(x0, x1)[c("x_", "y_")], asp = 1, type = "n", 
+       axes = FALSE, xlab = "", ylab = "", main = main)
+  graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, lty = 2)
+}
 ```

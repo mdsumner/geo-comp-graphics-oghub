@@ -135,23 +135,24 @@ img {
 <div class="col-sm-12">
 <div id="TOC">
 <ul>
-<li><a href="index.html#about-this"><span class="toc-section-number">1</span> About this</a></li>
+<li class="has-sub"><a href="index.html#about-this"><span class="toc-section-number">1</span> About this</a><ul>
+<li><a href="index.html#description-and-objectives"><span class="toc-section-number">1.1</span> Description and objectives</a></li>
+</ul></li>
 <li><a href="getting-set-up.html#getting-set-up"><span class="toc-section-number">2</span> Getting Set Up</a></li>
 <li class="has-sub"><a href="d-and-mesh-forms-of-spatial-data.html#d-and-mesh-forms-of-spatial-data"><span class="toc-section-number">3</span> 3D and mesh forms of spatial data</a><ul>
 <li><a href="d-and-mesh-forms-of-spatial-data.html#questions"><span class="toc-section-number">3.1</span> Questions</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#overview"><span class="toc-section-number">3.2</span> Overview</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#what-is-a-mesh"><span class="toc-section-number">3.3</span> What is a mesh?</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#geospatial-data"><span class="toc-section-number">3.4</span> Geospatial data</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#primitives"><span class="toc-section-number">3.5</span> Primitives</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#a-raster-is-a-mesh-implicitly"><span class="toc-section-number">3.6</span> A raster is a mesh (implicitly)</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#the-rgl-mesh3d-format"><span class="toc-section-number">3.7</span> the rgl mesh3d format</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#quadmesh-and-coordinate-systems"><span class="toc-section-number">3.8</span> Quadmesh and coordinate systems</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#summary"><span class="toc-section-number">3.9</span> Summary</a></li>
-<li><a href="d-and-mesh-forms-of-spatial-data.html#rgl-miscellanea"><span class="toc-section-number">3.10</span> rgl miscellanea</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#what-is-a-mesh"><span class="toc-section-number">3.2</span> What is a mesh?</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#geospatial-data"><span class="toc-section-number">3.3</span> Geospatial data</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#primitives"><span class="toc-section-number">3.4</span> Primitives</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#a-raster-is-a-mesh-implicitly"><span class="toc-section-number">3.5</span> A raster is a mesh (implicitly)</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#the-rgl-mesh3d-format"><span class="toc-section-number">3.6</span> the rgl mesh3d format</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#quadmesh-and-coordinate-systems"><span class="toc-section-number">3.7</span> Quadmesh and coordinate systems</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#summary"><span class="toc-section-number">3.8</span> Summary</a></li>
+<li><a href="d-and-mesh-forms-of-spatial-data.html#rgl-miscellanea"><span class="toc-section-number">3.9</span> rgl miscellanea</a></li>
 </ul></li>
 <li class="has-sub"><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-to-3d-forms"><span class="toc-section-number">4</span> Transforming spatial data to 3D forms</a><ul>
 <li><a href="transforming-spatial-data-to-3d-forms.html#questions-1"><span class="toc-section-number">4.1</span> Questions</a></li>
-<li><a href="transforming-spatial-data-to-3d-forms.html#overview-1"><span class="toc-section-number">4.2</span> Overview</a></li>
+<li><a href="transforming-spatial-data-to-3d-forms.html#overview"><span class="toc-section-number">4.2</span> Overview</a></li>
 <li><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-using-modular-3d-tools"><span class="toc-section-number">4.3</span> Transforming Spatial Data using modular 3D tools</a></li>
 <li><a href="transforming-spatial-data-to-3d-forms.html#on-cran"><span class="toc-section-number">4.4</span> On CRAN</a></li>
 <li><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><span class="toc-section-number">4.5</span> Quadmesh.</a></li>
@@ -166,15 +167,20 @@ img {
 <div class="col-sm-12">
 <div id="getting-set-up" class="section level1">
 <h1><span class="header-section-number">2</span> Getting Set Up</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(rgl)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">library</span>(scales)</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">library</span>(sfdct)</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw">library</span>(silicate)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="kw">library</span>(tidyr)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9"><span class="kw">library</span>(viridis)</a></code></pre></div>
+<p>We suggest use of the package <strong>remotes</strong> which will avoid re-installing a package if the latest version is already installed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ceramic&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;quadmesh&quot;</span>, <span class="st">&quot;raster&quot;</span>, <span class="st">&quot;rgl&quot;</span>, <span class="st">&quot;scales&quot;</span>, <span class="st">&quot;sf&quot;</span>, <span class="st">&quot;sfdct&quot;</span>, </a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;viridis&quot;</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">remotes<span class="op">::</span><span class="kw">install_cran</span>(pkgs)</a></code></pre></div>
+<p>Obtain some extra data sets that will be used in this session.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)) {</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"> <span class="kw">download.file</span>(<span class="st">&quot;https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata&quot;</span>, </a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">               <span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>, <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">load</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)</a></code></pre></div>
+<p>Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren’t necessary for participants.</p>
 
 </div>
 <p style="text-align: center;">
