@@ -25,6 +25,10 @@ if (!file.exists("geo-comp-graphics.Rdata")) {
  download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata", 
                "geo-comp-graphics.Rdata", mode = "wb")
 }
+if (!file.exists("file160c6c1729b3.png")) {
+ download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/file160c6c1729b3.png", 
+               "data-raw/file160c6c1729b3.png", mode = "wb")
+}
 load("geo-comp-graphics.Rdata")
 
 ```
