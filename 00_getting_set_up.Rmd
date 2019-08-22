@@ -12,7 +12,7 @@ We suggest use of the package **remotes** which will avoid re-installing a packa
 ```{r install, eval=FALSE}
 if (!requireNamespace("remotes")) install.packages("remotes")
 
-pkgs <- c("ceramic", "dplyr", "quadmesh", "raster", "rgl", "scales", "sf", "sfdct", 
+pkgs <- c("dplyr", "quadmesh", "raster", "rgl", "scales", "sf", "sfdct", 
 "tidyr", "viridis")
 
 remotes::install_cran(pkgs)
