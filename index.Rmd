@@ -1,9 +1,12 @@
 ---
 title: "Computational graphics structures for geo-spatial data"
-author: Michael Sumner
-description: Converting geo-spatial data into meshes suitable for computational graphics systems. 
-documentclass: book
+author: "Michael Sumner"
+date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+github-repo: mdsumner/geo-comp-graphics-oghub
+description: "Converting geo-spatial data into meshes suitable for computational graphics systems. "
 ---
 
 # About this

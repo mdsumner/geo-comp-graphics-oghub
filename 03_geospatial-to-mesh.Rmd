@@ -10,10 +10,15 @@ editor_options:
 ## Questions
 
 * What tools exist to convert data to meshes in R? 
+* What forms of mesh data are available? 
+
+
+The .obj format: https://github.com/odedstein/meshes/tree/master/objects/koala
+
 
 ## Image textures
 
-This section requires a Mapbox API key to run from scratch - so the data has been made available in the download for this session. 
+This section requires a Mapbox API key to run from scratch - and can't be shared, so it will simply be illustrated. 
 
 
 Munster is here. 
@@ -31,7 +36,7 @@ munster_imag <- cc_location(loc, buffer, zoom = 14)
 
 The process is a little complicated, but the key is that the elevation raster provides a space in which to map other data too. In this case the raster is in Mercator, and the image is as well. Under the hood we have to map the spatial part of the image into 0, 1, 0, 1 space of a PNG image, but in the final event we get a scene where real-world data may be added directly. 
 
-```{r ceramic-cache}
+```{r ceramic-cache, eval=FALSE, include=TRUE}
 munster_qmesh <- quadmesh::quadmesh(munster_elev, texture = munster_imag)
 
 rgl::shade3d(munster_qmesh, lit = FALSE); rgl::aspect3d(1, 1, .05)

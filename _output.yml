@@ -1,8 +1,9 @@
 bookdown::gitbook:
-  css: styles.css
+  css: style.css
   config:
     toc:
-      collapse: section
-      scroll_highlight: yes
-bookdown::html_book:
-  split_by: chapter
+      before: |
+        <li><a href="./">Computational graphics structures for geo-spatial data inR</a></li>
+      after: |
+        <li><a href="https://github.com/mdsumner/geo-comp-graphics-oghub" target="blank">Published with bookdown</a></li>
+    edit: https://github.com/mdsumner/geo-comp-graphics-oghub/edit/master/%s
