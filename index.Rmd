@@ -26,7 +26,7 @@ The [rgl](https://CRAN.r-project.org/package=rgl) package provides the most fund
 
 **Installation instructions**: 
 
-https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html#getting-set-up
+https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html
 
 **Datasets in use**: 
 

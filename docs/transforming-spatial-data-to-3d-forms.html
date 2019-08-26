@@ -24,7 +24,7 @@
 <meta name="author" content="Michael Sumner" />
 
 
-<meta name="date" content="2019-08-22" />
+<meta name="date" content="2019-08-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -181,6 +181,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="transforming-spatial-data-to-3d-forms" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Transforming spatial data to 3D forms</h1>
+<p>The key package is rgl, the OpenGL package for R. This tends to be very low level, but has improved helpers and is becoming easier to use. The key functions are <code>plot3d</code>, <code>lines3d</code> and <code>points3d</code> and these are used just like the 2D base funtions in R (with the ‘3d’ on the end).</p>
+<p>There is a special function called <code>shade3d</code> and this one accepts the <code>mesh3d</code> object that we introduced via the quadmesh package earlier.</p>
 <div id="questions-1" class="section level2">
 <h2><span class="header-section-number">4.1</span> Questions</h2>
 <ul>

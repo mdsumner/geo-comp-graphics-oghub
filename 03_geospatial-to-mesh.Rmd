@@ -7,6 +7,14 @@ editor_options:
 
 # Transforming spatial data to 3D forms
 
+The key package is rgl, the OpenGL package for R. This tends to be very low level, but has improved helpers and is becoming easier to use. The key functions are `plot3d`, `lines3d` and `points3d` and these are used just like the 2D base funtions in R (with the '3d' on the end). 
+
+
+There is a special function called `shade3d` and this one accepts the `mesh3d` object that we introduced via the quadmesh package earlier. 
+
+
+
+
 ## Questions
 
 * What tools exist to convert data to meshes in R? 
