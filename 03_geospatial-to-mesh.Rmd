@@ -21,7 +21,33 @@ There is a special function called `shade3d` and this one accepts the `mesh3d` o
 * What forms of mesh data are available? 
 
 
-The .obj format: https://github.com/odedstein/meshes/tree/master/objects/koala
+## Tools
+
+Converting points to 3D is really trivial, we only need the X-Y-Z coordinates, and we can set properties directly on them. 
+
+Converting lines is also relatively easy, but here we might use a *path* model, sequential lists of coordinates that imply a connected line, or a *segments* model where every single individual line segment is specified separately. The segment model is really a mesh, because we have the opportunity to store every coordinate just once and refer to segments by their index. 
+
+Converting polygons is much harder, and there are multiple ways to do it. The main division is by near-Delaunay triangulation, or by ear-cutting algorithms. 
+
+* near-Delaunay - high quality triangulations, suitable for surface modelling
+* ear-cutting - low quality triangulation, suitable for flat surfaces
+
+The `rgl` package has ear-cutting in `triangulate3d()`. 
+
+The `sfdct` package (via `RTriangle`) has near-Delaunay in `ct_triangulate()`
+
+The `decido` package has ear-cutting in `earcut()`. 
+
+Converting raster data is available in various ways. 
+
+- `rgl::surface3d()`
+- `quadmesh::quadmesh()`, converts raster, matrix, some stars to `mesh3d`
+- rayshader determines elevation colouring from a matrix, and has many plotting helpers
+
+
+There are a few example data packages:
+
+.obj format: https://github.com/odedstein/meshes/tree/master/objects/koala
 
 
 ## Image textures
@@ -58,7 +84,6 @@ rgl::lines3d(cbind(merc[c(1, 1), ], matrix(c(0, 1000))))
 ## Transforming Spatial Data using modular 3D tools {.exercise}
 
 1. Tell us if you use 3D visualization or meshes in analysis. 
-
 
 This is hard! There's a few scattered tools. 
 
