@@ -54,6 +54,7 @@ merc <- sf::sf_project(cbind(7.59551, 51.96922), from = "+init=epsg:4326", to = 
 rgl::lines3d(cbind(merc[c(1, 1), ], matrix(c(0, 1000))))
 ```
 
+## comparison of discrete elevation (extrusion) vs continuous
 
 ## Transforming Spatial Data using modular 3D tools {.exercise}
 
