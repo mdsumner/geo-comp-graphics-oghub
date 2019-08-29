@@ -65,6 +65,7 @@ title3d(xlab = "x", ylab = "y", zlab = "z")
 quads3d(cbind(c(0, 1, 1, 0), c(0, 0, 1, 1), c(0, 0, 0, 0) - 0.01), col="gray")
 rglwidget()
 #next3d()
+clear3d()
 (topology2 <- rbind(.v0 = c(1, 2, 1), .v1 = c(2, 3, 1)))
 triangles3d(geometry[t(topology2), ], col = "firebrick")
 material3d(col = "black")
@@ -75,7 +76,7 @@ title3d(xlab = "x", ylab = "y", zlab = "z")
 quads3d(cbind(c(0, 1, 1, 0), c(0, 0, 1, 1), c(0, 0, 0, 0)), col="gray")
 
 rglwidget()
-
+clear3d()
 ```
 
 

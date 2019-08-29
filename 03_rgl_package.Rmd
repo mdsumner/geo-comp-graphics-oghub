@@ -58,10 +58,11 @@ It works directly with rgl function, and can be used in more raw form.
 
 ```{r various-quad-aes}
 library(rgl)
-clear3d()
-rgl::rgl.close()
 shade3d(qm, col = "firebrick")
 rglwidget()
+```
+
+```{r various-quad-aes2}
 clear3d()
 quads3d(t(qm$vb)[qm$ib,], col = c("firebrick", "dodgerblue")[qm$ib %% 2 + 1])
 rglwidget()
