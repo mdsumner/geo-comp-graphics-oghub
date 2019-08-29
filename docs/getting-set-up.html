@@ -192,12 +192,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb1-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">remotes<span class="op">::</span><span class="kw">install_cran</span>(pkgs)</a></code></pre></div>
 <p>Obtain some extra data sets that will be used in this session.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)) {</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"> <span class="kw">download.file</span>(<span class="st">&quot;https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata&quot;</span>, </a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">               <span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>, <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">load</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">download.file</span>(<span class="st">&quot;https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata&quot;</span>, </a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">               <span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>, <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">load</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)</a></code></pre></div>
 <p>Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren’t necessary for participants.</p>
 
 </div>
