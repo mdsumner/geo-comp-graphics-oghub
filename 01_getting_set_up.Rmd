@@ -30,12 +30,10 @@ load("geo-comp-graphics.Rdata")
 ```
 
 
+Miscellaneous functions used to build the examples. 
 
-Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren't necessary for participants. 
 
-```{r install-github, eval=TRUE,echo=FALSE}
-##remotes::install_github(c("hypertidy/anglr", "hypertidy/silicate"))
-
+```{r functions-used-for-plots}
 colpal <- function(n = 26, drop = 5) sf::sf.colors(n)[-seq_len(drop)]
 plot_values <- function(x) {
   raster::plot(x, axes = FALSE, main = "value", box = FALSE, col = colpal()); 
@@ -58,3 +56,13 @@ plot_edges <- function(x, main = "") {
   graphics::segments(x0$x_, x0$y_, x1$x_, x1$y_, lty = 2)
 }
 ```
+
+
+
+Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren't necessary for participants. 
+
+```{r install-github, eval=TRUE,echo=FALSE}
+##remotes::install_github(c("hypertidy/anglr", "hypertidy/silicate"))
+
+```
+

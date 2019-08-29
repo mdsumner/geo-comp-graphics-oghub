@@ -1,3 +1,6 @@
+- 3d plots in the rgl mesh3d section don't work
+-
+
 https://rpubs.com/cyclemumner/mdsumner-geomesh-foss4g
 
 https://github.com/mdsumner/geomesh

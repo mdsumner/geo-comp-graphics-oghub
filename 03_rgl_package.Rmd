@@ -25,7 +25,7 @@ rast <- raster::raster(list(x = x, y = y, z = m))
 
 If we convert that to a quadmesh, the result has vertices (`vb`) and primitives (`ib`). 
 
-```{r}
+```{r quadmesh-03}
 library(quadmesh)
 qm <- quadmesh(rast)
 str(qm)
@@ -35,7 +35,7 @@ str(qm)
 The structure is `vb`, the coordinates of the mesh - these are the
 actual corner coordinates from the input raster.  
 
-```{r}
+```{r raster-image}
 image(rast, col = colpal())
 op <- par(xpd = NA)
 text(t(qm$vb), lab = 1:ncol(qm$vb))
@@ -45,7 +45,7 @@ par(op)
 
 Notice how these are unique coordinates, there's no simple relationship between the cell and its value and its four corners. This is because they are shared between neighbouring cells. The relationship is stored in the `ib` array, this has four rows one for each corner of each cell. There are 12 cells and each has four coordinates from the shared vertex pool. The cells are defined in the order they occur in raster. 
 
-```{r}
+```{r quadmesh-index}
 qm$ib
 ```
 
@@ -53,8 +53,9 @@ It works directly with rgl function, and can be used in more raw form.
 
 
 ```{r various-quad-aes}
-clear3d()
 library(rgl)
+clear3d()
+rgl::rgl.close()
 shade3d(qm, col = "firebrick")
 rglwidget()
 clear3d()
@@ -67,16 +68,13 @@ rglwidget()
 
 The situation for triangles is much the same, but we have `it` for the triangle index rather than `ib` for the quad index. In both cases the geometry is in the `vb` matrix. Models can have both quads and triangles, using the same set of vertices. 
 
-
-
-
 ## Exercise 1
 
 1. Run this code 
 2. Think about what is wrong with the scene. 
 3. What can we do about the ugly plot? 
 
-```{r, eval=FALSE}
+```{r ex1-question-03, eval=FALSE}
 library(quadmesh)
 
 qm1 <- quadmesh(crop(worldll, etopo))
@@ -92,12 +90,12 @@ rglwidget()
 
 ### EX 1 ANSWER
 
-<details><summary>SOLUTION</summary>
+<details><summary>EX1 SOLUTION</summary>
 <p>
 
 We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There's no one right answer, getting a sensible aspect ratio will depend on the data in the scene. 
 
-```{r }
+```{r ex1-solution-03}
 aspect3d(1, 1, 0.05)
 ## run this only if you are in a web rstudio
 rglwidget()

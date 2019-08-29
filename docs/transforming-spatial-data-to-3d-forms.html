@@ -216,11 +216,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="quadmesh." class="section level2">
 <h2><span class="header-section-number">5.2</span> Quadmesh.</h2>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb38-2" data-line-number="2"><span class="kw">quadmesh</span>(anyRasterDEM, <span class="dt">texture =</span> anyRasterRGB)</a>
-<a class="sourceLine" id="cb38-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>()</a>
-<a class="sourceLine" id="cb38-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="co">## play with aspect3d, light3d, ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="kw">quadmesh</span>(anyRasterDEM, <span class="dt">texture =</span> anyRasterRGB)</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>()</a>
+<a class="sourceLine" id="cb39-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="co">## play with aspect3d, light3d, ...</span></a></code></pre></div>
 <p>Triangulations, <code>sfdct</code> is no good because it’s very inefficient. <code>sf</code> is simply not suitable for mesh (a.k.a. <em>indexed</em>) forms of data.</p>
 <div id="comparison-of-discrete-elevation-extrusion-vs-continuous" class="section level3">
 <h3><span class="header-section-number">5.2.1</span> comparison of discrete elevation (extrusion) vs continuous</h3>
@@ -232,13 +232,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This section requires a Mapbox API key to run from scratch - and can’t be shared, so it will simply be illustrated.</p>
 <p>Munster is here.</p>
 <p>The process is a little complicated, but the key is that the elevation raster provides a space in which to map other data too. In this case the raster is in Mercator, and the image is as well. Under the hood we have to map the spatial part of the image into 0, 1, 0, 1 space of a PNG image, but in the final event we get a scene where real-world data may be added directly.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1">munster_qmesh &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(munster_elev, <span class="dt">texture =</span> munster_imag)</a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb39-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>(munster_qmesh, <span class="dt">lit =</span> <span class="ot">FALSE</span>); rgl<span class="op">::</span><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.05</span>)</a>
-<a class="sourceLine" id="cb39-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="co">## more exact location of THIS building</span></a>
-<a class="sourceLine" id="cb39-6" data-line-number="6">merc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">sf_project</span>(<span class="kw">cbind</span>(<span class="fl">7.59551</span>, <span class="fl">51.96922</span>), <span class="dt">from =</span> <span class="st">&quot;+init=epsg:4326&quot;</span>, <span class="dt">to =</span> raster<span class="op">::</span><span class="kw">projection</span>(munster_elev))</a>
-<a class="sourceLine" id="cb39-7" data-line-number="7">rgl<span class="op">::</span><span class="kw">lines3d</span>(<span class="kw">cbind</span>(merc[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), ], <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>))))</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1">munster_qmesh &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(munster_elev, <span class="dt">texture =</span> munster_imag)</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb40-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>(munster_qmesh, <span class="dt">lit =</span> <span class="ot">FALSE</span>); rgl<span class="op">::</span><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.05</span>)</a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb40-5" data-line-number="5"><span class="co">## more exact location of THIS building</span></a>
+<a class="sourceLine" id="cb40-6" data-line-number="6">merc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">sf_project</span>(<span class="kw">cbind</span>(<span class="fl">7.59551</span>, <span class="fl">51.96922</span>), <span class="dt">from =</span> <span class="st">&quot;+init=epsg:4326&quot;</span>, <span class="dt">to =</span> raster<span class="op">::</span><span class="kw">projection</span>(munster_elev))</a>
+<a class="sourceLine" id="cb40-7" data-line-number="7">rgl<span class="op">::</span><span class="kw">lines3d</span>(<span class="kw">cbind</span>(merc[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), ], <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>))))</a></code></pre></div>
 </div>
 <div id="various-tools" class="section level2">
 <h2><span class="header-section-number">5.4</span> Various tools</h2>
@@ -263,12 +263,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="triangles-or-quads-from-geospatial" class="section level2">
 <h2><span class="header-section-number">5.5</span> Triangles or quads from geospatial</h2>
 <p>This is my work-in-progress approach to meshing any data structure.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="co">## devtools::install_github(&quot;hypertidy/anglr&quot;)</span></a>
-<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="co">## devtools::install_github(&quot;hypertidy/silicate&quot;)</span></a>
-<a class="sourceLine" id="cb40-3" data-line-number="3"><span class="kw">library</span>(anglr)  </a>
-<a class="sourceLine" id="cb40-4" data-line-number="4">triangles &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(anySFpolygon), anyRasterDEM)</a>
-<a class="sourceLine" id="cb40-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb40-6" data-line-number="6">mesh &lt;-<span class="st"> </span><span class="kw">plot3d</span>(triangles)</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co">## devtools::install_github(&quot;hypertidy/anglr&quot;)</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="co">## devtools::install_github(&quot;hypertidy/silicate&quot;)</span></a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="kw">library</span>(anglr)  </a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">triangles &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(anySFpolygon), anyRasterDEM)</a>
+<a class="sourceLine" id="cb41-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb41-6" data-line-number="6">mesh &lt;-<span class="st"> </span><span class="kw">plot3d</span>(triangles)</a></code></pre></div>
 
 </div>
 </div>
