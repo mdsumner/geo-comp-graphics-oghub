@@ -7,7 +7,7 @@ projection(bluemarble0) <- "+init=epsg:4326"
 
 two_polys <- silicate::minimal_mesh
 mesh_polys <- anglr::as.mesh3d(anglr::TRI(two_polys))
-delaunay_polys <- anglr::as.mesh3d(anglr::DEL(two_polys))
+delaunay_polys <- anglr::as.mesh3d(anglr::DEL(two_polys, max_area = 0.05, D = TRUE))
 
 world_topo <- raster::aggregate(raadtools::readtopo("etopo2"), fact = 20)
 world_mesh <- quadmesh::quadmesh(world_topo)
