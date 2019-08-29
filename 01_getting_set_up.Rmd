@@ -21,10 +21,9 @@ remotes::install_cran(pkgs)
 Obtain some extra data sets that will be used in this session.
 
 ```{r get-data,eval=FALSE}
-if (!file.exists("geo-comp-graphics.Rdata")) {
- download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata", 
+download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata", 
                "geo-comp-graphics.Rdata", mode = "wb")
-}
+
 
 load("geo-comp-graphics.Rdata")
 
