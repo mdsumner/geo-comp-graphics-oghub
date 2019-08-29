@@ -24,7 +24,7 @@
 <meta name="author" content="Michael Sumner" />
 
 
-<meta name="date" content="2019-08-26" />
+<meta name="date" content="2019-08-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,12 +152,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html"><i class="fa fa-check"></i><b>4</b> Transforming spatial data to 3D forms</a><ul>
 <li class="chapter" data-level="4.1" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#questions-1"><i class="fa fa-check"></i><b>4.1</b> Questions</a></li>
-<li class="chapter" data-level="4.2" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#image-textures"><i class="fa fa-check"></i><b>4.2</b> Image textures</a></li>
-<li class="chapter" data-level="4.3" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-using-modular-3d-tools"><i class="fa fa-check"></i><b>4.3</b> Transforming Spatial Data using modular 3D tools</a></li>
-<li class="chapter" data-level="4.4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#on-cran"><i class="fa fa-check"></i><b>4.4</b> On CRAN</a></li>
-<li class="chapter" data-level="4.5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><i class="fa fa-check"></i><b>4.5</b> Quadmesh.</a></li>
-<li class="chapter" data-level="4.6" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#stuff-not-on-cran"><i class="fa fa-check"></i><b>4.6</b> Stuff not on CRAN!</a></li>
-<li class="chapter" data-level="4.7" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#triangles-or-quads-in-hypertidy-wip"><i class="fa fa-check"></i><b>4.7</b> Triangles or quads in hypertidy (WIP)</a></li>
+<li class="chapter" data-level="4.2" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#tools"><i class="fa fa-check"></i><b>4.2</b> Tools</a></li>
+<li class="chapter" data-level="4.3" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#image-textures"><i class="fa fa-check"></i><b>4.3</b> Image textures</a></li>
+<li class="chapter" data-level="4.4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#comparison-of-discrete-elevation-extrusion-vs-continuous"><i class="fa fa-check"></i><b>4.4</b> comparison of discrete elevation (extrusion) vs continuous</a></li>
+<li class="chapter" data-level="4.5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-using-modular-3d-tools"><i class="fa fa-check"></i><b>4.5</b> Transforming Spatial Data using modular 3D tools</a></li>
+<li class="chapter" data-level="4.6" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#on-cran"><i class="fa fa-check"></i><b>4.6</b> On CRAN</a></li>
+<li class="chapter" data-level="4.7" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><i class="fa fa-check"></i><b>4.7</b> Quadmesh.</a></li>
+<li class="chapter" data-level="4.8" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#stuff-not-on-cran"><i class="fa fa-check"></i><b>4.8</b> Stuff not on CRAN!</a></li>
+<li class="chapter" data-level="4.9" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#triangles-or-quads-in-hypertidy-wip"><i class="fa fa-check"></i><b>4.9</b> Triangles or quads in hypertidy (WIP)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/mdsumner/geo-comp-graphics-oghub" target="blank">Published with bookdown</a></li>
@@ -182,7 +184,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Computational graphics structures for geo-spatial data</h1>
 <p class="author"><em>Michael Sumner</em></p>
-<p class="date"><em>2019-08-26</em></p>
+<p class="date"><em>2019-08-29</em></p>
 </div>
 <div id="about-this" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> About this</h1>
@@ -197,8 +199,10 @@ The <a href="https://CRAN.r-project.org/package=rgl">rgl</a> package provides th
 <p><strong>Installation instructions</strong>:</p>
 <p><a href="https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html" class="uri">https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html</a></p>
 <p><strong>Datasets in use</strong>:</p>
-<p><code>minimal_mesh</code> a tiny polygon data set from an in-development project</p>
-<p><code>worldll</code> and <code>etopo</code> a world polygon and elevation raster layer for the Southern hemisphere in the <code>quadmesh</code> package.</p>
+<p><code>two_polys</code> a tiny polygon data set with two simple polygon neighbours</p>
+<p><code>mesh_polys</code> and <code>delaunay_polys</code> two mesh counterparts of <code>two_polys</code> with slightly different properties</p>
+<p><code>world_topo</code>, <code>world_mesh</code>, a simple global elevation raster and its mesh counterpart</p>
+<p><code>bluemarble0</code> a simple RGB image of the world</p>
 
 </div>
 </div>

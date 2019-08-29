@@ -30,7 +30,12 @@ https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html
 
 **Datasets in use**: 
 
-`minimal_mesh` a tiny polygon data set from an in-development project
+`two_polys` a tiny polygon data set with two simple polygon neighbours
 
-`worldll` and `etopo` a world polygon and elevation raster layer for the Southern hemisphere in the `quadmesh` package. 
+`mesh_polys` and `delaunay_polys` two mesh counterparts of `two_polys` with slightly different properties
 
+` world_topo`, `world_mesh`, a simple global elevation raster and its mesh counterpart
+
+ `bluemarble0` a simple RGB image of the world
+ 
+ 

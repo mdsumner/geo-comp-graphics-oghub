@@ -24,7 +24,7 @@
 <meta name="author" content="Michael Sumner" />
 
 
-<meta name="date" content="2019-08-26" />
+<meta name="date" content="2019-08-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -152,12 +152,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html"><i class="fa fa-check"></i><b>4</b> Transforming spatial data to 3D forms</a><ul>
 <li class="chapter" data-level="4.1" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#questions-1"><i class="fa fa-check"></i><b>4.1</b> Questions</a></li>
-<li class="chapter" data-level="4.2" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#image-textures"><i class="fa fa-check"></i><b>4.2</b> Image textures</a></li>
-<li class="chapter" data-level="4.3" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-using-modular-3d-tools"><i class="fa fa-check"></i><b>4.3</b> Transforming Spatial Data using modular 3D tools</a></li>
-<li class="chapter" data-level="4.4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#on-cran"><i class="fa fa-check"></i><b>4.4</b> On CRAN</a></li>
-<li class="chapter" data-level="4.5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><i class="fa fa-check"></i><b>4.5</b> Quadmesh.</a></li>
-<li class="chapter" data-level="4.6" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#stuff-not-on-cran"><i class="fa fa-check"></i><b>4.6</b> Stuff not on CRAN!</a></li>
-<li class="chapter" data-level="4.7" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#triangles-or-quads-in-hypertidy-wip"><i class="fa fa-check"></i><b>4.7</b> Triangles or quads in hypertidy (WIP)</a></li>
+<li class="chapter" data-level="4.2" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#tools"><i class="fa fa-check"></i><b>4.2</b> Tools</a></li>
+<li class="chapter" data-level="4.3" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#image-textures"><i class="fa fa-check"></i><b>4.3</b> Image textures</a></li>
+<li class="chapter" data-level="4.4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#comparison-of-discrete-elevation-extrusion-vs-continuous"><i class="fa fa-check"></i><b>4.4</b> comparison of discrete elevation (extrusion) vs continuous</a></li>
+<li class="chapter" data-level="4.5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-using-modular-3d-tools"><i class="fa fa-check"></i><b>4.5</b> Transforming Spatial Data using modular 3D tools</a></li>
+<li class="chapter" data-level="4.6" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#on-cran"><i class="fa fa-check"></i><b>4.6</b> On CRAN</a></li>
+<li class="chapter" data-level="4.7" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><i class="fa fa-check"></i><b>4.7</b> Quadmesh.</a></li>
+<li class="chapter" data-level="4.8" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#stuff-not-on-cran"><i class="fa fa-check"></i><b>4.8</b> Stuff not on CRAN!</a></li>
+<li class="chapter" data-level="4.9" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#triangles-or-quads-in-hypertidy-wip"><i class="fa fa-check"></i><b>4.9</b> Triangles or quads in hypertidy (WIP)</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/mdsumner/geo-comp-graphics-oghub" target="blank">Published with bookdown</a></li>
@@ -193,11 +195,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb2-2" data-line-number="2"> <span class="kw">download.file</span>(<span class="st">&quot;https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata&quot;</span>, </a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">               <span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>, <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)</a>
 <a class="sourceLine" id="cb2-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(<span class="st">&quot;file160c6c1729b3.png&quot;</span>)) {</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"> <span class="kw">download.file</span>(<span class="st">&quot;https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/file160c6c1729b3.png&quot;</span>, </a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">               <span class="st">&quot;data-raw/file160c6c1729b3.png&quot;</span>, <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">}</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">load</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">load</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)</a></code></pre></div>
 <p>Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren’t necessary for participants.</p>
 
 </div>
