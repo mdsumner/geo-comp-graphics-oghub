@@ -200,6 +200,8 @@ Terminology alert!  (This is my *working definition* of primitive for this topic
 * Point - a single coordinate is a 0-dimensional primitive (vertex, coordinate)
 * Line  - a line segment between two coordinates is a 1-dimensional primitive (edge, segment)
 * Triangle - a triangle joining three coordinates is 2-dimensional primitive 
+* Quad - a four-sided shape (not as core-primitive as a triangle, but commonly used)
+
 
 *Topology is not geometry*
 

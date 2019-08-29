@@ -12,20 +12,31 @@ It supports two kinds of primitives **quads** and **triangles**.
 Quads are a funny case, usually carried by two triangles (at least implicitly) but they are an important computer graphics element. 
 
 
+Previously, we created a raster with effectively the following code. 
+
+```{r raw-raster}
+m <- matrix(c(seq(0, 0.5, length = 5), 
+            seq(0.375, 0, length = 4)), 3)
+
+x <- seq(1, nrow(m)) - 0.5
+y <- seq(1, ncol(m)) - 0.5
+rast <- raster::raster(list(x = x, y = y, z = m))
+```
+
+If we convert that to a quadmesh, the result has vertices (`vb`) and primitives (`ib`). 
+
 ```{r}
 library(quadmesh)
-qm <- quadmesh(r)
+qm <- quadmesh(rast)
 str(qm)
 ```
 
-
-This is a mysterious seeming data structure, it is the mesh3d type of the 'rgl' package, rarely seen in the wild. 
 
 The structure is `vb`, the coordinates of the mesh - these are the
 actual corner coordinates from the input raster.  
 
 ```{r}
-image(r, col = colpal())
+image(rast, col = colpal())
 op <- par(xpd = NA)
 text(t(qm$vb), lab = 1:ncol(qm$vb))
 par(op)
@@ -55,7 +66,6 @@ rglwidget()
 ```
 
 The situation for triangles is much the same, but we have `it` for the triangle index rather than `ib` for the quad index. In both cases the geometry is in the `vb` matrix. Models can have both quads and triangles, using the same set of vertices. 
-
 
 
 
