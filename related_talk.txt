@@ -1,0 +1,25 @@
+https://rpubs.com/cyclemumner/mdsumner-geomesh-foss4g
+
+https://github.com/mdsumner/geomesh
+
+
+
+## Exercise ?
+
+How ?
+
+```{r}
+code
+```
+### EX ? ANSWER
+
+<details><summary>SOLUTION</summary>
+<p>
+
+```{r }
+code
+```
+
+</p>
+</details>
+

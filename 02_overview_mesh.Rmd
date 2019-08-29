@@ -1,3 +1,9 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
 # 3D and mesh forms of spatial data
 
 ```{r libs, include=FALSE}
@@ -41,12 +47,13 @@ These are motiving problems behind my interest in these ideas.
 Topology vs. geometry
 
 
-This line has **1-dimensional topology** depicted in **3-dimensional geometry**. 
+This line has **1-dimensional topology** depicted in **3-dimensional geometry** and the triangle has **2-dimensional topology** depicted in **3-dimensional geometry**. 
+
 
 ```{r rgl-line, echo=TRUE}
 library(rgl)
-rgl.clear()
-
+clear3d()
+#p3 <- mfrow3d(1, 2, sharedMouse = TRUE)
 (geometry <- cbind(x = c(0, 0.5, 1), y = c(0, 0.5, 1), z = c(0, 0, 0.8)))
 (topology1 <- rbind(.v0 = c(1, 2), .v1 = c(2, 3)))
 lines3d(geometry[t(topology1), ], lwd = 3, col = "firebrick")
@@ -56,13 +63,8 @@ axis3d("y")
 axis3d("z")
 title3d(xlab = "x", ylab = "y", zlab = "z")
 quads3d(cbind(c(0, 1, 1, 0), c(0, 0, 1, 1), c(0, 0, 0, 0) - 0.01), col="gray")
-
 rglwidget()
-```
-
-This triangle has **2-dimensional topology** depicted in **3-dimensional geometry**. 
-
-```{r rgl-triangle, echo=TRUE}
+#next3d()
 (topology2 <- rbind(.v0 = c(1, 2, 1), .v1 = c(2, 3, 1)))
 triangles3d(geometry[t(topology2), ], col = "firebrick")
 material3d(col = "black")
@@ -73,6 +75,7 @@ title3d(xlab = "x", ylab = "y", zlab = "z")
 quads3d(cbind(c(0, 1, 1, 0), c(0, 0, 1, 1), c(0, 0, 0, 0)), col="gray")
 
 rglwidget()
+
 ```
 
 
@@ -307,152 +310,9 @@ as(as(raster::rasterToPolygons(r), "SpatialLinesDataFrame"),
    "SpatialPointsDataFrame")
 ```
 
-There are only 20 unique coordinates at the corners, which is where `quadmesh` comes in. 
+There are only 20 unique coordinates at the corners, which is where `mesh3d` comes in. 
 
 
-## the rgl mesh3d format
-
-Rgl is the OpenGL package in R. 
-
-A classic **computer graphics** data model called *mesh3d*, it's not widely used but is very powerful. You can visualize a `mesh3d` model with `shade3d()`, all the aesthetics, material properties, geometry and topology can be attached to the model
-itself as data. 
-
-It supports two kinds of primitives **quads** and **triangles**. 
-
-Quads are a funny case, usually carried by two triangles (at least implicitly) but they are an important computer graphics element. 
-
-
-```{r}
-library(quadmesh)
-qm <- quadmesh(r)
-str(qm)
-```
-
-
-This is a mysterious seeming data structure, it is the mesh3d type of the 'rgl' package, rarely seen in the wild. 
-
-The structure is `vb`, the coordinates of the mesh - these are the
-actual corner coordinates from the input raster.  
-
-```{r}
-image(r, col = colpal())
-op <- par(xpd = NA)
-text(t(qm$vb), lab = 1:ncol(qm$vb))
-par(op)
-```
-
-
-Notice how these are unique coordinates, there's no simple relationship between the cell and its value and its four corners. This is because they are shared between neighbouring cells. The relationship is stored in the `ib` array, this has four rows one for each corner of each cell. There are 12 cells and each has four coordinates from the shared vertex pool. The cells are defined in the order they occur in raster. 
-
-```{r}
-qm$ib
-```
-
-It works directly with rgl function, and can be used in more raw form. 
-
-
-```{r various-quad-aes}
-rgl.clear()
-library(rgl)
-shade3d(qm, col = "firebrick")
-rglwidget()
-rgl.clear()
-quads3d(t(qm$vb)[qm$ib,], col = c("firebrick", "dodgerblue")[qm$ib %% 2 + 1])
-rglwidget()
-rgl.clear()
-quads3d(t(qm$vb)[qm$ib,], col = rep(c("firebrick", "dodgerblue"), each = 4))
-rglwidget()
-```
-
-The situation for triangles is much the same, but we have `it` for the triangle index rather than `ib` for the quad index. In both cases the geometry is in the `vb` matrix. Models can have both quads and triangles, using the same set of vertices. 
-
-
-
-
-
-## Quadmesh and coordinate systems {.exercise}
-
-1. Run this code 
-2. Think about what is wrong with the scene. 
-3. What can we do about the ugly plot? 
-
-```{r, eval=FALSE}
-library(quadmesh)
-
-qm1 <- quadmesh(crop(worldll, etopo))
-qm1$vb[3, ] <- raster::extract(etopo, t(qm1$vb[1:2, ]))
-library(rgl)
-rgl.clear()
-shade3d(qm1, col = "white")
-
-## run this only if you are in a web rstudio
-rglwidget()
-
-```
-
-4. Run this code 
-5. Can you explain why we multiply the Etopo2 terrain elevation by 20? 
-6. What are alternatives we could use? 
-
-```{r, eval=FALSE}
-qm2 <- qm1
-qm2$vb[3, ] <- qm2$vb[3, ] * 20
-qm2$vb[1:3, ] <- t(llh2xyz(t(qm2$vb[1:3, ])))
-rgl.clear()
-shade3d(qm2, col = "white", specular = "black")
-aspect3d(1, 1, 0.5)
-## run this only if you are in a web rstudio
-rglwidget()
-
-```
-
-There's still a problem with what quadmesh can do. 
-
-```{r raster-type}
-library(sf)
-library(rgl)
-library(anglr)
-library(silicate)
-library(quadmesh)
-
-# two ways to think about raster data
-
-p <- spex::polygonize(r)
-p$color_ <- colourvalues::colour_values(p$layer,  palette = t(col2rgb(palr::bathyDeepPal(10))))
-plot(st_geometry(p), col = p$color_)
-
-tri <- copy_down(TRI(spex::polygonize(disaggregate(r, 4))), "layer")
-tri$object$color_ <- colourvalues::colour_values(tri$object$layer)
-
-## BUG FIXME
-
-## Error in rgl.material(...) : There must be at least one color
-# tmp <- plot3d(tri)
-# rgl.pop()
-# rgl.clear()
-# shade3d(tmp, alpha = 0.5, specular = "black", col = "grey")
-# #wire3d(tmp, col = "black", lwd = 2)
-# rgl::aspect3d(1, 1, .2)
-# bg3d("lightgrey")
-# # 
-# qm <- quadmesh::quadmesh(r)
-# 
-# ## the point of this part is to show the quads don't carry the z information well (it's ok with very fine quads)
-# rgl::wire3d(qm, lwd = 8, col = "green")
-# 
-# ptri <- geometry::delaunayn(coordinates(r))
-# t3d <- structure(list(vb = t(cbind(coordinates(r), values(r), 1)), it = t(ptri), 
-#             primitivetype = "triangle", material = list()), normals = NULL, texcoords = NULL,  
-#             class = c("mesh3d", "shape3d"))
-# 
-# rgl::wire3d(t3d, lwd = 10, col = "black")
-# rgl::rglwidget()
-```
-
-
-The primary means to create this format from a raster is for 3D plotting, but because we have access to the coordinate directly it provides other uses. We can transform the coordinates (i.e. a map projection) or manipulate them and augment the Z value (for example) in flexible ways. 
-
-(The usual way of driving rgl grid surfaces is `rgl.surface` but this is limited to the centre-point interpretation only - more than the x, y, z list interface as image() is, i.e. it can take an individual x,y pair for every cell, but it cannot properly represent the cell-as-area as image can. For this we need to use `shade3d`, and actual `meshd3d` types in `rgl`). 
 
 
 ## Summary
@@ -460,21 +320,4 @@ The primary means to create this format from a raster is for 3D plotting, but be
 * Topology and geometry are independently *dimensional*
 * Meshes include a matrix of vertices and a matrix of indices
 * In mesh-terms rasters and polygons aren't so different
-
-## rgl miscellanea
-
-Most examples around use `rgl.surface`, but I am less familiar with that. The `thing3d` are the higher-level functions in rgl, and the `rgl.thing` functions are lower-level (recommended not to mix them in usage). 
-
-**rayshader** in particular, has extremely compelling outputs, but it uses the lower level `rgl.surface` and doesn't maintain the geographic coordinates, so I see it mostly as a texture-generator (but watch its development!). 
-
-
-**rgl.surface** can take X and Y *matrices*, so you can trivially reproject these data
-and wrap them around a sphere - I only learnt this recently. 
-
-
-**WATCH OUT**
-
-The single most confusing thing I found with `mesh3d` was *homogeneous coordinates*. This is a fourth value on each vertex, making it `X, Y, Z, H` and because it's stored transpose, the `ib` and the `vb` matrices have the same number of rows (4). The `H` loosely corresponds to "zoom", for our purposes set `H = 1`. (If set to 0 no data will be visible, and a package of mine had this bug until last week.)
-
-
 

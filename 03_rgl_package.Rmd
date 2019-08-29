@@ -1,0 +1,140 @@
+
+
+# the rgl mesh3d format
+
+Rgl is the OpenGL package in R. 
+
+A classic **computer graphics** data model called *mesh3d*, it's not widely used but is very powerful. You can visualize a `mesh3d` model with `shade3d()`, all the aesthetics, material properties, geometry and topology can be attached to the model
+itself as data. 
+
+It supports two kinds of primitives **quads** and **triangles**. 
+
+Quads are a funny case, usually carried by two triangles (at least implicitly) but they are an important computer graphics element. 
+
+
+```{r}
+library(quadmesh)
+qm <- quadmesh(r)
+str(qm)
+```
+
+
+This is a mysterious seeming data structure, it is the mesh3d type of the 'rgl' package, rarely seen in the wild. 
+
+The structure is `vb`, the coordinates of the mesh - these are the
+actual corner coordinates from the input raster.  
+
+```{r}
+image(r, col = colpal())
+op <- par(xpd = NA)
+text(t(qm$vb), lab = 1:ncol(qm$vb))
+par(op)
+```
+
+
+Notice how these are unique coordinates, there's no simple relationship between the cell and its value and its four corners. This is because they are shared between neighbouring cells. The relationship is stored in the `ib` array, this has four rows one for each corner of each cell. There are 12 cells and each has four coordinates from the shared vertex pool. The cells are defined in the order they occur in raster. 
+
+```{r}
+qm$ib
+```
+
+It works directly with rgl function, and can be used in more raw form. 
+
+
+```{r various-quad-aes}
+clear3d()
+library(rgl)
+shade3d(qm, col = "firebrick")
+rglwidget()
+clear3d()
+quads3d(t(qm$vb)[qm$ib,], col = c("firebrick", "dodgerblue")[qm$ib %% 2 + 1])
+rglwidget()
+clear3d()
+quads3d(t(qm$vb)[qm$ib,], col = rep(c("firebrick", "dodgerblue"), each = 4))
+rglwidget()
+```
+
+The situation for triangles is much the same, but we have `it` for the triangle index rather than `ib` for the quad index. In both cases the geometry is in the `vb` matrix. Models can have both quads and triangles, using the same set of vertices. 
+
+
+
+
+
+## Exercise 1
+
+1. Run this code 
+2. Think about what is wrong with the scene. 
+3. What can we do about the ugly plot? 
+
+```{r, eval=FALSE}
+library(quadmesh)
+
+qm1 <- quadmesh(crop(worldll, etopo))
+qm1$vb[3, ] <- raster::extract(etopo, t(qm1$vb[1:2, ]))
+library(rgl)
+rgl.clear()
+shade3d(qm1, col = "white")
+
+## run this only if you are in a web rstudio
+rglwidget()
+
+```
+
+### EX 1 ANSWER
+
+<details><summary>SOLUTION</summary>
+<p>
+
+We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There's no one right answer, getting a sensible aspect ratio will depend on the data in the scene. 
+
+```{r }
+aspect3d(1, 1, 0.05)
+## run this only if you are in a web rstudio
+rglwidget()
+```
+
+</p>
+</details>
+
+
+4. Run this code 
+5. Can you explain why we multiply the Etopo2 terrain elevation by 20? 
+6. What are alternatives we could use? 
+
+```{r, eval=FALSE}
+qm2 <- qm1
+qm2$vb[3, ] <- qm2$vb[3, ] * 20
+qm2$vb[1:3, ] <- t(llh2xyz(t(qm2$vb[1:3, ])))
+rgl.clear()
+shade3d(qm2, col = "white", specular = "black")
+aspect3d(1, 1, 0.5)
+## run this only if you are in a web rstudio
+rglwidget()
+
+```
+
+
+
+
+The primary means to create this format from a raster is for 3D plotting, but because we have access to the coordinate directly it provides other uses. We can transform the coordinates (i.e. a map projection) or manipulate them and augment the Z value (for example) in flexible ways. 
+
+(The usual way of driving rgl grid surfaces is `rgl.surface` but this is limited to the centre-point interpretation only - more than the x, y, z list interface as image() is, i.e. it can take an individual x,y pair for every cell, but it cannot properly represent the cell-as-area as image can. For this we need to use `shade3d`, and actual `meshd3d` types in `rgl`). 
+
+
+## rgl miscellanea
+
+Most examples around use `rgl.surface`, but I am less familiar with that. The `thing3d()` are the higher-level functions in rgl, and the `rgl.thing()` functions are lower-level (recommended not to mix them in usage). 
+
+**rayshader** in particular, has extremely compelling outputs, but it uses the lower level `rgl.surface` and doesn't maintain the geographic coordinates, so I see it mostly as a texture-generator (but watch its development!). 
+
+
+**rgl.surface** can take X and Y *matrices*, so you can trivially reproject these data
+and wrap them around a sphere - I only learnt this recently. 
+
+
+**WATCH OUT**
+
+The single most confusing thing I found with `mesh3d` was *homogeneous coordinates*. This is a fourth value on each vertex, making it `X, Y, Z, H` and because it's stored transpose, the `ib` and the `vb` matrices have the same number of rows (4). The `H` loosely corresponds to "zoom", for our purposes set `H = 1`. (If set to 0 no data will be visible, and a package of mine had this bug until last week.)
+
+
+

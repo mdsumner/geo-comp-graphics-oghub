@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data</title>
+  <title>Chapter 5 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data</title>
   <meta name="description" content="Converting geo-spatial data into meshes suitable for computational graphics systems." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data" />
+  <meta property="og:title" content="Chapter 5 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="mdsumner/geo-comp-graphics-oghub" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data" />
+  <meta name="twitter:title" content="Chapter 5 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data" />
   
   <meta name="twitter:description" content="Converting geo-spatial data into meshes suitable for computational graphics systems." />
   
@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="d-and-mesh-forms-of-spatial-data.html"/>
+<link rel="prev" href="the-rgl-mesh3d-format.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -145,21 +145,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#geospatial-data"><i class="fa fa-check"></i><b>3.3</b> Geospatial data</a></li>
 <li class="chapter" data-level="3.4" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#primitives"><i class="fa fa-check"></i><b>3.4</b> Primitives</a></li>
 <li class="chapter" data-level="3.5" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#a-raster-is-a-mesh-implicitly"><i class="fa fa-check"></i><b>3.5</b> A raster is a mesh (implicitly)</a></li>
-<li class="chapter" data-level="3.6" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#the-rgl-mesh3d-format"><i class="fa fa-check"></i><b>3.6</b> the rgl mesh3d format</a></li>
-<li class="chapter" data-level="3.7" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#quadmesh-and-coordinate-systems"><i class="fa fa-check"></i><b>3.7</b> Quadmesh and coordinate systems</a></li>
-<li class="chapter" data-level="3.8" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#summary"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
-<li class="chapter" data-level="3.9" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#rgl-miscellanea"><i class="fa fa-check"></i><b>3.9</b> rgl miscellanea</a></li>
+<li class="chapter" data-level="3.6" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#summary"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html"><i class="fa fa-check"></i><b>4</b> Transforming spatial data to 3D forms</a><ul>
-<li class="chapter" data-level="4.1" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#questions-1"><i class="fa fa-check"></i><b>4.1</b> Questions</a></li>
-<li class="chapter" data-level="4.2" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#tools"><i class="fa fa-check"></i><b>4.2</b> Tools</a></li>
-<li class="chapter" data-level="4.3" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#image-textures"><i class="fa fa-check"></i><b>4.3</b> Image textures</a></li>
-<li class="chapter" data-level="4.4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#comparison-of-discrete-elevation-extrusion-vs-continuous"><i class="fa fa-check"></i><b>4.4</b> comparison of discrete elevation (extrusion) vs continuous</a></li>
-<li class="chapter" data-level="4.5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#transforming-spatial-data-using-modular-3d-tools"><i class="fa fa-check"></i><b>4.5</b> Transforming Spatial Data using modular 3D tools</a></li>
-<li class="chapter" data-level="4.6" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#on-cran"><i class="fa fa-check"></i><b>4.6</b> On CRAN</a></li>
-<li class="chapter" data-level="4.7" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><i class="fa fa-check"></i><b>4.7</b> Quadmesh.</a></li>
-<li class="chapter" data-level="4.8" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#stuff-not-on-cran"><i class="fa fa-check"></i><b>4.8</b> Stuff not on CRAN!</a></li>
-<li class="chapter" data-level="4.9" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#triangles-or-quads-in-hypertidy-wip"><i class="fa fa-check"></i><b>4.9</b> Triangles or quads in hypertidy (WIP)</a></li>
+<li class="chapter" data-level="4" data-path="the-rgl-mesh3d-format.html"><a href="the-rgl-mesh3d-format.html"><i class="fa fa-check"></i><b>4</b> the rgl mesh3d format</a><ul>
+<li class="chapter" data-level="4.1" data-path="the-rgl-mesh3d-format.html"><a href="the-rgl-mesh3d-format.html#exercise-1"><i class="fa fa-check"></i><b>4.1</b> Exercise 1</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="the-rgl-mesh3d-format.html"><a href="the-rgl-mesh3d-format.html#ex-1-answer"><i class="fa fa-check"></i><b>4.1.1</b> EX 1 ANSWER</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="the-rgl-mesh3d-format.html"><a href="the-rgl-mesh3d-format.html#rgl-miscellanea"><i class="fa fa-check"></i><b>4.2</b> rgl miscellanea</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html"><i class="fa fa-check"></i><b>5</b> Transforming spatial data to 3D forms</a><ul>
+<li class="chapter" data-level="5.1" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#tools"><i class="fa fa-check"></i><b>5.1</b> Tools</a></li>
+<li class="chapter" data-level="5.2" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><i class="fa fa-check"></i><b>5.2</b> Quadmesh.</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#comparison-of-discrete-elevation-extrusion-vs-continuous"><i class="fa fa-check"></i><b>5.2.1</b> comparison of discrete elevation (extrusion) vs continuous</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#image-textures"><i class="fa fa-check"></i><b>5.3</b> Image textures</a></li>
+<li class="chapter" data-level="5.4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#various-tools"><i class="fa fa-check"></i><b>5.4</b> Various tools</a></li>
+<li class="chapter" data-level="5.5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#triangles-or-quads-from-geospatial"><i class="fa fa-check"></i><b>5.5</b> Triangles or quads from geospatial</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/mdsumner/geo-comp-graphics-oghub" target="blank">Published with bookdown</a></li>
@@ -182,18 +183,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="transforming-spatial-data-to-3d-forms" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Transforming spatial data to 3D forms</h1>
-<p>The key package is rgl, the OpenGL package for R. This tends to be very low level, but has improved helpers and is becoming easier to use. The key functions are <code>plot3d</code>, <code>lines3d</code> and <code>points3d</code> and these are used just like the 2D base funtions in R (with the ‘3d’ on the end).</p>
-<p>There is a special function called <code>shade3d</code> and this one accepts the <code>mesh3d</code> object that we introduced via the quadmesh package earlier.</p>
-<div id="questions-1" class="section level2">
-<h2><span class="header-section-number">4.1</span> Questions</h2>
+<h1><span class="header-section-number">Chapter 5</span> Transforming spatial data to 3D forms</h1>
 <ul>
 <li>What tools exist to convert data to meshes in R?</li>
 <li>What forms of mesh data are available?</li>
 </ul>
-</div>
+<p>The key package is rgl, the OpenGL package for R. This tends to be very low level, but has improved helpers and is becoming easier to use. The key functions are <code>plot3d()</code>, <code>lines3d()</code> and <code>points3d()</code> and these are used just like the 2D base funtions in R (with the ‘3d’ on the end).</p>
+<p>For polygons we first need to create triangles, and then use <code>triangle3d()</code>. For rasters we can create triangles or quads, and use <code>quads3d()</code>. There is also a mesh type object, <code>mesh3d</code> to store data with material properties. To plot <code>mesh3d</code> we use the <code>shade3d()</code> function.</p>
 <div id="tools" class="section level2">
-<h2><span class="header-section-number">4.2</span> Tools</h2>
+<h2><span class="header-section-number">5.1</span> Tools</h2>
 <p>Converting points to 3D is really trivial, we only need the X-Y-Z coordinates, and we can set properties directly on them.</p>
 <p>Converting lines is also relatively easy, but here we might use a <em>path</em> model, sequential lists of coordinates that imply a connected line, or a <em>segments</em> model where every single individual line segment is specified separately. The segment model is really a mesh, because we have the opportunity to store every coordinate just once and refer to segments by their index.</p>
 <p>Converting polygons is much harder, and there are multiple ways to do it. The main division is by near-Delaunay triangulation, or by ear-cutting algorithms.</p>
@@ -201,79 +199,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>near-Delaunay - high quality triangulations, suitable for surface modelling</li>
 <li>ear-cutting - low quality triangulation, suitable for flat surfaces</li>
 </ul>
+<p>The main tools available for geospatial data:</p>
+<ul>
+<li><strong>quadmesh</strong> (on CRAN) - convert any raster to mesh3d quads, optionally with image textures</li>
+<li><strong>anglr</strong> (not on CRAN) - convert any sp, sf lines or polygons to mesh3d triangles</li>
+</ul>
 <p>The <code>rgl</code> package has ear-cutting in <code>triangulate3d()</code>.</p>
 <p>The <code>sfdct</code> package (via <code>RTriangle</code>) has near-Delaunay in <code>ct_triangulate()</code></p>
 <p>The <code>decido</code> package has ear-cutting in <code>earcut()</code>.</p>
 <p>Converting raster data is available in various ways.</p>
 <ul>
-<li><code>rgl::surface3d()</code></li>
+<li><code>rgl::surface3d()</code>, this is analogous to the old base <code>image()</code> function that can take <code>x, y, z = matrix</code></li>
 <li><code>quadmesh::quadmesh()</code>, converts raster, matrix, some stars to <code>mesh3d</code></li>
 <li>rayshader determines elevation colouring from a matrix, and has many plotting helpers</li>
 </ul>
-<p>There are a few example data packages:</p>
-<p>.obj format: <a href="https://github.com/odedstein/meshes/tree/master/objects/koala" class="uri">https://github.com/odedstein/meshes/tree/master/objects/koala</a></p>
+</div>
+<div id="quadmesh." class="section level2">
+<h2><span class="header-section-number">5.2</span> Quadmesh.</h2>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">quadmesh</span>(anyRasterDEM, <span class="dt">texture =</span> anyRasterRGB)</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>()</a>
+<a class="sourceLine" id="cb37-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="co">## play with aspect3d, light3d, ...</span></a></code></pre></div>
+<p>Triangulations, <code>sfdct</code> is no good because it’s very inefficient. <code>sf</code> is simply not suitable for mesh (a.k.a. <em>indexed</em>) forms of data.</p>
+<div id="comparison-of-discrete-elevation-extrusion-vs-continuous" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> comparison of discrete elevation (extrusion) vs continuous</h3>
+<p><a href="http://rpubs.com/cyclemumner/geomesh-r" class="uri">http://rpubs.com/cyclemumner/geomesh-r</a></p>
+</div>
 </div>
 <div id="image-textures" class="section level2">
-<h2><span class="header-section-number">4.3</span> Image textures</h2>
+<h2><span class="header-section-number">5.3</span> Image textures</h2>
 <p>This section requires a Mapbox API key to run from scratch - and can’t be shared, so it will simply be illustrated.</p>
 <p>Munster is here.</p>
 <p>The process is a little complicated, but the key is that the elevation raster provides a space in which to map other data too. In this case the raster is in Mercator, and the image is as well. Under the hood we have to map the spatial part of the image into 0, 1, 0, 1 space of a PNG image, but in the final event we get a scene where real-world data may be added directly.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">munster_qmesh &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(munster_elev, <span class="dt">texture =</span> munster_imag)</a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb43-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>(munster_qmesh, <span class="dt">lit =</span> <span class="ot">FALSE</span>); rgl<span class="op">::</span><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.05</span>)</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co">## more exact location of THIS building</span></a>
-<a class="sourceLine" id="cb43-6" data-line-number="6">merc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">sf_project</span>(<span class="kw">cbind</span>(<span class="fl">7.59551</span>, <span class="fl">51.96922</span>), <span class="dt">from =</span> <span class="st">&quot;+init=epsg:4326&quot;</span>, <span class="dt">to =</span> raster<span class="op">::</span><span class="kw">projection</span>(munster_elev))</a>
-<a class="sourceLine" id="cb43-7" data-line-number="7">rgl<span class="op">::</span><span class="kw">lines3d</span>(<span class="kw">cbind</span>(merc[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), ], <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>))))</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1">munster_qmesh &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(munster_elev, <span class="dt">texture =</span> munster_imag)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>(munster_qmesh, <span class="dt">lit =</span> <span class="ot">FALSE</span>); rgl<span class="op">::</span><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.05</span>)</a>
+<a class="sourceLine" id="cb38-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb38-5" data-line-number="5"><span class="co">## more exact location of THIS building</span></a>
+<a class="sourceLine" id="cb38-6" data-line-number="6">merc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">sf_project</span>(<span class="kw">cbind</span>(<span class="fl">7.59551</span>, <span class="fl">51.96922</span>), <span class="dt">from =</span> <span class="st">&quot;+init=epsg:4326&quot;</span>, <span class="dt">to =</span> raster<span class="op">::</span><span class="kw">projection</span>(munster_elev))</a>
+<a class="sourceLine" id="cb38-7" data-line-number="7">rgl<span class="op">::</span><span class="kw">lines3d</span>(<span class="kw">cbind</span>(merc[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), ], <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>))))</a></code></pre></div>
 </div>
-<div id="comparison-of-discrete-elevation-extrusion-vs-continuous" class="section level2">
-<h2><span class="header-section-number">4.4</span> comparison of discrete elevation (extrusion) vs continuous</h2>
-</div>
-<div id="transforming-spatial-data-using-modular-3d-tools" class="section level2 exercise">
-<h2><span class="header-section-number">4.5</span> Transforming Spatial Data using modular 3D tools</h2>
-<ol style="list-style-type: decimal">
-<li>Tell us if you use 3D visualization or meshes in analysis.</li>
-</ol>
-<p>This is hard! There’s a few scattered tools.</p>
-</div>
-<div id="on-cran" class="section level2">
-<h2><span class="header-section-number">4.6</span> On CRAN</h2>
+<div id="various-tools" class="section level2">
+<h2><span class="header-section-number">5.4</span> Various tools</h2>
 <ul>
 <li><p><code>rgl::triangulate</code> and <code>decido::earcut</code> will triangulate polygons with holes but only suitable for plane-filling, because ugly triangles, no control over size and shape.</p></li>
 <li><p><code>RTriangle::triangulate</code> (and <code>sfdct::ct_triangulate</code>) do high-quality “near-Delaunay” triangulations</p></li>
-<li><p><code>quadmesh::quadmesh</code> to create rgl-ready mesh3d from a raster</p></li>
-<li><p><code>mapview::cubeView</code> does very compelling interactive raster-cube visualization</p></li>
-<li><p><code>SymbolixAU/mapdeck</code></p></li>
+<li><p><code>quadmesh::quadmesh()</code> to create rgl-ready mesh3d from a raster</p></li>
+<li><p><code>mapview::cubeView()</code> does very compelling interactive raster-cube visualization</p></li>
+<li><p><code>SymbolixAU/mapdeck()</code> an alternative 3D viewer using Uber’s <code>deck.gl</code></p></li>
 <li><p><code>tylermorganwall/rayshader</code></p></li>
+<li><p><code>Rvcg</code> package on CRAN</p></li>
 </ul>
 <p>Side note: there are many triangulation algorithms and many packages in R, but we need <em>constrained triangulation</em> to preserve all input edges - only a handful can do that, and RTriangle is the king (with a problematic license).</p>
-</div>
-<div id="quadmesh." class="section level2">
-<h2><span class="header-section-number">4.7</span> Quadmesh.</h2>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2"><span class="kw">quadmesh</span>(anyRasterDEM, <span class="dt">texture =</span> anyRasterRGB)</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>()</a>
-<a class="sourceLine" id="cb44-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="co">## play with aspect3d, light3d, ...</span></a></code></pre></div>
-<p>Triangulations, <code>sfdct</code> is no good because it’s very inefficient. <code>sf</code> is simply not suitable for mesh (a.k.a. <em>indexed</em>) forms of data.</p>
-</div>
-<div id="stuff-not-on-cran" class="section level2">
-<h2><span class="header-section-number">4.8</span> Stuff not on CRAN!</h2>
 <ul>
 <li><p><code>hypertidy/silicate</code>, <code>hypertidy/anglr</code> - these are evolving together</p></li>
 <li><p><a href="https://github.com/MilesMcBain/gis_vs_web3D" class="uri">https://github.com/MilesMcBain/gis_vs_web3D</a></p></li>
 <li><p><code>coolbutuseless/threed</code></p></li>
 </ul>
+<p>There are a few example data packages:</p>
+<p>.obj format: <a href="https://github.com/odedstein/meshes/tree/master/objects/koala" class="uri">https://github.com/odedstein/meshes/tree/master/objects/koala</a></p>
 </div>
-<div id="triangles-or-quads-in-hypertidy-wip" class="section level2">
-<h2><span class="header-section-number">4.9</span> Triangles or quads in hypertidy (WIP)</h2>
+<div id="triangles-or-quads-from-geospatial" class="section level2">
+<h2><span class="header-section-number">5.5</span> Triangles or quads from geospatial</h2>
 <p>This is my work-in-progress approach to meshing any data structure.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co">## devtools::install_github(&quot;hypertidy/anglr&quot;)</span></a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="co">## devtools::install_github(&quot;hypertidy/silicate&quot;)</span></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="kw">library</span>(anglr)  </a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">triangles &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(anySFpolygon), anyRasterDEM)</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb45-6" data-line-number="6">mesh &lt;-<span class="st"> </span><span class="kw">plot3d</span>(triangles)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co">## devtools::install_github(&quot;hypertidy/anglr&quot;)</span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="co">## devtools::install_github(&quot;hypertidy/silicate&quot;)</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">library</span>(anglr)  </a>
+<a class="sourceLine" id="cb39-4" data-line-number="4">triangles &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(anySFpolygon), anyRasterDEM)</a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb39-6" data-line-number="6">mesh &lt;-<span class="st"> </span><span class="kw">plot3d</span>(triangles)</a></code></pre></div>
 
 </div>
 </div>
@@ -282,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="d-and-mesh-forms-of-spatial-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-rgl-mesh3d-format.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -313,7 +308,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mdsumner/geo-comp-graphics-oghub/edit/master/03_geospatial-to-mesh.Rmd",
+"link": "https://github.com/mdsumner/geo-comp-graphics-oghub/edit/master/04_geospatial-to-mesh.Rmd",
 "text": "Edit"
 },
 "history": {
