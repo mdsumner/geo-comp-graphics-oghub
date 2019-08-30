@@ -1,3 +1,8 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 # Transforming spatial data to 3D forms
 
@@ -42,7 +47,7 @@ Converting raster data is available in various ways.
 ## Quadmesh. 
 
 
-```{r, quadmesh, eval=FALSE}
+```{r quadmesh, eval=FALSE}
 library(quadmesh)
 quadmesh(anyRasterDEM, texture = anyRasterRGB)
 rgl::shade3d()
@@ -132,7 +137,7 @@ There are a few example data packages:
 This is my work-in-progress approach to meshing any data structure. 
 
 
-```{r, eval=FALSE}
+```{r copy-down, eval=FALSE}
 ## devtools::install_github("hypertidy/anglr")
 ## devtools::install_github("hypertidy/silicate")
 library(anglr)  

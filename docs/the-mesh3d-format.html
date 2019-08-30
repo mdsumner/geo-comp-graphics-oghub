@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 The mesh3d format | Computational graphics structures for geo-spatial data</title>
+  <meta name="description" content="Converting geo-spatial data into meshes suitable for computational graphics systems." />
+  <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 The mesh3d format | Computational graphics structures for geo-spatial data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Converting geo-spatial data into meshes suitable for computational graphics systems." />
+  <meta name="github-repo" content="mdsumner/geo-comp-graphics-oghub" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 The mesh3d format | Computational graphics structures for geo-spatial data" />
+  
+  <meta name="twitter:description" content="Converting geo-spatial data into meshes suitable for computational graphics systems." />
+  
+
+<meta name="author" content="Michael Sumner" />
+
+
+<meta name="date" content="2019-08-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="d-and-mesh-forms-of-spatial-data.html"/>
+<link rel="next" href="transforming-spatial-data-to-3d-forms.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="libs/rglwidgetClass-2/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-2/rglClass.src.js"></script>
+<script src="libs/CanvasMatrix4-2016/CanvasMatrix.src.js"></script>
+<script src="libs/rglWebGL-binding-0.100.30/rglWebGL.js"></script>
+<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Computational graphics structures for geo-spatial data inR</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About this</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#description-and-objectives"><i class="fa fa-check"></i><b>1.1</b> Description and objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="getting-set-up.html"><a href="getting-set-up.html"><i class="fa fa-check"></i><b>2</b> Getting Set Up</a></li>
+<li class="chapter" data-level="3" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html"><i class="fa fa-check"></i><b>3</b> 3D and mesh forms of spatial data</a><ul>
+<li class="chapter" data-level="3.1" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#questions"><i class="fa fa-check"></i><b>3.1</b> Questions</a></li>
+<li class="chapter" data-level="3.2" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#what-is-a-mesh"><i class="fa fa-check"></i><b>3.2</b> What is a mesh?</a></li>
+<li class="chapter" data-level="3.3" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#geospatial-data"><i class="fa fa-check"></i><b>3.3</b> Geospatial data</a></li>
+<li class="chapter" data-level="3.4" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#primitives"><i class="fa fa-check"></i><b>3.4</b> Primitives</a></li>
+<li class="chapter" data-level="3.5" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#a-raster-is-a-mesh-implicitly"><i class="fa fa-check"></i><b>3.5</b> A raster is a mesh (implicitly)</a></li>
+<li class="chapter" data-level="3.6" data-path="d-and-mesh-forms-of-spatial-data.html"><a href="d-and-mesh-forms-of-spatial-data.html#summary"><i class="fa fa-check"></i><b>3.6</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html"><i class="fa fa-check"></i><b>4</b> The mesh3d format</a><ul>
+<li class="chapter" data-level="4.1" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#quads"><i class="fa fa-check"></i><b>4.1</b> Quads</a></li>
+<li class="chapter" data-level="4.2" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#exercise-1"><i class="fa fa-check"></i><b>4.2</b> Exercise 1</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#ex-1-answer"><i class="fa fa-check"></i><b>4.2.1</b> EX 1 ANSWER</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#triangles"><i class="fa fa-check"></i><b>4.3</b> Triangles</a></li>
+<li class="chapter" data-level="4.4" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#d-polygons"><i class="fa fa-check"></i><b>4.4</b> 3D polygons</a></li>
+<li class="chapter" data-level="4.5" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#exercise-2"><i class="fa fa-check"></i><b>4.5</b> Exercise 2</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#ex-2-answer"><i class="fa fa-check"></i><b>4.5.1</b> EX 2 ANSWER</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#exercise-3"><i class="fa fa-check"></i><b>4.6</b> Exercise 3</a></li>
+<li class="chapter" data-level="4.7" data-path="the-mesh3d-format.html"><a href="the-mesh3d-format.html#rgl-miscellanea"><i class="fa fa-check"></i><b>4.7</b> rgl miscellanea</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html"><i class="fa fa-check"></i><b>5</b> Transforming spatial data to 3D forms</a><ul>
+<li class="chapter" data-level="5.1" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#tools"><i class="fa fa-check"></i><b>5.1</b> Tools</a></li>
+<li class="chapter" data-level="5.2" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#quadmesh."><i class="fa fa-check"></i><b>5.2</b> Quadmesh.</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#comparison-of-discrete-elevation-extrusion-vs-continuous"><i class="fa fa-check"></i><b>5.2.1</b> comparison of discrete elevation (extrusion) vs continuous</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#image-textures"><i class="fa fa-check"></i><b>5.3</b> Image textures</a></li>
+<li class="chapter" data-level="5.4" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#various-tools"><i class="fa fa-check"></i><b>5.4</b> Various tools</a></li>
+<li class="chapter" data-level="5.5" data-path="transforming-spatial-data-to-3d-forms.html"><a href="transforming-spatial-data-to-3d-forms.html#triangles-or-quads-from-geospatial"><i class="fa fa-check"></i><b>5.5</b> Triangles or quads from geospatial</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/mdsumner/geo-comp-graphics-oghub" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Computational graphics structures for geo-spatial data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-mesh3d-format" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> The mesh3d format</h1>
+<p>Rgl is the OpenGL package in R.</p>
+<p>A classic <strong>computer graphics</strong> data model called <em>mesh3d</em>, it’s not widely used but is very powerful. You can visualize a <code>mesh3d</code> model with <code>shade3d()</code>, all the aesthetics, material properties, geometry and topology can be attached to the model
+itself as data.</p>
+<p>It supports two kinds of primitives <strong>quads</strong> and <strong>triangles</strong>.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">load</span>(<span class="st">&quot;geo-comp-graphics.Rdata&quot;</span>)</a></code></pre></div>
+<div id="quads" class="section level2">
+<h2><span class="header-section-number">4.1</span> Quads</h2>
+<p>Quads are a funny case, usually carried by two triangles (at least implicitly) but they are an important computer graphics element.</p>
+<p>Previously, we created a raster with effectively the following code.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dt">length =</span> <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">            <span class="kw">seq</span>(<span class="fl">0.375</span>, <span class="dv">0</span>, <span class="dt">length =</span> <span class="dv">4</span>)), <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">ncol</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb28-6" data-line-number="6">rast &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">raster</span>(<span class="kw">list</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> m))</a></code></pre></div>
+<p>If we convert that to a quadmesh, the result has vertices (<code>vb</code>) and primitives (<code>ib</code>).</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">qm &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(rast)</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="kw">str</span>(qm)</a></code></pre></div>
+<pre><code>## List of 8
+##  $ vb             : num [1:4, 1:16] 0 3 0.312 1 1 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:4] &quot;x&quot; &quot;y&quot; &quot;z&quot; &quot;1&quot;
+##   .. ..$ : NULL
+##  $ ib             : int [1:4, 1:9] 1 2 6 5 2 3 7 6 3 4 ...
+##  $ primitivetype  : chr &quot;quad&quot;
+##  $ material       : list()
+##  $ normals        : NULL
+##  $ texcoords      : NULL
+##  $ raster_metadata:List of 7
+##   ..$ xmn  : num 0
+##   ..$ xmx  : num 3
+##   ..$ ymn  : num 0
+##   ..$ ymx  : num 3
+##   ..$ ncols: int 3
+##   ..$ nrows: int 3
+##   ..$ crs  : chr &quot;+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0&quot;
+##  $ crs            : chr &quot;+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0&quot;
+##  - attr(*, &quot;class&quot;)= chr [1:3] &quot;quadmesh&quot; &quot;mesh3d&quot; &quot;shape3d&quot;</code></pre>
+<p>The structure is <code>vb</code>, the coordinates of the mesh - these are the
+actual corner coordinates from the input raster.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">image</span>(rast, <span class="dt">col =</span> <span class="kw">colpal</span>())</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">op &lt;-<span class="st"> </span><span class="kw">par</span>(<span class="dt">xpd =</span> <span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3"><span class="kw">text</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb), <span class="dt">lab =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">ncol</span>(qm<span class="op">$</span>vb))</a></code></pre></div>
+<p><img src="geo-comp-graphics_files/figure-html/raster-image-1.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="kw">par</span>(op)</a></code></pre></div>
+<p>Notice how these are unique coordinates, there’s no simple relationship between the cell and its value and its four corners. This is because they are shared between neighbouring cells. The relationship is stored in the <code>ib</code> array, this has four rows one for each corner of each cell. There are 12 cells and each has four coordinates from the shared vertex pool. The cells are defined in the order they occur in raster.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">qm<span class="op">$</span>ib</a></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9]
+## [1,]    1    2    3    5    6    7    9   10   11
+## [2,]    2    3    4    6    7    8   10   11   12
+## [3,]    6    7    8   10   11   12   14   15   16
+## [4,]    5    6    7    9   10   11   13   14   15</code></pre>
+<p>It works directly with rgl function, and can be used in more raw form.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb35-3" data-line-number="3"><span class="kw">shade3d</span>(qm, <span class="dt">col =</span> <span class="st">&quot;firebrick&quot;</span>)</a>
+<a class="sourceLine" id="cb35-4" data-line-number="4"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div id="rgl7346" style="width:672px;height:480px;" class="rglWebGL html-widget"></div>
+<script type="application/json" data-for="rgl7346">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":false,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0]},"rootSubscene":1,"objects":{"43":{"id":43,"type":"quads","material":{},"vertices":[[0,3,0.312375098466873],[1,3,0.062583327293396],[1,2,0.312541663646698],[0,2,0.312500029802322],[1,3,0.062583327293396],[2,3,-0.124791741371155],[2,2,0.250083297491074],[1,2,0.312541663646698],[2,3,-0.124791741371155],[3,3,-0.249750077724457],[3,2,0.125124961137772],[2,2,0.250083297491074],[0,2,0.312500029802322],[1,2,0.312541663646698],[1,1,0.250083297491074],[0,1,0.125124961137772],[1,2,0.312541663646698],[2,2,0.250083297491074],[2,1,0.312541663646698],[1,1,0.250083297491074],[2,2,0.250083297491074],[3,2,0.125124961137772],[3,1,0.312500029802322],[2,1,0.312541663646698],[0,1,0.125124961137772],[1,1,0.250083297491074],[1,0,-0.124791741371155],[0,0,-0.249750077724457],[1,1,0.250083297491074],[2,1,0.312541663646698],[2,0,0.062583327293396],[1,0,-0.124791741371155],[2,1,0.312541663646698],[3,1,0.312500029802322],[3,0,0.312375098466873],[2,0,0.062583327293396]],"normals":[[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1]],"colors":[[0.69803923368454,0.133333340287209,0.133333340287209,1]],"centers":[[0.5,2.5,0.250000029802322],[1.5,2.5,0.125104129314423],[2.5,2.5,0.000166609883308411],[0.5,1.5,0.250062495470047],[1.5,1.5,0.281312465667725],[2.5,1.5,0.250062465667725],[0.5,0.5,0.000166609883308411],[1.5,0.5,0.125104129314423],[2.5,0.5,0.250000029802322]],"ignoreExtent":false,"flags":3},"5":{"id":5,"reuse":"rgl9961"},"4":{"id":4,"reuse":"rgl9961"},"6":{"id":6,"reuse":"rgl9961"},"1":{"id":1,"type":"subscene","par3d":{"antialias":1,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,8.267822265625],"modelMatrix":[[1,0,0,-1.5],[0,0.342020153999329,0.939692616462708,-0.542532622814178],[0,-0.939692616462708,0.342020153999329,-6.86902141571045],[0,0,0,1]],"projMatrix":[[3.73205089569092,0,0,0],[0,3.73205089569092,0,0],[0,0,-3.86370372772217,-29.8045463562012],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[0,3,0,3,-0.249750077724457,0.312541663646698],"windowRect":[0,0,256,256],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NaN","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[6,43,5],"subscenes":[],"flags":515},"50":{"id":50,"type":"linestrip","material":{"alpha":0.498039215803146,"lit":false,"depth_test":"always","isTransparent":true},"vertices":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"colors":[[0,0,0,0.498039215803146]],"centers":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"ignoreExtent":false,"flags":32864}},"crosstalk":{"key":[null],"group":"","id":0,"options":[null]},"width":672,"height":480,"brushId":50,"sphereVerts":{"reuse":"rgl9961"},"context":{"shiny":false,"rmarkdown":"bookdown::gitbook"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb)[qm<span class="op">$</span>ib,], <span class="dt">col =</span> <span class="kw">c</span>(<span class="st">&quot;firebrick&quot;</span>, <span class="st">&quot;dodgerblue&quot;</span>)[qm<span class="op">$</span>ib <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb36-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div id="rgl40010" style="width:672px;height:480px;" class="rglWebGL html-widget"></div>
+<script type="application/json" data-for="rgl40010">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":false,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0]},"rootSubscene":1,"objects":{"51":{"id":51,"type":"quads","material":{},"vertices":[[0,3,0.312375098466873],[1,3,0.062583327293396],[1,2,0.312541663646698],[0,2,0.312500029802322],[1,3,0.062583327293396],[2,3,-0.124791741371155],[2,2,0.250083297491074],[1,2,0.312541663646698],[2,3,-0.124791741371155],[3,3,-0.249750077724457],[3,2,0.125124961137772],[2,2,0.250083297491074],[0,2,0.312500029802322],[1,2,0.312541663646698],[1,1,0.250083297491074],[0,1,0.125124961137772],[1,2,0.312541663646698],[2,2,0.250083297491074],[2,1,0.312541663646698],[1,1,0.250083297491074],[2,2,0.250083297491074],[3,2,0.125124961137772],[3,1,0.312500029802322],[2,1,0.312541663646698],[0,1,0.125124961137772],[1,1,0.250083297491074],[1,0,-0.124791741371155],[0,0,-0.249750077724457],[1,1,0.250083297491074],[2,1,0.312541663646698],[2,0,0.062583327293396],[1,0,-0.124791741371155],[2,1,0.312541663646698],[3,1,0.312500029802322],[3,0,0.312375098466873],[2,0,0.062583327293396]],"normals":[[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1]],"colors":[[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1]],"centers":[[0.5,2.5,0.250000029802322],[1.5,2.5,0.125104129314423],[2.5,2.5,0.000166609883308411],[0.5,1.5,0.250062495470047],[1.5,1.5,0.281312465667725],[2.5,1.5,0.250062465667725],[0.5,0.5,0.000166609883308411],[1.5,0.5,0.125104129314423],[2.5,0.5,0.250000029802322]],"ignoreExtent":false,"flags":3},"5":{"id":5,"reuse":"rgl9961"},"4":{"id":4,"reuse":"rgl9961"},"6":{"id":6,"reuse":"rgl9961"},"1":{"id":1,"type":"subscene","par3d":{"antialias":1,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,8.267822265625],"modelMatrix":[[1,0,0,-1.5],[0,0.342020153999329,0.939692616462708,-0.542532622814178],[0,-0.939692616462708,0.342020153999329,-6.86902141571045],[0,0,0,1]],"projMatrix":[[3.73205089569092,0,0,0],[0,3.73205089569092,0,0],[0,0,-3.86370372772217,-29.8045463562012],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[0,3,0,3,-0.249750077724457,0.312541663646698],"windowRect":[0,0,256,256],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NaN","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[6,51,5],"subscenes":[],"flags":515},"58":{"id":58,"type":"linestrip","material":{"alpha":0.498039215803146,"lit":false,"depth_test":"always","isTransparent":true},"vertices":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"colors":[[0,0,0,0.498039215803146]],"centers":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"ignoreExtent":false,"flags":32864}},"crosstalk":{"key":[null],"group":"","id":0,"options":[null]},"width":672,"height":480,"brushId":58,"sphereVerts":{"reuse":"rgl9961"},"context":{"shiny":false,"rmarkdown":"bookdown::gitbook"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb)[qm<span class="op">$</span>ib,], <span class="dt">col =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;firebrick&quot;</span>, <span class="st">&quot;dodgerblue&quot;</span>), <span class="dt">each =</span> <span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb37-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div id="rgl67463" style="width:672px;height:480px;" class="rglWebGL html-widget"></div>
+<script type="application/json" data-for="rgl67463">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":false,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0]},"rootSubscene":1,"objects":{"59":{"id":59,"type":"quads","material":{},"vertices":[[0,3,0.312375098466873],[1,3,0.062583327293396],[1,2,0.312541663646698],[0,2,0.312500029802322],[1,3,0.062583327293396],[2,3,-0.124791741371155],[2,2,0.250083297491074],[1,2,0.312541663646698],[2,3,-0.124791741371155],[3,3,-0.249750077724457],[3,2,0.125124961137772],[2,2,0.250083297491074],[0,2,0.312500029802322],[1,2,0.312541663646698],[1,1,0.250083297491074],[0,1,0.125124961137772],[1,2,0.312541663646698],[2,2,0.250083297491074],[2,1,0.312541663646698],[1,1,0.250083297491074],[2,2,0.250083297491074],[3,2,0.125124961137772],[3,1,0.312500029802322],[2,1,0.312541663646698],[0,1,0.125124961137772],[1,1,0.250083297491074],[1,0,-0.124791741371155],[0,0,-0.249750077724457],[1,1,0.250083297491074],[2,1,0.312541663646698],[2,0,0.062583327293396],[1,0,-0.124791741371155],[2,1,0.312541663646698],[3,1,0.312500029802322],[3,0,0.312375098466873],[2,0,0.062583327293396]],"normals":[[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.235519021749496,-0.23567607998848,-0.942861437797546],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.172812253236771,-0.34573969244957,-0.922279834747314],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[-0.116214118897915,-0.348642379045486,-0.930022954940796],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[4.15528738813009e-05,0.0623368993401527,-0.998055219650269],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.0622161254286766,-0.0622161254286766,-0.99612158536911],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[-0.121904835104942,-0.182796344161034,-0.975563824176788],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.116214118897915,0.348642379045486,-0.930022954940796],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[0.0604831725358963,0.242053613066673,-0.968375861644745],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1],[-4.16338443756104e-05,0.000124931335449219,-1]],"colors":[[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.117647059261799,0.564705908298492,1,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1],[0.69803923368454,0.133333340287209,0.133333340287209,1]],"centers":[[0.5,2.5,0.250000029802322],[1.5,2.5,0.125104129314423],[2.5,2.5,0.000166609883308411],[0.5,1.5,0.250062495470047],[1.5,1.5,0.281312465667725],[2.5,1.5,0.250062465667725],[0.5,0.5,0.000166609883308411],[1.5,0.5,0.125104129314423],[2.5,0.5,0.250000029802322]],"ignoreExtent":false,"flags":3},"5":{"id":5,"reuse":"rgl9961"},"4":{"id":4,"reuse":"rgl9961"},"6":{"id":6,"reuse":"rgl9961"},"1":{"id":1,"type":"subscene","par3d":{"antialias":1,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,8.267822265625],"modelMatrix":[[1,0,0,-1.5],[0,0.342020153999329,0.939692616462708,-0.542532622814178],[0,-0.939692616462708,0.342020153999329,-6.86902141571045],[0,0,0,1]],"projMatrix":[[3.73205089569092,0,0,0],[0,3.73205089569092,0,0],[0,0,-3.86370372772217,-29.8045463562012],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[0,3,0,3,-0.249750077724457,0.312541663646698],"windowRect":[0,0,256,256],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NaN","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[6,59,5],"subscenes":[],"flags":515},"66":{"id":66,"type":"linestrip","material":{"alpha":0.498039215803146,"lit":false,"depth_test":"always","isTransparent":true},"vertices":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"colors":[[0,0,0,0.498039215803146]],"centers":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"ignoreExtent":false,"flags":32864}},"crosstalk":{"key":[null],"group":"","id":0,"options":[null]},"width":672,"height":480,"brushId":66,"sphereVerts":{"reuse":"rgl9961"},"context":{"shiny":false,"rmarkdown":"bookdown::gitbook"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+<p>The situation for triangles is much the same, but we have <code>it</code> for the triangle index rather than <code>ib</code> for the quad index. In both cases the geometry is in the <code>vb</code> matrix. Models can have both quads and triangles, using the same set of vertices.</p>
+</div>
+<div id="exercise-1" class="section level2">
+<h2><span class="header-section-number">4.2</span> Exercise 1</h2>
+<p>Why are the vertex and index matrices stored in <em>transpose</em> form?</p>
+<p>Discuss this.</p>
+<div id="ex-1-answer" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> EX 1 ANSWER</h3>
+<details>
+<summary>EX1 SOLUTION</summary>
+<p>
+<p>My theory: so that sets of coordinates and primitive-indexes are stored contiguously in memory. I think this matches more native implementations in other languages.</p>
+<p>Code to plot quads directly in rgl looks like this:</p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[, qm<span class="op">$</span>ib]))</a></code></pre></div>
+<p>We can use to to advantage in 2D, for a quick check of our intepretation.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb39-2" data-line-number="2">pp &lt;-<span class="st">  </span>qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">rbind</span>(qm<span class="op">$</span>ib, <span class="ot">NA</span>)]  <span class="co">## put an NA after every set of 4 coordinates</span></a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="kw">polygon</span>(<span class="kw">t</span>(pp))</a></code></pre></div>
+</p>
+</details>
+</div>
+</div>
+<div id="triangles" class="section level2">
+<h2><span class="header-section-number">4.3</span> Triangles</h2>
+<p>Triangles aren’t so readily created, although it is easy to convert a quadmesh version of a raster into triangles.</p>
+<p>For polygons, we need specialist code. There are two algorithm types:</p>
+<ul>
+<li>ear-clipping (or ear-cutting)</li>
+<li>near-Delaunay methods</li>
+</ul>
+<p>The <code>mesh_polys</code> object is create from the <code>two_polys</code> simple features layer using ear-clipping.</p>
+<p>This is a very simple algorithm, it chooses one corner of the polygon and clips off a triangle at the next vertex, then proceeds around the boundary - the <code>decido</code> package on CRAN uses the Mapbox library <code>earcut</code> to do this.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" data-line-number="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb40-2" data-line-number="2"><span class="kw">plot</span>(two_polys, <span class="dt">reset =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb40-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb40-4" data-line-number="4"><span class="kw">polygon</span>(<span class="kw">t</span>(mesh_polys<span class="op">$</span>vb[, <span class="kw">rbind</span>(mesh_polys<span class="op">$</span>it, <span class="ot">NA</span>)]))</a></code></pre></div>
+<p><img src="geo-comp-graphics_files/figure-html/ear-clipping-1.png" width="672" /></p>
+<p>The <code>delaunay_polys</code> object is created from <code>two_polys</code> using the in-development <code>anglr</code> package, on Github only - anglr uses the <code>RTriangle</code> package from CRAN to do this. All edges in the polygons are fed to the algorithm which creates all constrained triangles, then this mesh of triangles is processed to determine which polygon (or hole) each belongs to. With <code>RTriangle</code> we can also specify properties like maximum triangle area, or “conform to Delaunay criterion”. (This is why we always call polygon triangulation near-Delaunay …).</p>
+<p>This mesh is both Delaunay-conforming and applying a maximum triangle area, so extra vertices have been added that weren’t in the original polygons.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">plot</span>(two_polys, <span class="dt">reset =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="kw">polygon</span>(<span class="kw">t</span>(delaunay_polys<span class="op">$</span>vb[, <span class="kw">rbind</span>(delaunay_polys<span class="op">$</span>it, <span class="ot">NA</span>)]))</a></code></pre></div>
+<p><img src="geo-comp-graphics_files/figure-html/delaunay-constrained-1.png" width="672" /></p>
+</div>
+<div id="d-polygons" class="section level2">
+<h2><span class="header-section-number">4.4</span> 3D polygons</h2>
+<p>If we don’t have triangles (or quads), we can’t plot surfaces or polygons in 3D at all.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb42-2" data-line-number="2"><span class="kw">shade3d</span>(mesh_polys)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div id="rgl94373" style="width:672px;height:480px;" class="rglWebGL html-widget"></div>
+<script type="application/json" data-for="rgl94373">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":false,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0]},"rootSubscene":1,"objects":{"67":{"id":67,"type":"triangles","material":{},"vertices":[[0,0,0],[0.200000002980232,0.200000002980232,0],[0.200000002980232,0.400000005960464,0],[0.5,0.200000002980232,0],[0.200000002980232,0.200000002980232,0],[0,0,0],[0.689999997615814,0,0],[0.800000011920929,0.600000023841858,0],[0.5,0.699999988079071,0],[0.5,0.699999988079071,0],[1,0.800000011920929,0],[0.75,1,0],[0,1,0],[0,0,0],[0.200000002980232,0.400000005960464,0],[0.5,0.200000002980232,0],[0,0,0],[0.689999997615814,0,0],[0.5,0.699999988079071,0],[0.75,1,0],[0,1,0],[0,1,0],[0.200000002980232,0.400000005960464,0],[0.300000011920929,0.600000023841858,0],[0.5,0.400000005960464,0],[0.5,0.200000002980232,0],[0.689999997615814,0,0],[0.5,0.699999988079071,0],[0,1,0],[0.300000011920929,0.600000023841858,0],[0.5,0.400000005960464,0],[0.689999997615814,0,0],[0.5,0.699999988079071,0],[0.5,0.699999988079071,0],[0.300000011920929,0.600000023841858,0],[0.5,0.400000005960464,0],[0.800000011920929,0.600000023841858,0],[0.689999997615814,0,0],[1.23000001907349,0.300000011920929,0],[1.23000001907349,0.300000011920929,0],[1.10000002384186,0.629999995231628,0],[0.800000011920929,0.600000023841858,0]],"normals":[[0,-0,1],[0,-0,1],[0,-0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,-0,1],[0,-0,1],[0,-0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1]],"colors":[[0,0,0,1]],"centers":[[0.133333340287209,0.200000017881393,0],[0.233333334326744,0.133333340287209,0],[0.663333356380463,0.433333337306976,0],[0.75,0.833333373069763,0],[0.0666666701436043,0.466666668653488,0],[0.396666705608368,0.0666666701436043,0],[0.416666686534882,0.900000035762787,0],[0.16666667163372,0.666666686534882,0],[0.56333339214325,0.200000017881393,0],[0.266666680574417,0.766666769981384,0],[0.56333339214325,0.366666674613953,0],[0.433333337306976,0.566666662693024,0],[0.906666696071625,0.300000011920929,0],[1.04333329200745,0.509999990463257,0]],"ignoreExtent":false,"flags":3},"5":{"id":5,"reuse":"rgl9961"},"4":{"id":4,"reuse":"rgl9961"},"6":{"id":6,"reuse":"rgl9961"},"1":{"id":1,"type":"subscene","par3d":{"antialias":1,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,3.06239604949951],"modelMatrix":[[1,0,0,-0.615000009536743],[0,0.342020153999329,0.939692616462708,-0.171010076999664],[0,-0.939692616462708,0.342020153999329,-2.5925498008728],[0,0,0,1]],"projMatrix":[[3.73205065727234,0,0,0],[0,3.73205065727234,0,0],[0,0,-3.86370372772217,-11.0395841598511],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[0,1.23000001907349,0,1,0,0],"windowRect":[0,0,256,256],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NaN","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[6,67,5],"subscenes":[],"flags":515},"74":{"id":74,"type":"linestrip","material":{"alpha":0.498039215803146,"lit":false,"depth_test":"always","isTransparent":true},"vertices":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"colors":[[0,0,0,0.498039215803146]],"centers":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"ignoreExtent":false,"flags":32864}},"crosstalk":{"key":[null],"group":"","id":0,"options":[null]},"width":672,"height":480,"brushId":74,"sphereVerts":{"reuse":"rgl9961"},"context":{"shiny":false,"rmarkdown":"bookdown::gitbook"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+<p>But, unless we modify the material properties of the surface, or update the geometry in the 3rd dimension we cannot tell the difference between these different mesh polygons.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="kw">shade3d</span>(delaunay_polys)</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div id="rgl85514" style="width:672px;height:480px;" class="rglWebGL html-widget"></div>
+<script type="application/json" data-for="rgl85514">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":false,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0]},"rootSubscene":1,"objects":{"75":{"id":75,"type":"triangles","material":{},"vertices":[[0.344999998807907,0,0],[0.5,0.200000002980232,0],[0.200000002980232,0.200000002980232,0],[0.5,0.200000002980232,0],[0.344999998807907,0,0],[0.689999997615814,0,0],[0.200000002980232,0.400000005960464,0],[0,0.5,0],[0,0.25,0],[0,0.5,0],[0.300000011920929,0.600000023841858,0],[0,0.75,0],[0,0.25,0],[0,0,0],[0.200000002980232,0.200000002980232,0],[0.5,0.699999988079071,0],[0.375,1,0],[0.20833332836628,0.791666686534882,0],[0.5,0.699999988079071,0],[0.300000011920929,0.600000023841858,0],[0.5,0.400000005960464,0],[0.735081970691681,0.245901644229889,0],[0.5,0.400000005960464,0],[0.5,0.200000002980232,0],[0.5625,1,0],[0.7548548579216,0.750970959663391,0],[0.75,1,0],[0.800000011920929,0.600000023841858,0],[0.5,0.699999988079071,0],[0.5,0.400000005960464,0],[0,0.75,0],[0.20833332836628,0.791666686534882,0],[0,1,0],[0.300000011920929,0.600000023841858,0],[0,0.5,0],[0.200000002980232,0.400000005960464,0],[0.200000002980232,0.200000002980232,0],[0,0,0],[0.344999998807907,0,0],[0.7548548579216,0.750970959663391,0],[1,0.800000011920929,0],[0.75,1,0],[0.5,0.699999988079071,0],[0.5625,1,0],[0.375,1,0],[0.5,0.200000002980232,0],[0.689999997615814,0,0],[0.735081970691681,0.245901644229889,0],[0.200000002980232,0.400000005960464,0],[0,0.25,0],[0.200000002980232,0.200000002980232,0],[0.5,0.400000005960464,0],[0.735081970691681,0.245901644229889,0],[0.800000011920929,0.600000023841858,0],[0.20833332836628,0.791666686534882,0],[0.375,1,0],[0.25,1,0],[0.20833332836628,0.791666686534882,0],[0.300000011920929,0.600000023841858,0],[0.5,0.699999988079071,0],[0.7548548579216,0.750970959663391,0],[0.5625,1,0],[0.5,0.699999988079071,0],[0.300000011920929,0.600000023841858,0],[0.20833332836628,0.791666686534882,0],[0,0.75,0],[0,1,0],[0.20833332836628,0.791666686534882,0],[0.25,1,0],[0.972580194473267,0.389198243618011,0],[0.735081970691681,0.245901644229889,0],[0.908539295196533,0.121410734951496,0],[0.735081970691681,0.245901644229889,0],[0.689999997615814,0,0],[0.908539295196533,0.121410734951496,0],[0.972580194473267,0.389198243618011,0],[1.10000002384186,0.629999995231628,0],[0.800000011920929,0.600000023841858,0],[0.735081970691681,0.245901644229889,0],[0.972580194473267,0.389198243618011,0],[0.800000011920929,0.600000023841858,0],[1.10000002384186,0.629999995231628,0],[0.972580194473267,0.389198243618011,0],[1.23000001907349,0.300000011920929,0],[0.908539295196533,0.121410734951496,0],[1.23000001907349,0.300000011920929,0],[0.972580194473267,0.389198243618011,0]],"normals":[[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,-0,1],[0,-0,1],[0,-0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,-0,1],[0,-0,1],[0,-0,1],[0,0,1],[0,0,1],[0,0,1],[0,-0,1],[0,-0,1],[0,-0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,-0,1],[0,-0,1],[0,-0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,1],[0,0,1],[0,0,1]],"colors":[[0,0,0,1]],"centers":[[0.348333358764648,0.133333340287209,0],[0.511666715145111,0.0666666701436043,0],[0.0666666701436043,0.383333325386047,0],[0.100000008940697,0.616666674613953,0],[0.0666666701436043,0.150000005960464,0],[0.361111134290695,0.830555617809296,0],[0.433333337306976,0.566666662693024,0],[0.578360676765442,0.281967222690582,0],[0.689118325710297,0.916990280151367,0],[0.600000023841858,0.566666662693024,0],[0.0694444477558136,0.84722226858139,0],[0.16666667163372,0.5,0],[0.181666672229767,0.0666666701436043,0],[0.834951639175415,0.850323677062988,0],[0.479166686534882,0.900000035762787,0],[0.641694009304047,0.148633882403374,0],[0.133333340287209,0.283333331346512,0],[0.678360641002655,0.415300577878952,0],[0.277777791023254,0.930555582046509,0],[0.336111128330231,0.697222232818604,0],[0.605785012245178,0.816990315914154,0],[0.169444441795349,0.713888883590698,0],[0.152777776122093,0.930555582046509,0],[0.872067153453827,0.252170205116272,0],[0.777873754501343,0.122437462210655,0],[0.957526803016663,0.539732754230499,0],[0.835887372493744,0.41169998049736,0],[1.10086011886597,0.439732730388641,0],[1.03703987598419,0.270202994346619,0]],"ignoreExtent":false,"flags":3},"5":{"id":5,"reuse":"rgl9961"},"4":{"id":4,"reuse":"rgl9961"},"6":{"id":6,"reuse":"rgl9961"},"1":{"id":1,"type":"subscene","par3d":{"antialias":1,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,3.06239604949951],"modelMatrix":[[1,0,0,-0.615000009536743],[0,0.342020153999329,0.939692616462708,-0.171010076999664],[0,-0.939692616462708,0.342020153999329,-2.5925498008728],[0,0,0,1]],"projMatrix":[[3.73205065727234,0,0,0],[0,3.73205065727234,0,0],[0,0,-3.86370372772217,-11.0395841598511],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[0,1.23000001907349,0,1,0,0],"windowRect":[0,0,256,256],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NaN","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[6,75,5],"subscenes":[],"flags":515},"82":{"id":82,"type":"linestrip","material":{"alpha":0.498039215803146,"lit":false,"depth_test":"always","isTransparent":true},"vertices":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"colors":[[0,0,0,0.498039215803146]],"centers":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"ignoreExtent":false,"flags":32864}},"crosstalk":{"key":[null],"group":"","id":0,"options":[null]},"width":672,"height":480,"brushId":82,"sphereVerts":{"reuse":"rgl9961"},"context":{"shiny":false,"rmarkdown":"bookdown::gitbook"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+<p>Let’s push the Delaunay version up in Z and add some noise.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb44-2" data-line-number="2">delaunay_polys<span class="op">$</span>vb[<span class="dv">3</span>,] &lt;-<span class="st"> </span><span class="dv">0</span></a>
+<a class="sourceLine" id="cb44-3" data-line-number="3">delaunay_polys<span class="op">$</span>vb[<span class="dv">3</span>,] &lt;-<span class="st"> </span>delaunay_polys<span class="op">$</span>vb[<span class="dv">3</span>,] <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb44-4" data-line-number="4"><span class="st">    </span><span class="kw">runif</span>(<span class="kw">ncol</span>(delaunay_polys<span class="op">$</span>vb), <span class="dv">1</span>, <span class="fl">1.5</span>)</a>
+<a class="sourceLine" id="cb44-5" data-line-number="5"><span class="kw">shade3d</span>(mesh_polys)</a>
+<a class="sourceLine" id="cb44-6" data-line-number="6"><span class="kw">shade3d</span>(delaunay_polys)</a>
+<a class="sourceLine" id="cb44-7" data-line-number="7"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div id="rgl97038" style="width:672px;height:480px;" class="rglWebGL html-widget"></div>
+<script type="application/json" data-for="rgl97038">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":false,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0]},"rootSubscene":1,"objects":{"83":{"id":83,"type":"triangles","material":{},"vertices":[[0,0,0],[0.200000002980232,0.200000002980232,0],[0.200000002980232,0.400000005960464,0],[0.5,0.200000002980232,0],[0.200000002980232,0.200000002980232,0],[0,0,0],[0.689999997615814,0,0],[0.800000011920929,0.600000023841858,0],[0.5,0.699999988079071,0],[0.5,0.699999988079071,0],[1,0.800000011920929,0],[0.75,1,0],[0,1,0],[0,0,0],[0.200000002980232,0.400000005960464,0],[0.5,0.200000002980232,0],[0,0,0],[0.689999997615814,0,0],[0.5,0.699999988079071,0],[0.75,1,0],[0,1,0],[0,1,0],[0.200000002980232,0.400000005960464,0],[0.300000011920929,0.600000023841858,0],[0.5,0.400000005960464,0],[0.5,0.200000002980232,0],[0.689999997615814,0,0],[0.5,0.699999988079071,0],[0,1,0],[0.300000011920929,0.600000023841858,0],[0.5,0.400000005960464,0],[0.689999997615814,0,0],[0.5,0.699999988079071,0],[0.5,0.699999988079071,0],[0.300000011920929,0.600000023841858,0],[0.5,0.400000005960464,0],[0.800000011920929,0.600000023841858,0],[0.689999997615814,0,0],[1.23000001907349,0.300000011920929,0],[1.23000001907349,0.300000011920929,0],[1.10000002384186,0.629999995231628,0],[0.800000011920929,0.600000023841858,0]],"normals":[[0,-0,1],[0,-0,1],[0,-0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,-0,1],[0,-0,1],[0,-0,1],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[0,0,0.999999940395355],[-0,0,1],[-0,0,1],[-0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1],[0,0,1]],"colors":[[0,0,0,1]],"centers":[[0.133333340287209,0.200000017881393,0],[0.233333334326744,0.133333340287209,0],[0.663333356380463,0.433333337306976,0],[0.75,0.833333373069763,0],[0.0666666701436043,0.466666668653488,0],[0.396666705608368,0.0666666701436043,0],[0.416666686534882,0.900000035762787,0],[0.16666667163372,0.666666686534882,0],[0.56333339214325,0.200000017881393,0],[0.266666680574417,0.766666769981384,0],[0.56333339214325,0.366666674613953,0],[0.433333337306976,0.566666662693024,0],[0.906666696071625,0.300000011920929,0],[1.04333329200745,0.509999990463257,0]],"ignoreExtent":false,"flags":3},"84":{"id":84,"type":"triangles","material":{},"vertices":[[0.344999998807907,0,1.49742555618286],[0.5,0.200000002980232,1.17683053016663],[0.200000002980232,0.200000002980232,1.32381975650787],[0.5,0.200000002980232,1.17683053016663],[0.344999998807907,0,1.49742555618286],[0.689999997615814,0,1.30872929096222],[0.200000002980232,0.400000005960464,1.17793142795563],[0,0.5,1.43570125102997],[0,0.25,1.00269055366516],[0,0.5,1.43570125102997],[0.300000011920929,0.600000023841858,1.11477649211884],[0,0.75,1.32122480869293],[0,0.25,1.00269055366516],[0,0,1.49205720424652],[0.200000002980232,0.200000002980232,1.32381975650787],[0.5,0.699999988079071,1.15577101707458],[0.375,1,1.27854466438293],[0.20833332836628,0.791666686534882,1.12436711788177],[0.5,0.699999988079071,1.15577101707458],[0.300000011920929,0.600000023841858,1.11477649211884],[0.5,0.400000005960464,1.0247049331665],[0.735081970691681,0.245901644229889,1.43675863742828],[0.5,0.400000005960464,1.0247049331665],[0.5,0.200000002980232,1.17683053016663],[0.5625,1,1.36269962787628],[0.7548548579216,0.750970959663391,1.27162051200867],[0.75,1,1.19315898418427],[0.800000011920929,0.600000023841858,1.00616466999054],[0.5,0.699999988079071,1.15577101707458],[0.5,0.400000005960464,1.0247049331665],[0,0.75,1.32122480869293],[0.20833332836628,0.791666686534882,1.12436711788177],[0,1,1.13299262523651],[0.300000011920929,0.600000023841858,1.11477649211884],[0,0.5,1.43570125102997],[0.200000002980232,0.400000005960464,1.17793142795563],[0.200000002980232,0.200000002980232,1.32381975650787],[0,0,1.49205720424652],[0.344999998807907,0,1.49742555618286],[0.7548548579216,0.750970959663391,1.27162051200867],[1,0.800000011920929,1.1524817943573],[0.75,1,1.19315898418427],[0.5,0.699999988079071,1.15577101707458],[0.5625,1,1.36269962787628],[0.375,1,1.27854466438293],[0.5,0.200000002980232,1.17683053016663],[0.689999997615814,0,1.30872929096222],[0.735081970691681,0.245901644229889,1.43675863742828],[0.200000002980232,0.400000005960464,1.17793142795563],[0,0.25,1.00269055366516],[0.200000002980232,0.200000002980232,1.32381975650787],[0.5,0.400000005960464,1.0247049331665],[0.735081970691681,0.245901644229889,1.43675863742828],[0.800000011920929,0.600000023841858,1.00616466999054],[0.20833332836628,0.791666686534882,1.12436711788177],[0.375,1,1.27854466438293],[0.25,1,1.26430451869965],[0.20833332836628,0.791666686534882,1.12436711788177],[0.300000011920929,0.600000023841858,1.11477649211884],[0.5,0.699999988079071,1.15577101707458],[0.7548548579216,0.750970959663391,1.27162051200867],[0.5625,1,1.36269962787628],[0.5,0.699999988079071,1.15577101707458],[0.300000011920929,0.600000023841858,1.11477649211884],[0.20833332836628,0.791666686534882,1.12436711788177],[0,0.75,1.32122480869293],[0,1,1.13299262523651],[0.20833332836628,0.791666686534882,1.12436711788177],[0.25,1,1.26430451869965],[0.972580194473267,0.389198243618011,1.18086993694305],[0.735081970691681,0.245901644229889,1.43675863742828],[0.908539295196533,0.121410734951496,1.08429706096649],[0.735081970691681,0.245901644229889,1.43675863742828],[0.689999997615814,0,1.30872929096222],[0.908539295196533,0.121410734951496,1.08429706096649],[0.972580194473267,0.389198243618011,1.18086993694305],[1.10000002384186,0.629999995231628,1.10842943191528],[0.800000011920929,0.600000023841858,1.00616466999054],[0.735081970691681,0.245901644229889,1.43675863742828],[0.972580194473267,0.389198243618011,1.18086993694305],[0.800000011920929,0.600000023841858,1.00616466999054],[1.10000002384186,0.629999995231628,1.10842943191528],[0.972580194473267,0.389198243618011,1.18086993694305],[1.23000001907349,0.300000011920929,1.37730383872986],[0.908539295196533,0.121410734951496,1.08429706096649],[1.23000001907349,0.300000011920929,1.37730383872986],[0.972580194473267,0.389198243618011,1.18086993694305]],"normals":[[0.296192079782486,0.739478409290314,0.604517996311188],[0.296192079782486,0.739478409290314,0.604517996311188],[0.296192079782486,0.739478409290314,0.604517996311188],[0.333515405654907,0.718984305858612,0.609777867794037],[0.333515405654907,0.718984305858612,0.609777867794037],[0.333515405654907,0.718984305858612,0.609777867794037],[0.206842586398125,-0.847295939922333,0.489188760519028],[0.206842586398125,-0.847295939922333,0.489188760519028],[0.206842586398125,-0.847295939922333,0.489188760519028],[0.640418946743011,0.319754779338837,0.698298215866089],[0.640418946743011,0.319754779338837,0.698298215866089],[0.640418946743011,0.319754779338837,0.698298215866089],[-0.452794671058655,0.794004142284393,0.405628442764282],[-0.452794671058655,0.794004142284393,0.405628442764282],[-0.452794671058655,0.794004142284393,0.405628442764282],[-0.23427377641201,-0.450232326984406,0.861630201339722],[-0.23427377641201,-0.450232326984406,0.861630201339722],[-0.23427377641201,-0.450232326984406,0.861630201339722],[0.0123431999236345,-0.400316745042801,0.916293680667877],[0.0123431999236345,-0.400316745042801,0.916293680667877],[0.0123431999236345,-0.400316745042801,0.916293680667877],[-0.706488192081451,0.428456664085388,0.56329333782196],[-0.706488192081451,0.428456664085388,0.56329333782196],[-0.706488192081451,0.428456664085388,0.56329333782196],[0.651157021522522,0.239586800336838,0.720133781433105],[0.651157021522522,0.239586800336838,0.720133781433105],[0.651157021522522,0.239586800336838,0.720133781433105],[0.307821035385132,-0.380908131599426,0.871868789196014],[0.307821035385132,-0.380908131599426,0.871868789196014],[0.307821035385132,-0.380908131599426,0.871868789196014],[0.535798132419586,0.507871091365814,0.674527406692505],[0.535798132419586,0.507871091365814,0.674527406692505],[0.535798132419586,0.507871091365814,0.674527406692505],[0.745744705200195,-0.169408038258553,0.64433354139328],[0.745744705200195,-0.169408038258553,0.64433354139328],[0.745744705200195,-0.169408038258553,0.64433354139328],[-0.011815850622952,0.650572955608368,0.759351909160614],[-0.011815850622952,0.650572955608368,0.759351909160614],[-0.011815850622952,0.650572955608368,0.759351909160614],[0.372115850448608,0.285518169403076,0.883181214332581],[0.372115850448608,0.285518169403076,0.883181214332581],[0.372115850448608,0.285518169403076,0.883181214332581],[-0.359698593616486,-0.477851986885071,0.801420152187347],[-0.359698593616486,-0.477851986885071,0.801420152187347],[-0.359698593616486,-0.477851986885071,0.801420152187347],[-0.703159689903259,-0.222667098045349,0.675267338752747],[-0.703159689903259,-0.222667098045349,0.675267338752747],[-0.703159689903259,-0.222667098045349,0.675267338752747],[-0.754570126533508,0.386721342802048,0.53016072511673],[-0.754570126533508,0.386721342802048,0.53016072511673],[-0.754570126533508,0.386721342802048,0.53016072511673],[-0.448939830064774,0.722189903259277,0.526207983493805],[-0.448939830064774,0.722189903259277,0.526207983493805],[-0.448939830064774,0.722189903259277,0.526207983493805],[-0.0951304063200951,-0.541879832744598,0.835054755210876],[-0.0951304063200951,-0.541879832744598,0.835054755210876],[-0.0951304063200951,-0.541879832744598,0.835054755210876],[-0.142723634839058,-0.117435090243816,0.982771039009094],[-0.142723634839058,-0.117435090243816,0.982771039009094],[-0.142723634839058,-0.117435090243816,0.982771039009094],[-0.270234376192093,-0.507885217666626,0.81794011592865],[-0.270234376192093,-0.507885217666626,0.81794011592865],[-0.270234376192093,-0.507885217666626,0.81794011592865],[0.633270025253296,0.266510963439941,0.726595401763916],[0.633270025253296,0.266510963439941,0.726595401763916],[0.633270025253296,0.266510963439941,0.726595401763916],[-0.415637463331223,-0.44839996099472,0.791317224502563],[-0.415637463331223,-0.44839996099472,0.791317224502563],[-0.415637463331223,-0.44839996099472,0.791317224502563],[0.775086283683777,-0.370058536529541,0.512150287628174],[0.775086283683777,-0.370058536529541,0.512150287628174],[0.775086283683777,-0.370058536529541,0.512150287628174],[0.754693806171417,-0.40648689866066,0.514981210231781],[0.754693806171417,-0.40648689866066,0.514981210231781],[0.754693806171417,-0.40648689866066,0.514981210231781],[-0.329679191112518,0.427652150392532,0.841679990291595],[-0.329679191112518,0.427652150392532,0.841679990291595],[-0.329679191112518,0.427652150392532,0.841679990291595],[0.246373280882835,0.730018615722656,0.637474000453949],[0.246373280882835,0.730018615722656,0.637474000453949],[0.246373280882835,0.730018615722656,0.637474000453949],[-0.431542545557022,0.461521536111832,0.775092840194702],[-0.431542545557022,0.461521536111832,0.775092840194702],[-0.431542545557022,0.461521536111832,0.775092840194702],[-0.629053056240082,-0.126187011599541,0.767052233219147],[-0.629053056240082,-0.126187011599541,0.767052233219147],[-0.629053056240082,-0.126187011599541,0.767052233219147]],"colors":[[0,0,0,1]],"centers":[[0.348333358764648,0.133333340287209,1.33269202709198],[0.511666715145111,0.0666666701436043,1.3276618719101],[0.0666666701436043,0.383333325386047,1.20544111728668],[0.100000008940697,0.616666674613953,1.29056763648987],[0.0666666701436043,0.150000005960464,1.27285575866699],[0.361111134290695,0.830555617809296,1.18622767925262],[0.433333337306976,0.566666662693024,1.09841752052307],[0.578360676765442,0.281967222690582,1.21276473999023],[0.689118325710297,0.916990280151367,1.2758264541626],[0.600000023841858,0.566666662693024,1.0622136592865],[0.0694444477558136,0.84722226858139,1.19286155700684],[0.16666667163372,0.5,1.24280309677124],[0.181666672229767,0.0666666701436043,1.43776750564575],[0.834951639175415,0.850323677062988,1.20575380325317],[0.479166686534882,0.900000035762787,1.26567184925079],[0.641694009304047,0.148633882403374,1.30743956565857],[0.133333340287209,0.283333331346512,1.16814732551575],[0.678360641002655,0.415300577878952,1.15587604045868],[0.277777791023254,0.930555582046509,1.22240543365479],[0.336111128330231,0.697222232818604,1.13163828849792],[0.605785012245178,0.816990315914154,1.2633638381958],[0.169444441795349,0.713888883590698,1.18678951263428],[0.152777776122093,0.930555582046509,1.17388808727264],[0.872067153453827,0.252170205116272,1.23397529125214],[0.777873754501343,0.122437462210655,1.27659499645233],[0.957526803016663,0.539732754230499,1.09848809242249],[0.835887372493744,0.41169998049736,1.20793104171753],[1.10086011886597,0.439732730388641,1.2222011089325],[1.03703987598419,0.270202994346619,1.2141569852829]],"ignoreExtent":false,"flags":3},"5":{"id":5,"reuse":"rgl9961"},"4":{"id":4,"reuse":"rgl9961"},"6":{"id":6,"reuse":"rgl9961"},"1":{"id":1,"type":"subscene","par3d":{"antialias":1,"FOV":30,"ignoreExtent":false,"listeners":1,"mouseMode":{"left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,4.21266984939575],"modelMatrix":[[1,0,0,-0.615000009536743],[0,0.342020153999329,0.939692616462708,-0.874569952487946],[0,-0.939692616462708,0.342020153999329,-3.99889850616455],[0,0,0,1]],"projMatrix":[[3.73205065727234,0,0,0],[0,3.73205065727234,0,0],[0,0,-3.86370348930359,-15.1861867904663],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[0,1.23000001907349,0,1,0,1.49742555618286],"windowRect":[0,0,256,256],"family":"sans","font":1,"cex":1,"useFreeType":false,"fontname":"NULL","maxClipPlanes":2147483647,"glVersion":"NaN","activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[6,83,84,5],"subscenes":[],"flags":515},"91":{"id":91,"type":"linestrip","material":{"alpha":0.498039215803146,"lit":false,"depth_test":"always","isTransparent":true},"vertices":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"colors":[[0,0,0,0.498039215803146]],"centers":[[0,0,-0.999000012874603],[1,0,-0.999000012874603],[1,1,-0.999000012874603],[0,1,-0.999000012874603],[0,0,-0.999000012874603]],"ignoreExtent":false,"flags":32864}},"crosstalk":{"key":[null],"group":"","id":0,"options":[null]},"width":672,"height":480,"brushId":91,"sphereVerts":{"reuse":"rgl9961"},"context":{"shiny":false,"rmarkdown":"bookdown::gitbook"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="exercise-2" class="section level2">
+<h2><span class="header-section-number">4.5</span> Exercise 2</h2>
+<ol style="list-style-type: decimal">
+<li>Run this code</li>
+<li>Think about what is wrong with the scene.</li>
+<li>What can we do about the ugly plot?</li>
+</ol>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">qm1 &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(worldll, etopo))</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">qm1<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(etopo, <span class="kw">t</span>(qm1<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb45-6" data-line-number="6"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb45-7" data-line-number="7"><span class="kw">shade3d</span>(qm1, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a>
+<a class="sourceLine" id="cb45-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb45-9" data-line-number="9"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb45-10" data-line-number="10"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div id="ex-2-answer" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> EX 2 ANSWER</h3>
+<details>
+<summary>EX2 SOLUTION</summary>
+<p>
+<p>We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There’s no one right answer, getting a sensible aspect ratio will depend on the data in the scene.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+</p>
+</details>
+</div>
+</div>
+<div id="exercise-3" class="section level2">
+<h2><span class="header-section-number">4.6</span> Exercise 3</h2>
+<ol start="4" style="list-style-type: decimal">
+<li>Run this code</li>
+<li>Can you explain why we multiply the Etopo2 terrain elevation by 20?</li>
+<li>What are alternatives we could use?</li>
+</ol>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1">qm2 &lt;-<span class="st"> </span>qm1</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3">qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
+<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="kw">rgl.clear</span>()</a>
+<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="kw">shade3d</span>(qm2, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">specular =</span> <span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb47-8" data-line-number="8"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<p>The primary means to create this format from a raster is for 3D plotting, but because we have access to the coordinate directly it provides other uses. We can transform the coordinates (i.e. a map projection) or manipulate them and augment the Z value (for example) in flexible ways.</p>
+<p>(The usual way of driving rgl grid surfaces is <code>rgl.surface</code> but this is limited to the centre-point interpretation only - more than the x, y, z list interface as image() is, i.e. it can take an individual x,y pair for every cell, but it cannot properly represent the cell-as-area as image can. For this we need to use <code>shade3d</code>, and actual <code>meshd3d</code> types in <code>rgl</code>).</p>
+</div>
+<div id="rgl-miscellanea" class="section level2">
+<h2><span class="header-section-number">4.7</span> rgl miscellanea</h2>
+<p>Most examples around use <code>rgl.surface</code>, but I am less familiar with that. The <code>thing3d()</code> are the higher-level functions in rgl, and the <code>rgl.thing()</code> functions are lower-level (recommended not to mix them in usage).</p>
+<p><strong>rayshader</strong> in particular, has extremely compelling outputs, but it uses the lower level <code>rgl.surface</code> and doesn’t maintain the geographic coordinates, so I see it mostly as a texture-generator (but watch its development!).</p>
+<p><strong>rgl.surface</strong> can take X and Y <em>matrices</em>, so you can trivially reproject these data
+and wrap them around a sphere - I only learnt this recently.</p>
+<p><strong>WATCH OUT</strong></p>
+<p>The single most confusing thing I found with <code>mesh3d</code> was <em>homogeneous coordinates</em>. This is a fourth value on each vertex, making it <code>X, Y, Z, H</code> and because it’s stored transpose, the <code>ib</code> and the <code>vb</code> matrices have the same number of rows (4). The <code>H</code> loosely corresponds to “zoom”, for our purposes set <code>H = 1</code>. (If set to 0 no data will be visible, and a package of mine had this bug until last week.)</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="d-and-mesh-forms-of-spatial-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="transforming-spatial-data-to-3d-forms.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/mdsumner/geo-comp-graphics-oghub/edit/master/03_rgl_package.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

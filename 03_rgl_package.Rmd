@@ -1,6 +1,15 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 
 
-# the rgl mesh3d format
+# The mesh3d format
+
+
+
+
 
 Rgl is the OpenGL package in R. 
 
@@ -62,6 +71,7 @@ It works directly with rgl function, and can be used in more raw form.
 
 ```{r various-quad-aes}
 library(rgl)
+clear3d()
 shade3d(qm, col = "firebrick")
 rglwidget()
 ```
@@ -141,6 +151,39 @@ plot(two_polys, reset = FALSE)
 polygon(t(delaunay_polys$vb[, rbind(delaunay_polys$it, NA)]))
 ```
 
+
+## 3D polygons
+
+If we don't have triangles (or quads), we can't plot surfaces or polygons in 3D at all. 
+
+```{r plot-poly3d}
+clear3d()
+shade3d(mesh_polys)
+rglwidget()
+```
+
+But, unless we modify the material properties of the surface, or update the geometry in the 3rd dimension we cannot tell the difference between these different mesh polygons. 
+
+```{r plot-del3d}
+clear3d()
+shade3d(delaunay_polys)
+rglwidget()
+```
+
+
+Let's push the Delaunay version up in Z and add some noise. 
+
+```{r delaunay-noise}
+clear3d()
+delaunay_polys$vb[3,] <- 0
+delaunay_polys$vb[3,] <- delaunay_polys$vb[3,] + 
+    runif(ncol(delaunay_polys$vb), 1, 1.5)
+shade3d(mesh_polys)
+shade3d(delaunay_polys)
+rglwidget()
+
+```
+
 ## Exercise 2
 
 1. Run this code 
@@ -168,7 +211,7 @@ rglwidget()
 
 We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There's no one right answer, getting a sensible aspect ratio will depend on the data in the scene. 
 
-```{r ex2-solution-03,eval=FALSE}
+```{r ex2-solution-03, eval=FALSE}
 aspect3d(1, 1, 0.05)
 ## run this only if you are in a web rstudio
 rglwidget()
@@ -177,6 +220,9 @@ rglwidget()
 </p>
 </details>
 
+
+
+## Exercise 3
 
 4. Run this code 
 5. Can you explain why we multiply the Etopo2 terrain elevation by 20? 

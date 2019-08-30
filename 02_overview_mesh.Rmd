@@ -1,7 +1,7 @@
 ---
 output: html_document
 editor_options: 
-  chunk_output_type: inline
+  chunk_output_type: console
 ---
 
 # 3D and mesh forms of spatial data
@@ -50,7 +50,7 @@ Topology vs. geometry
 This line has **1-dimensional topology** depicted in **3-dimensional geometry** and the triangle has **2-dimensional topology** depicted in **3-dimensional geometry**. 
 
 
-```{r rgl-line, echo=TRUE}
+```{r rgl-line, echo=TRUE, eval=TRUE}
 library(rgl)
 clear3d()
 #p3 <- mfrow3d(1, 2, sharedMouse = TRUE)
@@ -76,11 +76,11 @@ title3d(xlab = "x", ylab = "y", zlab = "z")
 quads3d(cbind(c(0, 1, 1, 0), c(0, 0, 1, 1), c(0, 0, 0, 0)), col="gray")
 
 rglwidget()
-clear3d()
 ```
 
-
-
+```{r clear}
+clear3d()
+```
 ## Geospatial data
 
 * raster
@@ -136,7 +136,7 @@ What is a polygon?
 
 A series of grouped *paths*?
 
-```{r, echo=FALSE}
+```{r what-polygon, echo=FALSE}
 
 library(silicate)
 mmcol <- viridis::viridis(2)
@@ -155,7 +155,7 @@ for (i in seq_len(nrow(x0))) {  ## sigh
 
 What's in the middle? 
 
-```{r, echo=FALSE}
+```{r what-middle, echo=FALSE}
 w <- options(warn =-1)
 junk <- capture.output( tri <- sf::st_cast(sfdct::ct_triangulate(minimal_mesh, a = 0.01, D = TRUE)))
 options(w)
@@ -270,7 +270,7 @@ And lines are
 
 The simplest kind of mesh is a basic raster. Consider the matrix the matrix (used above).  
 
-```{r}
+```{r raster-is-mesh}
 m <- matrix(c(seq(0, 0.5, length = 5), 
             seq(0.375, 0, length = 4)), 3)
 
@@ -282,7 +282,7 @@ R provides either interpretation (to simplify this story we nominate locations f
 
 When considered as an image, each matrix element occupies a certain space in width and height,  but when considered as a point set the numbers simply float at the given locations. Which is correct? (Spoiler: Both are correct, it simply depends what we are doing.) 
 
-```{r}
+```{r raw-base-image}
 x <- seq(1, nrow(m)) - 0.5
 y <- seq(1, ncol(m)) - 0.5
 image(x, y, m, col = colpal())
@@ -291,7 +291,7 @@ text(expand.grid(x, y), lab = m[])
 
 The raster package defaults to the image interpretation and helpfully assumes the values are nominally at the centre points as shown above. We have to nominate the extent or we end up in 0,1 range, we also have to invert the order of the values because raster counts from the top of the page and R's matrix uses [column-major order](https://CRAN.R-project.org/package=reticulate/vignettes/arrays.html).
 
-```{r}
+```{r r-raster}
 library(raster)
 (r <- raster(t(m[, ncol(m):1]), xmn = 0, xmx =ncol(m), ymn = 0, ymx = nrow(m)))
 ```
@@ -300,7 +300,7 @@ library(raster)
 R's image and rasters in general are so efficient because they only store this minimal amount of information: the actual data values, and the extent and dimensions of the space they occur in. If we had to store the centre coordinate of every cell, or worse the corner coordinates then the data storage goes up dramatically. Every software that deals well with these kinds of data has to treat these coordinates as implicit.  We can easily expand the centre coordinates. 
 
 
-```{r}
+```{r xyz-raster}
 xyz <- as.data.frame(r, xy = TRUE)
 head(xyz)
 tail(xyz)
@@ -308,7 +308,7 @@ tail(xyz)
 
 but to expand the corners we have to jump through some hoops and even then we get *every instance* of the corners, not only for each cell but to explicitly close the cell as a polygon. 
 
-```{r}
+```{r raster-corners}
 as(as(raster::rasterToPolygons(r), "SpatialLinesDataFrame"), 
    "SpatialPointsDataFrame")
 ```
@@ -323,4 +323,5 @@ There are only 20 unique coordinates at the corners, which is where `mesh3d` com
 * Topology and geometry are independently *dimensional*
 * Meshes include a matrix of vertices and a matrix of indices
 * In mesh-terms rasters and polygons aren't so different
+
 
