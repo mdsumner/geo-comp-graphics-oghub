@@ -64,6 +64,9 @@ axis3d("z")
 title3d(xlab = "x", ylab = "y", zlab = "z")
 quads3d(cbind(c(0, 1, 1, 0), c(0, 0, 1, 1), c(0, 0, 0, 0) - 0.01), col="gray")
 rglwidget()
+```
+
+```{r rgl-tri}
 #next3d()
 clear3d()
 (topology2 <- rbind(.v0 = c(1, 2, 1), .v1 = c(2, 3, 1)))

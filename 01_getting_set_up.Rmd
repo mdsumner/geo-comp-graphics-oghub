@@ -7,6 +7,8 @@ editor_options:
 
 # Getting Set Up
 
+NOTE: throughout these pages are calls to the `rglwidget()` function, which is necessary for putting these 3D plots into view for this document and when using RStudio Server. For normal installations of R you can avoid running this function. 
+
 We suggest use of the package **remotes** which will avoid re-installing a package if the latest version is already installed. 
 
 ```{r install, eval=FALSE}

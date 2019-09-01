@@ -13,6 +13,7 @@ The key package is rgl, the OpenGL package for R. This tends to be very low leve
 
 For polygons we first need to create triangles, and then use `triangle3d()`. For rasters we can create triangles or quads, and use `quads3d()`. There is also a mesh type object, `mesh3d` to store data with material properties. To plot `mesh3d` we use the `shade3d()` function. 
 
+
 ## Tools
 
 Converting points to 3D is really trivial, we only need the X-Y-Z coordinates, and we can set properties directly on them. 

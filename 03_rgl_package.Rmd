@@ -70,10 +70,14 @@ It works directly with rgl function, and can be used in more raw form.
 
 
 ```{r various-quad-aes}
+
 library(rgl)
-clear3d()
+
+#clear3d()
 shade3d(qm, col = "firebrick")
-rglwidget()
+rglwidget(reuse = FALSE)
+
+
 ```
 
 ```{r various-quad-aes2}
