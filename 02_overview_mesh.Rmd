@@ -251,14 +251,14 @@ In in computer graphics we store
 
 * the corner coordinates ((ncols + 1) * (nrows + 1) of them)
 * an index, 4 indices for every quad specify the coordinates
-* groupings, what quads belong to which objects 
+* groupings (or at least *material-properties*), what quads belong to which objects 
 * the coordinate system (hopefully)
 
 It's the same for a triangular mesh. 
 
 * the corner coordinates 
 * an index, 3 indices for every triangle
-* groupings, what triangles belong to which objects (features)
+* groupings, what triangles belong to which objects
 * the coordinate system (hopefully)
 
 
@@ -271,7 +271,7 @@ And lines are
 
 ## A raster is a mesh (implicitly)
 
-The simplest kind of mesh is a basic raster. Consider the matrix the matrix (used above).  
+The simplest kind of mesh is a basic raster. Consider the  matrix from above.  
 
 ```{r raster-is-mesh}
 m <- matrix(c(seq(0, 0.5, length = 5), 

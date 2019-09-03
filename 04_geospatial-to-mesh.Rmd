@@ -103,17 +103,18 @@ text(16, 6, "1", pos = 1)
 text(17, 13, "1", pos = 4)
 text(17, 7, "0", pos = 4)
 
+```
 
+The 2D plot above can be emulated in 3D with *quad textures*, the resolution of the image and the surface can be completely different. 
+
+```{r coarse-dem}
 vtexture <- quadmesh::quadmesh(vraster, texture = logo)
-rgl::clear3d(); rgl::shade3d(vtexture, specular = "black"); rgl::aspect3d(1, 1, .2);  rgl::rglwidget()
+rgl::clear3d(); rgl::shade3d(vtexture, specular = "black"); rgl::aspect3d(1, 1, .2);  rgl::rglwidget(reuse = FALSE)
 
 ```
 
 
 This section requires a Mapbox API key to run from scratch - and can't be shared, so it will simply be illustrated. 
-
-
-Munster is here. 
 
 
 ```{r ceramic, eval=FALSE, echo=FALSE}
@@ -138,7 +139,28 @@ merc <- sf::sf_project(cbind(7.59551, 51.96922), from = "+init=epsg:4326", to = 
 rgl::lines3d(cbind(merc[c(1, 1), ], matrix(c(0, 1000))))
 ```
 
-## Various tools
+
+
+
+## Triangles or quads from geospatial
+
+This is my work-in-progress approach to meshing any polygon data structure with raster elevation. 
+
+This is pseudo code but a real example is used with the North Carolina counties data set in the examples. 
+
+```{r copy-down, eval=FALSE}
+## devtools::install_github("hypertidy/anglr")
+## devtools::install_github("hypertidy/silicate")
+library(anglr)  
+triangles <- copy_down(TRI(anySFpolygon), anyRasterDEM)
+
+mesh <- plot3d(triangles)
+
+```
+
+
+
+## Various other 3D tools in R
 
 * `rgl::triangulate` and `decido::earcut` will triangulate polygons with holes but only suitable for plane-filling, because ugly triangles, no control over size and shape. 
 
@@ -165,31 +187,6 @@ rgl::lines3d(cbind(merc[c(1, 1), ], matrix(c(0, 1000))))
 * short workshop on using A-Frame Virtual Reality with geospatial data: https://github.com/MilesMcBain/gis_vs_web3D 
 
 * `coolbutuseless/threed` - transformations on 3D objects
-
-
-
-
-There are a few example data packages:
-
-.obj format: https://github.com/odedstein/meshes/tree/master/objects/koala
-
-
-
-## Triangles or quads from geospatial
-
-This is my work-in-progress approach to meshing any data structure. 
-
-
-```{r copy-down, eval=FALSE}
-## devtools::install_github("hypertidy/anglr")
-## devtools::install_github("hypertidy/silicate")
-library(anglr)  
-triangles <- copy_down(TRI(anySFpolygon), anyRasterDEM)
-
-mesh <- plot3d(triangles)
-
-```
-
 
 
 
