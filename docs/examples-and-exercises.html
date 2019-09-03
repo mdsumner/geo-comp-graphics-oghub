@@ -198,29 +198,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="examples-and-exercises" class="section level1">
 <h1><span class="header-section-number">Chapter 6</span> Examples and exercises</h1>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">library</span>(rgl)</a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="kw">library</span>(anglr)</a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="kw">library</span>(silicate)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb52-3" data-line-number="3"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4"><span class="kw">library</span>(anglr)</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="kw">library</span>(silicate)</a></code></pre></div>
 <p>In each chunk below consider each 3D scene as being a “fresh start”. Use <code>rgl::clear3d()</code> to ensure there is no existing data in a scene.</p>
 <p>If using RStudio Server (rstudio.cloud, binder, etc.) then calling <code>rglwidget()</code> is
 required to capture the 3D plot (or changes to it) and refresh the htmlwidget viewer.</p>
 <div id="exercise-1" class="section level2">
 <h2><span class="header-section-number">6.1</span> Exercise 1</h2>
 <p>Why are the vertex and index matrices stored in <em>transpose</em> form?</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="co">## create a very simple raster</span></a>
-<a class="sourceLine" id="cb52-2" data-line-number="2">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dt">length =</span> <span class="dv">5</span>), </a>
-<a class="sourceLine" id="cb52-3" data-line-number="3">            <span class="kw">seq</span>(<span class="fl">0.375</span>, <span class="dv">0</span>, <span class="dt">length =</span> <span class="dv">4</span>)), <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb52-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb52-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb52-6" data-line-number="6">y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">ncol</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb52-7" data-line-number="7">rast &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">raster</span>(<span class="kw">list</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> m))</a>
-<a class="sourceLine" id="cb52-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb52-9" data-line-number="9">qm &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(rast)</a>
-<a class="sourceLine" id="cb52-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb52-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb52-12" data-line-number="12"><span class="kw">str</span>(qm)</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co">## create a very simple raster</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dt">length =</span> <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">            <span class="kw">seq</span>(<span class="fl">0.375</span>, <span class="dv">0</span>, <span class="dt">length =</span> <span class="dv">4</span>)), <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb53-6" data-line-number="6">y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">ncol</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7">rast &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">raster</span>(<span class="kw">list</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> m))</a>
+<a class="sourceLine" id="cb53-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb53-9" data-line-number="9">qm &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(rast)</a>
+<a class="sourceLine" id="cb53-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb53-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb53-12" data-line-number="12"><span class="kw">str</span>(qm)</a></code></pre></div>
 <pre><code>## List of 8
 ##  $ vb             : num [1:4, 1:16] 0 3 0.312 1 1 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
@@ -248,11 +248,11 @@ required to capture the 3D plot (or changes to it) and refresh the htmlwidget vi
 <p>
 <p>So that sets of coordinates and primitive-indexes are stored contiguously in memory. I think this matches more native implementations in other languages.</p>
 <p>Code to plot quads directly in rgl looks like this:</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[, qm<span class="op">$</span>ib]))</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[, qm<span class="op">$</span>ib]))</a></code></pre></div>
 <p>We can use to to advantage in 2D, for a quick check of our intepretation.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
-<a class="sourceLine" id="cb55-2" data-line-number="2">pp &lt;-<span class="st">  </span>qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">rbind</span>(qm<span class="op">$</span>ib, <span class="ot">NA</span>)]  <span class="co">## put an NA after every set of 4 coordinates</span></a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="kw">polygon</span>(<span class="kw">t</span>(pp))</a></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">pp &lt;-<span class="st">  </span>qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">rbind</span>(qm<span class="op">$</span>ib, <span class="ot">NA</span>)]  <span class="co">## put an NA after every set of 4 coordinates</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="kw">polygon</span>(<span class="kw">t</span>(pp))</a></code></pre></div>
 </p>
 </details>
 </div>
@@ -264,22 +264,22 @@ required to capture the 3D plot (or changes to it) and refresh the htmlwidget vi
 <li>Think about what is wrong with the scene.</li>
 <li>What can we do about the ugly plot?</li>
 </ol>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb56-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb56-3" data-line-number="3">qm1 &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(worldll, etopo))</a>
-<a class="sourceLine" id="cb56-4" data-line-number="4">qm1<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(etopo, <span class="kw">t</span>(qm1<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
-<a class="sourceLine" id="cb56-5" data-line-number="5"><span class="kw">library</span>(rgl)</a>
-<a class="sourceLine" id="cb56-6" data-line-number="6"><span class="kw">clear3d</span>()</a>
-<a class="sourceLine" id="cb56-7" data-line-number="7"><span class="kw">shade3d</span>(qm1, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">qm1 &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(worldll, etopo))</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">qm1<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(etopo, <span class="kw">t</span>(qm1<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb57-7" data-line-number="7"><span class="kw">shade3d</span>(qm1, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div id="ex-2-answer" class="section level3">
 <h3><span class="header-section-number">6.2.1</span> EX 2 ANSWER</h3>
 <details>
 <summary>EX2 SOLUTION</summary>
 <p>
 <p>We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There’s no one right answer, getting a sensible aspect ratio will depend on the data in the scene.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="co">## run this only if you are in a web rstudio</span></a>
-<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
 </p>
 </details>
 </div>
@@ -291,16 +291,16 @@ required to capture the 3D plot (or changes to it) and refresh the htmlwidget vi
 <li>Can you explain why we multiply the Etopo2 terrain elevation by 20?</li>
 <li>What are alternatives we could use?</li>
 </ol>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1">qm2 &lt;-<span class="st"> </span>qm1</a>
-<a class="sourceLine" id="cb58-2" data-line-number="2">qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="co">## the llh2xyz() function converts lon-lat-height to </span></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="co">## spherical geocentric XYZ coordinates</span></a>
-<a class="sourceLine" id="cb58-5" data-line-number="5">qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
-<a class="sourceLine" id="cb58-6" data-line-number="6"><span class="kw">rgl.clear</span>()</a>
-<a class="sourceLine" id="cb58-7" data-line-number="7"><span class="kw">shade3d</span>(qm2, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">specular =</span> <span class="st">&quot;black&quot;</span>)</a>
-<a class="sourceLine" id="cb58-8" data-line-number="8"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb58-9" data-line-number="9"><span class="co">## run this only if you are in a web rstudio</span></a>
-<a class="sourceLine" id="cb58-10" data-line-number="10"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">qm2 &lt;-<span class="st"> </span>qm1</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="co">## the llh2xyz() function converts lon-lat-height to </span></a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="co">## spherical geocentric XYZ coordinates</span></a>
+<a class="sourceLine" id="cb59-5" data-line-number="5">qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
+<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="kw">rgl.clear</span>()</a>
+<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="kw">shade3d</span>(qm2, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">specular =</span> <span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb59-8" data-line-number="8"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb59-9" data-line-number="9"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb59-10" data-line-number="10"><span class="kw">rglwidget</span>()</a></code></pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2><span class="header-section-number">6.4</span> Examples</h2>
@@ -308,74 +308,74 @@ required to capture the 3D plot (or changes to it) and refresh the htmlwidget vi
 <h3><span class="header-section-number">6.4.1</span> Quadmesh</h3>
 <p>NOTE: The <code>quadmesh::quadmesh()</code> function converts a raster object directly to <code>rgl mesh3d</code> object.</p>
 <p>Set up, see <a href="https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html" class="uri">https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html</a></p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="kw">library</span>(anglr)</a>
-<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="kw">library</span>(silicate)</a></code></pre></div>
-<p>The <code>volcano</code> is a built-in matrix height-map.</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1">rvolcano &lt;-<span class="st"> </span><span class="kw">raster</span>(volcano)</a>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="kw">library</span>(raster)</a>
 <a class="sourceLine" id="cb60-2" data-line-number="2"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb60-3" data-line-number="3">qm_volcano &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(rvolcano)</a>
-<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="kw">library</span>(rgl)</a>
-<a class="sourceLine" id="cb60-5" data-line-number="5"><span class="kw">clear3d</span>()</a>
-<a class="sourceLine" id="cb60-6" data-line-number="6"><span class="kw">shade3d</span>(qm_volcano, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.25</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb60-3" data-line-number="3"><span class="kw">library</span>(anglr)</a>
+<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="kw">library</span>(silicate)</a></code></pre></div>
+<p>The <code>volcano</code> is a built-in matrix height-map.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">rvolcano &lt;-<span class="st"> </span><span class="kw">raster</span>(volcano)</a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb61-3" data-line-number="3">qm_volcano &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(rvolcano)</a>
+<a class="sourceLine" id="cb61-4" data-line-number="4"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb61-5" data-line-number="5"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb61-6" data-line-number="6"><span class="kw">shade3d</span>(qm_volcano, <span class="dt">col =</span> <span class="st">&quot;grey&quot;</span>); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.25</span>)</a></code></pre></div>
 <p>The <code>etopo</code> data set is a partial world topography (Etopo2).</p>
 <p>We only need to convert it to quadmesh.</p>
-<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;etopo&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;quadmesh&quot;</span>)</a>
-<a class="sourceLine" id="cb61-2" data-line-number="2">qm_etopo &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(etopo, <span class="kw">extent</span>(<span class="dv">80</span>, <span class="dv">160</span>, <span class="dv">-50</span>, <span class="dv">10</span>)))</a>
-<a class="sourceLine" id="cb61-3" data-line-number="3">qm_etopo<span class="op">$</span>material<span class="op">$</span>col &lt;-<span class="st"> </span>colourvalues<span class="op">::</span><span class="kw">colour_values</span>(qm_etopo<span class="op">$</span>vb[<span class="dv">3</span>, qm_etopo<span class="op">$</span>ib])</a>
-<a class="sourceLine" id="cb61-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb61-5" data-line-number="5"><span class="kw">shade3d</span>(qm_etopo); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">data</span>(<span class="st">&quot;etopo&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;quadmesh&quot;</span>)</a>
+<a class="sourceLine" id="cb62-2" data-line-number="2">qm_etopo &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(etopo, <span class="kw">extent</span>(<span class="dv">80</span>, <span class="dv">160</span>, <span class="dv">-50</span>, <span class="dv">10</span>)))</a>
+<a class="sourceLine" id="cb62-3" data-line-number="3">qm_etopo<span class="op">$</span>material<span class="op">$</span>col &lt;-<span class="st"> </span>colourvalues<span class="op">::</span><span class="kw">colour_values</span>(qm_etopo<span class="op">$</span>vb[<span class="dv">3</span>, qm_etopo<span class="op">$</span>ib])</a>
+<a class="sourceLine" id="cb62-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb62-5" data-line-number="5"><span class="kw">shade3d</span>(qm_etopo); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
 </div>
 <div id="polygon-triangulation" class="section level3">
 <h3><span class="header-section-number">6.4.2</span> Polygon triangulation</h3>
 <p><code>NOTE:</code> the functions <code>DEL()</code> and <code>TRI()</code> will triangulate polygon layers into an currently-experimental form, using the development packages <code>anglr</code> and <code>silicate</code>. The <code>plot3d()</code> function converts these</p>
 <p>Polygon-triangulation vesion of the North Carolina data set - we add Z values (<code>copy_down()</code>) to the triangles from an elevation topography raster.</p>
 <p>Copy-down for a raster value considers Z a continuous measure, so each feature is connected by shared vertices to neighbours.</p>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb62-2" data-line-number="2">north_carolina &lt;-<span class="st"> </span><span class="kw">read_sf</span>(<span class="kw">system.file</span>(<span class="st">&quot;gpkg/nc.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;sf&quot;</span>))</a>
-<a class="sourceLine" id="cb62-3" data-line-number="3">north_carolina &lt;-<span class="st"> </span><span class="kw">st_transform</span>(north_carolina, </a>
-<a class="sourceLine" id="cb62-4" data-line-number="4">                               <span class="st">&quot;+proj=laea +lon_0=-80 +lat_0=35 +datum=WGS84&quot;</span>)</a>
-<a class="sourceLine" id="cb62-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb62-6" data-line-number="6"><span class="kw">library</span>(silicate)</a>
-<a class="sourceLine" id="cb62-7" data-line-number="7"><span class="kw">library</span>(anglr)</a>
-<a class="sourceLine" id="cb62-8" data-line-number="8"><span class="kw">data</span>(<span class="st">&quot;gebco1&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;anglr&quot;</span>)</a>
-<a class="sourceLine" id="cb62-9" data-line-number="9">mesh_nc &lt;-<span class="st"> </span><span class="kw">DEL</span>(north_carolina, <span class="dt">max_area =</span> <span class="fl">1e9</span>)</a>
-<a class="sourceLine" id="cb62-10" data-line-number="10"><span class="co">## copy down values from a raster (continuous measure)</span></a>
-<a class="sourceLine" id="cb62-11" data-line-number="11">mesh_nc &lt;-<span class="st"> </span><span class="kw">copy_down</span>(mesh_nc, gebco1)</a>
-<a class="sourceLine" id="cb62-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb62-13" data-line-number="13"><span class="co">## plot it</span></a>
-<a class="sourceLine" id="cb62-14" data-line-number="14">anglr<span class="op">:::</span><span class="kw">plot3d.TRI</span>(mesh_nc); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb63-2" data-line-number="2">north_carolina &lt;-<span class="st"> </span><span class="kw">read_sf</span>(<span class="kw">system.file</span>(<span class="st">&quot;gpkg/nc.gpkg&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;sf&quot;</span>))</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3">north_carolina &lt;-<span class="st"> </span><span class="kw">st_transform</span>(north_carolina, </a>
+<a class="sourceLine" id="cb63-4" data-line-number="4">                               <span class="st">&quot;+proj=laea +lon_0=-80 +lat_0=35 +datum=WGS84&quot;</span>)</a>
+<a class="sourceLine" id="cb63-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb63-6" data-line-number="6"><span class="kw">library</span>(silicate)</a>
+<a class="sourceLine" id="cb63-7" data-line-number="7"><span class="kw">library</span>(anglr)</a>
+<a class="sourceLine" id="cb63-8" data-line-number="8"><span class="kw">data</span>(<span class="st">&quot;gebco1&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;anglr&quot;</span>)</a>
+<a class="sourceLine" id="cb63-9" data-line-number="9">mesh_nc &lt;-<span class="st"> </span><span class="kw">DEL</span>(north_carolina, <span class="dt">max_area =</span> <span class="fl">1e9</span>)</a>
+<a class="sourceLine" id="cb63-10" data-line-number="10"><span class="co">## copy down values from a raster (continuous measure)</span></a>
+<a class="sourceLine" id="cb63-11" data-line-number="11">mesh_nc &lt;-<span class="st"> </span><span class="kw">copy_down</span>(mesh_nc, gebco1)</a>
+<a class="sourceLine" id="cb63-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb63-13" data-line-number="13"><span class="co">## plot it</span></a>
+<a class="sourceLine" id="cb63-14" data-line-number="14">anglr<span class="op">:::</span><span class="kw">plot3d.TRI</span>(mesh_nc); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
 <p>Copy-down for a polygon value considers Z a <em>discrete</em> measure, so each feature is separated.</p>
-<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co">## another example, copy feature attributes (discrete measure)</span></a>
-<a class="sourceLine" id="cb63-2" data-line-number="2">mesh_bir &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(north_carolina, <span class="dt">max_area =</span> <span class="fl">1e9</span>), <span class="st">&quot;BIR79&quot;</span>)</a>
-<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="kw">plot3d</span>(mesh_bir); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co">## another example, copy feature attributes (discrete measure)</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2">mesh_bir &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(north_carolina, <span class="dt">max_area =</span> <span class="fl">1e9</span>), <span class="st">&quot;BIR79&quot;</span>)</a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="kw">plot3d</span>(mesh_bir); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
 </div>
 <div id="coordinate-systems-and-textures" class="section level3">
 <h3><span class="header-section-number">6.4.3</span> Coordinate systems and textures</h3>
 <p>Copy an RBG image onto 3D terrain, the resolution and projection of the terrain raster and the image raster can be different, also we can change the coordinate system of the terrain itself - the texture coordinates are an independent mapping for the RGB image and still work.</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># Create and texture a 3D mesh in R from a variety of spatial data sources (e.g.</span></a>
-<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="co"># Shapefile + digital elevation model + satellite raster).</span></a>
-<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb64-5" data-line-number="5">bm_url &lt;-<span class="st"> &quot;https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg&quot;</span></a>
-<a class="sourceLine" id="cb64-6" data-line-number="6">bm_file &lt;-<span class="st"> </span><span class="kw">basename</span>(bm_url)</a>
-<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(bm_file)) <span class="kw">download.file</span>(bm_url, bm_file)</a>
-<a class="sourceLine" id="cb64-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb64-9" data-line-number="9"><span class="co">## read in RGB image and set geographical extent and projection</span></a>
-<a class="sourceLine" id="cb64-10" data-line-number="10">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">setExtent</span>(raster<span class="op">::</span><span class="kw">brick</span>(bm_file), </a>
-<a class="sourceLine" id="cb64-11" data-line-number="11">                            raster<span class="op">::</span><span class="kw">extent</span>(<span class="op">-</span><span class="dv">180</span>, <span class="dv">180</span>, <span class="dv">-90</span>, <span class="dv">90</span>))</a>
-<a class="sourceLine" id="cb64-12" data-line-number="12"><span class="kw">projection</span>(bm_rgb) &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84&quot;</span></a>
-<a class="sourceLine" id="cb64-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb64-14" data-line-number="14"><span class="co">## consider reducing resolution of the image - it can be a good idea to </span></a>
-<a class="sourceLine" id="cb64-15" data-line-number="15"><span class="co">## reduce heavily, check it works, then try with higher resolution (smaller `fact`)</span></a>
-<a class="sourceLine" id="cb64-16" data-line-number="16"><span class="co">## or avoid the aggregate step altogether</span></a>
-<a class="sourceLine" id="cb64-17" data-line-number="17">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">aggregate</span>(bm_rgb, <span class="dt">fact =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb64-18" data-line-number="18">south &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(etopo, <span class="dt">texture =</span> bm_rgb)</a>
-<a class="sourceLine" id="cb64-19" data-line-number="19">south<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>south<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb64-20" data-line-number="20">south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
-<a class="sourceLine" id="cb64-21" data-line-number="21"><span class="kw">shade3d</span>(south)</a>
-<a class="sourceLine" id="cb64-22" data-line-number="22"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="co"># Create and texture a 3D mesh in R from a variety of spatial data sources (e.g.</span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="co"># Shapefile + digital elevation model + satellite raster).</span></a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb65-4" data-line-number="4"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb65-5" data-line-number="5">bm_url &lt;-<span class="st"> &quot;https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg&quot;</span></a>
+<a class="sourceLine" id="cb65-6" data-line-number="6">bm_file &lt;-<span class="st"> </span><span class="kw">basename</span>(bm_url)</a>
+<a class="sourceLine" id="cb65-7" data-line-number="7"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(bm_file)) <span class="kw">download.file</span>(bm_url, bm_file)</a>
+<a class="sourceLine" id="cb65-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb65-9" data-line-number="9"><span class="co">## read in RGB image and set geographical extent and projection</span></a>
+<a class="sourceLine" id="cb65-10" data-line-number="10">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">setExtent</span>(raster<span class="op">::</span><span class="kw">brick</span>(bm_file), </a>
+<a class="sourceLine" id="cb65-11" data-line-number="11">                            raster<span class="op">::</span><span class="kw">extent</span>(<span class="op">-</span><span class="dv">180</span>, <span class="dv">180</span>, <span class="dv">-90</span>, <span class="dv">90</span>))</a>
+<a class="sourceLine" id="cb65-12" data-line-number="12"><span class="kw">projection</span>(bm_rgb) &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84&quot;</span></a>
+<a class="sourceLine" id="cb65-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb65-14" data-line-number="14"><span class="co">## consider reducing resolution of the image - it can be a good idea to </span></a>
+<a class="sourceLine" id="cb65-15" data-line-number="15"><span class="co">## reduce heavily, check it works, then try with higher resolution (smaller `fact`)</span></a>
+<a class="sourceLine" id="cb65-16" data-line-number="16"><span class="co">## or avoid the aggregate step altogether</span></a>
+<a class="sourceLine" id="cb65-17" data-line-number="17">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">aggregate</span>(bm_rgb, <span class="dt">fact =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb65-18" data-line-number="18">south &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(etopo, <span class="dt">texture =</span> bm_rgb)</a>
+<a class="sourceLine" id="cb65-19" data-line-number="19">south<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>south<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb65-20" data-line-number="20">south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
+<a class="sourceLine" id="cb65-21" data-line-number="21"><span class="kw">shade3d</span>(south)</a>
+<a class="sourceLine" id="cb65-22" data-line-number="22"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a></code></pre></div>
 </div>
 </div>
 <div id="try-with-own-data" class="section level2">

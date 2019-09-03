@@ -36,7 +36,7 @@ Key ideas!
 *Traditional spatial data tends to confuse topology and geometry.*  
 
 
-These are motiving problems behind my interest in these ideas. 
+These concepts motivate my interest in these ideas. 
 
 * Lossless reprojection
 * Topology fixes

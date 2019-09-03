@@ -117,16 +117,13 @@ rgl::clear3d(); rgl::shade3d(vtexture, specular = "black"); rgl::aspect3d(1, 1, 
 This section requires a Mapbox API key to run from scratch - and can't be shared directly, so it will simply be illustrated. 
 
 
-```{r ceramic, eval=FALSE, echo=FALSE}
+```{r ceramic, eval=FALSE}
 loc <- cbind(7 + 37.5/60, 51 + 57.6/60)
 buffer <- 9000
 library(ceramic)
 
 munster_elev <- cc_elevation(loc, buffer, zoom = 12)
 munster_imag <- cc_location(loc, buffer, zoom = 14)
-munster_qmesh <- quadmesh::quadmesh(munster_elev, texture = munster_imag, texture_filename = "file160c6c1729b3.png")
-
-
 
 ```
 
