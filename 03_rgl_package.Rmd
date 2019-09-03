@@ -60,13 +60,15 @@ par(op)
 ```
 
 
-Notice how these are unique coordinates, there's no simple relationship between the cell and its value and its four corners. This is because they are shared between neighbouring cells. The relationship is stored in the `ib` array, this has four rows one for each corner of each cell. There are 12 cells and each has four coordinates from the shared vertex pool. The cells are defined in the order they occur in raster. 
+Notice how these are unique coordinates, there's no simple relationship between the cell and its value and its four corners. This is because they are shared between neighbouring cells. The relationship is stored in the `ib` array, this has four rows one for each corner of each cell. There are 9 cells and each has four coordinates from the shared vertex pool. The cells are defined in the order they occur in raster. 
 
 ```{r quadmesh-index}
 qm$ib
 ```
 
 It works directly with rgl function, and can be used in more raw form. 
+
+They key point in these plots is that with the exact same 3D geometry, we have the choice of how each primitive is styled. The colour may be a constant every where, or it may vary continously everywhere between vertices. A final choice is that the colour is constant *within a primitive*.  No R 2D plot can easily do the *continuous texture* styling. This also applies to other kinds of textures, later we will apply an image texture to primitives. 
 
 
 ```{r various-quad-aes}

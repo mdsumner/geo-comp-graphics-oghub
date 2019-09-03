@@ -71,6 +71,45 @@ The approach to converting polygons to mesh uses the functions `TRI()` or `DEL()
 
 Image-textures is a very powerful way to map imagery onto a surface, the surface can be created from a raster or polygons, and can use quad or triangle primitives. 
 
+
+
+The concept of texturing has some abstract details to it. 
+ 
+
+Consider a simplified volcano data set as a quadmesh. 
+
+```{r raster-texture}
+library(raster)
+vsimpler <- volcano[seq(1, nrow(volcano), by = 4), 
+                    seq(1, ncol(volcano), by = 4)]
+vraster <- raster(list(x = 1:nrow(vsimpler), y = 1:ncol(vsimpler), z = vsimpler), crs = NA)
+image(vraster)
+
+logo <- brick(system.file("external/rlogo.grd", package="raster"))
+## our logo belongs in the middle of volcano (obviously)
+logo <- setExtent(logo, extent(9, 16, 7, 13))
+projection(logo) <- NA
+plotRGB(logo, add = TRUE)
+
+## from the perspective of the mesh, the image will go where we set the texture
+## coordinates as 0, 1, 0, 1 in the index space of the image itself
+segments(c(9, 16, 16, 16), 
+         c(6, 6, 7, 13), 
+         c(9, 16, 17, 17), 
+         c(7, 7, 7, 13))
+
+text(9, 6, "0", pos = 1)
+text(16, 6, "1", pos = 1)
+text(17, 13, "1", pos = 4)
+text(17, 7, "0", pos = 4)
+
+
+vtexture <- quadmesh::quadmesh(vraster, texture = logo)
+rgl::clear3d(); rgl::shade3d(vtexture, specular = "black"); rgl::aspect3d(1, 1, .2);  rgl::rglwidget()
+
+```
+
+
 This section requires a Mapbox API key to run from scratch - and can't be shared, so it will simply be illustrated. 
 
 

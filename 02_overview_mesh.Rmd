@@ -316,7 +316,7 @@ as(as(raster::rasterToPolygons(r), "SpatialLinesDataFrame"),
    "SpatialPointsDataFrame")
 ```
 
-There are only 20 unique coordinates at the corners, which is where `mesh3d` comes in. 
+The polygon version of the raster, converted to points has *45 coordinates* in it, although there are only 16 unique coordinates at the corners, which is where `mesh3d` comes in. 
 
 
 
