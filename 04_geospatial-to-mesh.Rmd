@@ -73,7 +73,7 @@ Image-textures is a very powerful way to map imagery onto a surface, the surface
 
 
 
-The concept of texturing has some abstract details to it. 
+The concept of texturing has some abstract details to it, but amounts to *defining the 0,1 , 0,1 pixel index of the image on the vertices of the mesh*. These are defined as `$texcoords` on the mesh3d object. 
  
 
 Consider a simplified volcano data set as a quadmesh. 
@@ -114,7 +114,7 @@ rgl::clear3d(); rgl::shade3d(vtexture, specular = "black"); rgl::aspect3d(1, 1, 
 ```
 
 
-This section requires a Mapbox API key to run from scratch - and can't be shared, so it will simply be illustrated. 
+This section requires a Mapbox API key to run from scratch - and can't be shared directly, so it will simply be illustrated. 
 
 
 ```{r ceramic, eval=FALSE, echo=FALSE}
@@ -124,6 +124,9 @@ library(ceramic)
 
 munster_elev <- cc_elevation(loc, buffer, zoom = 12)
 munster_imag <- cc_location(loc, buffer, zoom = 14)
+munster_qmesh <- quadmesh::quadmesh(munster_elev, texture = munster_imag, texture_filename = "file160c6c1729b3.png")
+
+
 
 ```
 
