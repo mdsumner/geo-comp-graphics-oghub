@@ -92,37 +92,6 @@ rglwidget()
 The situation for triangles is much the same, but we have `it` for the triangle index rather than `ib` for the quad index. In both cases the geometry is in the `vb` matrix. Models can have both quads and triangles, using the same set of vertices. 
 
 
-## Exercise 1
-
-Why are the vertex and index matrices stored in *transpose* form? 
-
-Discuss this. 
-
-### EX 1 ANSWER
-
-<details><summary>EX1 SOLUTION</summary>
-<p>
-
-My theory: so that sets of coordinates and primitive-indexes are stored contiguously in memory. I think this matches more native implementations in other languages. 
-
-
-Code to plot quads directly in rgl looks like this: 
-
-```{r quad-plot-ex1, eval=FALSE}
-quads3d(t(qm$vb[, qm$ib]))
-```
-
-We can use to to advantage in 2D, for a quick check of our intepretation. 
-
-```{r quad-polygon-ex1, eval=FALSE}
-plot(t(qm$vb[1:2, ]))
-pp <-  qm$vb[1:2, rbind(qm$ib, NA)]  ## put an NA after every set of 4 coordinates
-polygon(t(pp))
-
-```
-</p>
-</details>
-
 
 
 ## Triangles

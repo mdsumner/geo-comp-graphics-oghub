@@ -5,6 +5,18 @@ https://rpubs.com/cyclemumner/mdsumner-geomesh-foss4g
 
 https://github.com/mdsumner/geomesh
 
+Here are links to resources for my three sessions:
+
+Challenges working with data in polar regions:
+https://mdsumner.github.io/polar-mapping-oghub/
+
+Computation graphics structures for geo-spatial:
+https://mdsumner.github.io/geo-comp-graphics-oghub/
+
+Building a domain-specific spatial data library and toolki:
+https://mdsumner.github.io/domain-toolkit-oghub/
+
+
 
 
 ## Exercise ?
