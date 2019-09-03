@@ -151,8 +151,8 @@ clear3d()
 delaunay_polys$vb[3,] <- 0
 delaunay_polys$vb[3,] <- delaunay_polys$vb[3,] + 
     runif(ncol(delaunay_polys$vb), 1, 1.5)
-shade3d(mesh_polys)
-shade3d(delaunay_polys)
+shade3d(mesh_polys, col = "grey")
+wire3d(delaunay_polys)
 rglwidget()
 
 ```
