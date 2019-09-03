@@ -14,7 +14,7 @@ The key package is rgl, the OpenGL package for R. This tends to be very low leve
 For polygons we first need to create triangles, and then use `triangle3d()`. For rasters we can create triangles or quads, and use `quads3d()`. There is also a mesh type object, `mesh3d` to store data with material properties. To plot `mesh3d` we use the `shade3d()` function. 
 
 
-## Tools
+## Algorithms
 
 Converting points to 3D is really trivial, we only need the X-Y-Z coordinates, and we can set properties directly on them. 
 
@@ -40,34 +40,36 @@ Converting raster data is available in various ways.
 
 - `rgl::surface3d()`, this is analogous to the old base `image()` function that can take `x, y, z = matrix`
 - `quadmesh::quadmesh()`, converts raster, matrix, some stars to `mesh3d`
-- rayshader determines elevation colouring from a matrix, and has many plotting helpers
+- `rayshader` determines elevation colouring from a matrix, and has many plotting helpers, and the best looking 3D plots and animations
 
 
 
 
-## Quadmesh. 
+## raster 
 
+A straightforward way to convert a raster layer to `rgl mesh3d` (cell values are Z-coordinate) is `quadmesh`. 
 
 ```{r quadmesh, eval=FALSE}
 library(quadmesh)
-quadmesh(anyRasterDEM, texture = anyRasterRGB)
-rgl::shade3d()
-
-## play with aspect3d, light3d, ...
+qmesh <- quadmesh(anyRasterDEM, texture = anyRasterRGB)
+rgl::shade3d(qmesh)
 
 ```
 
-Triangulations, `sfdct` is no good because it's very inefficient. `sf` is simply not suitable for mesh (a.k.a. *indexed*) forms of data. 
+## vector
 
+Lines, and polygons in spatial classes can be converted using the `anglr` package. 
 
-### comparison of discrete elevation (extrusion) vs continuous
+`plot3d()` will create the rgl plot and return a `mesh3d()` object
 
+`as.mesh3d()` will convert the object directly (very much in-development)
 
-http://rpubs.com/cyclemumner/geomesh-r
-
+The approach to converting polygons to mesh uses the functions `TRI()` or `DEL()` both produce triangulations, one with ear-cutting and one with "constrained Delaunay" methods.  These aren't ready for general use, so `as.mesh3d()` and `plot3d()` are the recommended ways to use the tools for now. 
 
 
 ## Image textures
+
+Image-textures is a very powerful way to map imagery onto a surface, the surface can be created from a raster or polygons, and can use quad or triangle primitives. 
 
 This section requires a Mapbox API key to run from scratch - and can't be shared, so it will simply be illustrated. 
 
@@ -97,9 +99,6 @@ merc <- sf::sf_project(cbind(7.59551, 51.96922), from = "+init=epsg:4326", to = 
 rgl::lines3d(cbind(merc[c(1, 1), ], matrix(c(0, 1000))))
 ```
 
-
-
-
 ## Various tools
 
 * `rgl::triangulate` and `decido::earcut` will triangulate polygons with holes but only suitable for plane-filling, because ugly triangles, no control over size and shape. 
@@ -110,21 +109,25 @@ rgl::lines3d(cbind(merc[c(1, 1), ], matrix(c(0, 1000))))
 
 * `mapview::cubeView()` does very compelling interactive raster-cube visualization
 
-* `SymbolixAU/mapdeck()` an alternative 3D viewer using Uber's `deck.gl`
+* `mapdeck::mapdeck()` a 3D viewer using Uber's `deck.gl`
 
-* `tylermorganwall/rayshader`
+* `deckgl` package, another package using `deck.gl`
 
-* `Rvcg` package on CRAN
+* `threejs` - 3D visualization with the 'three.js' library 
 
-Side note: there are many triangulation algorithms and many packages in R, but we need *constrained triangulation* to preserve all input edges - only a handful can do that, and RTriangle is the king (with a problematic license). 
+* `rayshader` - very compelling 3D visualization and animation from matrix height map
 
+* `tylermorganwall/rayrender` - general 3D scene creation, animation
 
+* `Rvcg` package on CRAN has a number of mesh-processing and visualization tools
 
 * `hypertidy/silicate`, `hypertidy/anglr` - these are evolving together 
 
-* https://github.com/MilesMcBain/gis_vs_web3D 
+* short workshop on using A-Frame Virtual Reality with geospatial data: https://github.com/MilesMcBain/gis_vs_web3D 
 
-* `coolbutuseless/threed`
+* `coolbutuseless/threed` - transformations on 3D objects
+
+
 
 
 There are a few example data packages:

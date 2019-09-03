@@ -1,19 +1,44 @@
 # Examples and exercises
 
+```{r libs-05}
+library(rgl)
+library(raster)
+library(quadmesh)
+library(anglr)
+library(silicate)
+```
 
+
+In each chunk below consider each 3D scene as being a "fresh start". Use `rgl::clear3d()` to ensure there is no existing data in a scene. 
+
+If using RStudio Server (rstudio.cloud, binder, etc.) then calling `rglwidget()` is
+required to capture the 3D plot (or changes to it) and refresh the htmlwidget viewer. 
 
 # Exercise 1
 
 Why are the vertex and index matrices stored in *transpose* form? 
 
-Discuss this. 
+```{r transpose-01}
+## create a very simple raster
+m <- matrix(c(seq(0, 0.5, length = 5), 
+            seq(0.375, 0, length = 4)), 3)
+
+x <- seq(1, nrow(m)) - 0.5
+y <- seq(1, ncol(m)) - 0.5
+rast <- raster::raster(list(x = x, y = y, z = m))
+
+qm <- quadmesh::quadmesh(rast)
+
+
+str(qm)
+```
 
 ### EX 1 ANSWER
 
 <details><summary>EX1 SOLUTION</summary>
 <p>
 
-My theory: so that sets of coordinates and primitive-indexes are stored contiguously in memory. I think this matches more native implementations in other languages. 
+So that sets of coordinates and primitive-indexes are stored contiguously in memory. I think this matches more native implementations in other languages. 
 
 
 Code to plot quads directly in rgl looks like this: 
@@ -35,23 +60,85 @@ polygon(t(pp))
 
 
 
+## Exercise 2
+
+1. Run this code 
+2. Think about what is wrong with the scene. 
+3. What can we do about the ugly plot? 
+
+```{r ex2-question-03, eval=FALSE}
+library(quadmesh)
+
+qm1 <- quadmesh(crop(worldll, etopo))
+qm1$vb[3, ] <- raster::extract(etopo, t(qm1$vb[1:2, ]))
+library(rgl)
+clear3d()
+shade3d(qm1, col = "white")
+
+```
+
+### EX 2 ANSWER
+
+<details><summary>EX2 SOLUTION</summary>
+<p>
+
+We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There's no one right answer, getting a sensible aspect ratio will depend on the data in the scene. 
+
+```{r ex2-solution-03, eval=FALSE}
+aspect3d(1, 1, 0.05)
+## run this only if you are in a web rstudio
+rglwidget()
+```
+
+</p>
+</details>
+
+
+
+## Exercise 3
+
+4. Run this code 
+5. Can you explain why we multiply the Etopo2 terrain elevation by 20? 
+6. What are alternatives we could use? 
+ 
+```{r quad-etopo, eval=FALSE}
+qm2 <- qm1
+qm2$vb[3, ] <- qm2$vb[3, ] * 20
+## the llh2xyz() function converts lon-lat-height to 
+## spherical geocentric XYZ coordinates
+qm2$vb[1:3, ] <- t(llh2xyz(t(qm2$vb[1:3, ])))
+rgl.clear()
+shade3d(qm2, col = "white", specular = "black")
+aspect3d(1, 1, 0.5)
+## run this only if you are in a web rstudio
+rglwidget()
+
+```
+
 
 
 
 # Examples
 
-Set up. 
+
+
+## Quadmesh 
+
+NOTE: The `quadmesh::quadmesh()` function converts a raster object directly to `rgl mesh3d` object. 
+
+Set up, see https://mdsumner.github.io/geo-comp-graphics-oghub/getting-set-up.html
 
 ```{r setup-05-examples}
 library(raster)
 library(quadmesh)
-
+library(anglr)
+library(silicate)
 ```
 
-## volcano is a built-in matrix height-map
+The `volcano` is a built-in matrix height-map. 
 
 
-```{r examples-01}
+```{r examples-02}
 
 rvolcano <- raster(volcano)
 library(quadmesh)
@@ -61,16 +148,30 @@ rgl.clear()
 shade3d(qm_volcano, col = "grey"); aspect3d(1, 1, 0.25)
 ```
 
-## etopo is a test copy of a partial world DEM
+The `etopo` data set is a partial world topography (Etopo2). 
+
+We only need to convert it to quadmesh. 
+
+```{r examples-03}
 data("etopo", package = "quadmesh")
 qm_etopo <- quadmesh(crop(etopo, extent(80, 160, -50, 10)))
 qm_etopo$material$col <- colourvalues::colour_values(qm_etopo$vb[3, qm_etopo$ib])
-rgl.clear()
+
 shade3d(qm_etopo); aspect3d(1, 1, .2)
-rglwidget()
+```
 
 
-## polygon triangulation as a mesh (only on Github)
+## Polygon triangulation
+
+`NOTE:` the functions `DEL()` and `TRI()` will triangulate polygon layers into an currently-experimental form, using the development packages `anglr` and `silicate`. The `plot3d()` function converts these
+
+
+Polygon-triangulation vesion of the North Carolina data set - we add Z values (`copy_down()`) to the triangles from an elevation topography raster. 
+
+
+Copy-down for a raster value considers Z  a continuous measure, so each feature is connected by shared vertices to neighbours. 
+
+```{r examples-04}
 library(sf)
 north_carolina <- read_sf(system.file("gpkg/nc.gpkg", package = "sf"))
 north_carolina <- st_transform(north_carolina, 
@@ -84,18 +185,26 @@ mesh_nc <- DEL(north_carolina, max_area = 1e9)
 mesh_nc <- copy_down(mesh_nc, gebco1)
 
 ## plot it
-rgl.clear()
-plot3d(mesh_nc); aspect3d(1, 1, .2)
-rglwidget()
+anglr:::plot3d.TRI(mesh_nc); aspect3d(1, 1, .2)
+```
 
+Copy-down for a polygon value considers Z  a *discrete* measure, so each feature is separated.
+
+
+```{r examples-05}
 
 ## another example, copy feature attributes (discrete measure)
-rgl.clear()
-mesh_sid <- copy_down(DEL(north_carolina, max_area = 1e9), "SID79")
-plot3d(mesh_sid); aspect3d(1, 1, .2)
-rglwidget()
+mesh_bir <- copy_down(TRI(north_carolina, max_area = 1e9), "BIR79")
+plot3d(mesh_bir); aspect3d(1, 1, .2)
+
+```
+
+## Coordinate systems and textures
+
+Copy an RBG image onto 3D terrain, the resolution and projection of the terrain raster and the image raster can be different, also we can change the coordinate system of the terrain itself - the texture coordinates are an independent mapping for the RGB image and still work. 
 
 
+```{r examples-06}
 # Create and texture a 3D mesh in R from a variety of spatial data sources (e.g.
 # Shapefile + digital elevation model + satellite raster).
 library(quadmesh)
@@ -104,15 +213,28 @@ bm_url <- "https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.
 bm_file <- basename(bm_url)
 if (!file.exists(bm_file)) download.file(bm_url, bm_file)
 
-bm_rgb <- raster::setExtent(raster::brick(bm_file), raster::extent(-180, 180, -90, 90))
+## read in RGB image and set geographical extent and projection
+bm_rgb <- raster::setExtent(raster::brick(bm_file), 
+                            raster::extent(-180, 180, -90, 90))
 projection(bm_rgb) <- "+proj=longlat +datum=WGS84"
 
-bm_rgb <- raster::aggregate(bm_rgb, fact = 10)
+## consider reducing resolution of the image - it can be a good idea to 
+## reduce heavily, check it works, then try with higher resolution (smaller `fact`)
+## or avoid the aggregate step altogether
+bm_rgb <- raster::aggregate(bm_rgb, fact = 2)
 south <- quadmesh(etopo, texture = bm_rgb)
 south$vb[3, ] <- south$vb[3, ] * 20
 south$vb[1:3, ] <- t(llh2xyz(t(south$vb[1:3, ])))
-rgl.clear() 
 shade3d(south)
 aspect3d(1, 1, 0.5)
-rglwidget()
+
 ```
+
+
+## Try with own data
+
+* Convert rasters to mesh3d with `quadmesh()`
+* Convert polygons to mesh3d with `as.mesh3d()` (using `anglr` package)
+* Plot mesh3d or spatial objects with `plot3d()`
+
+

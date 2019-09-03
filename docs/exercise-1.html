@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data</title>
+  <title>Chapter 7 Exercise 1 | Computational graphics structures for geo-spatial data</title>
   <meta name="description" content="Converting geo-spatial data into meshes suitable for computational graphics systems." />
   <meta name="generator" content="bookdown 0.13 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data" />
+  <meta property="og:title" content="Chapter 7 Exercise 1 | Computational graphics structures for geo-spatial data" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="mdsumner/geo-comp-graphics-oghub" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Transforming spatial data to 3D forms | Computational graphics structures for geo-spatial data" />
+  <meta name="twitter:title" content="Chapter 7 Exercise 1 | Computational graphics structures for geo-spatial data" />
   
   <meta name="twitter:description" content="Converting geo-spatial data into meshes suitable for computational graphics systems." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-mesh3d-format.html"/>
-<link rel="next" href="examples-and-exercises.html"/>
+<link rel="prev" href="examples-and-exercises.html"/>
+<link rel="next" href="examples.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -195,96 +195,100 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="transforming-spatial-data-to-3d-forms" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Transforming spatial data to 3D forms</h1>
-<ul>
-<li>What tools exist to convert data to meshes in R?</li>
-<li>What forms of mesh data are available?</li>
-</ul>
-<p>The key package is rgl, the OpenGL package for R. This tends to be very low level, but has improved helpers and is becoming easier to use. The key functions are <code>plot3d()</code>, <code>lines3d()</code> and <code>points3d()</code> and these are used just like the 2D base funtions in R (with the ‘3d’ on the end).</p>
-<p>For polygons we first need to create triangles, and then use <code>triangle3d()</code>. For rasters we can create triangles or quads, and use <code>quads3d()</code>. There is also a mesh type object, <code>mesh3d</code> to store data with material properties. To plot <code>mesh3d</code> we use the <code>shade3d()</code> function.</p>
-<div id="algorithms" class="section level2">
-<h2><span class="header-section-number">5.1</span> Algorithms</h2>
-<p>Converting points to 3D is really trivial, we only need the X-Y-Z coordinates, and we can set properties directly on them.</p>
-<p>Converting lines is also relatively easy, but here we might use a <em>path</em> model, sequential lists of coordinates that imply a connected line, or a <em>segments</em> model where every single individual line segment is specified separately. The segment model is really a mesh, because we have the opportunity to store every coordinate just once and refer to segments by their index.</p>
-<p>Converting polygons is much harder, and there are multiple ways to do it. The main division is by near-Delaunay triangulation, or by ear-cutting algorithms.</p>
-<ul>
-<li>near-Delaunay - high quality triangulations, suitable for surface modelling</li>
-<li>ear-cutting - low quality triangulation, suitable for flat surfaces</li>
-</ul>
-<p>The main tools available for geospatial data:</p>
-<ul>
-<li><strong>quadmesh</strong> (on CRAN) - convert any raster to mesh3d quads, optionally with image textures</li>
-<li><strong>anglr</strong> (not on CRAN) - convert any sp, sf lines or polygons to mesh3d triangles</li>
-</ul>
-<p>The <code>rgl</code> package has ear-cutting in <code>triangulate3d()</code>.</p>
-<p>The <code>sfdct</code> package (via <code>RTriangle</code>) has near-Delaunay in <code>ct_triangulate()</code></p>
-<p>The <code>decido</code> package has ear-cutting in <code>earcut()</code>.</p>
-<p>Converting raster data is available in various ways.</p>
-<ul>
-<li><code>rgl::surface3d()</code>, this is analogous to the old base <code>image()</code> function that can take <code>x, y, z = matrix</code></li>
-<li><code>quadmesh::quadmesh()</code>, converts raster, matrix, some stars to <code>mesh3d</code></li>
-<li><code>rayshader</code> determines elevation colouring from a matrix, and has many plotting helpers, and the best looking 3D plots and animations</li>
-</ul>
+<div id="exercise-1" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Exercise 1</h1>
+<p>Why are the vertex and index matrices stored in <em>transpose</em> form?</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co">## create a very simple raster</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dt">length =</span> <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">            <span class="kw">seq</span>(<span class="fl">0.375</span>, <span class="dv">0</span>, <span class="dt">length =</span> <span class="dv">4</span>)), <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb53-6" data-line-number="6">y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">ncol</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7">rast &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">raster</span>(<span class="kw">list</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> m))</a>
+<a class="sourceLine" id="cb53-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb53-9" data-line-number="9">qm &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(rast)</a>
+<a class="sourceLine" id="cb53-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb53-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb53-12" data-line-number="12"><span class="kw">str</span>(qm)</a></code></pre></div>
+<pre><code>## List of 8
+##  $ vb             : num [1:4, 1:16] 0 3 0.312 1 1 ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:4] &quot;x&quot; &quot;y&quot; &quot;z&quot; &quot;1&quot;
+##   .. ..$ : NULL
+##  $ ib             : int [1:4, 1:9] 1 2 6 5 2 3 7 6 3 4 ...
+##  $ primitivetype  : chr &quot;quad&quot;
+##  $ material       : list()
+##  $ normals        : NULL
+##  $ texcoords      : NULL
+##  $ raster_metadata:List of 7
+##   ..$ xmn  : num 0
+##   ..$ xmx  : num 3
+##   ..$ ymn  : num 0
+##   ..$ ymx  : num 3
+##   ..$ ncols: int 3
+##   ..$ nrows: int 3
+##   ..$ crs  : chr &quot;+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0&quot;
+##  $ crs            : chr &quot;+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0&quot;
+##  - attr(*, &quot;class&quot;)= chr [1:3] &quot;quadmesh&quot; &quot;mesh3d&quot; &quot;shape3d&quot;</code></pre>
+<div id="ex-1-answer" class="section level3">
+<h3><span class="header-section-number">7.0.1</span> EX 1 ANSWER</h3>
+<details>
+<summary>EX1 SOLUTION</summary>
+<p>
+<p>So that sets of coordinates and primitive-indexes are stored contiguously in memory. I think this matches more native implementations in other languages.</p>
+<p>Code to plot quads directly in rgl looks like this:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[, qm<span class="op">$</span>ib]))</a></code></pre></div>
+<p>We can use to to advantage in 2D, for a quick check of our intepretation.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb56-2" data-line-number="2">pp &lt;-<span class="st">  </span>qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">rbind</span>(qm<span class="op">$</span>ib, <span class="ot">NA</span>)]  <span class="co">## put an NA after every set of 4 coordinates</span></a>
+<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="kw">polygon</span>(<span class="kw">t</span>(pp))</a></code></pre></div>
+</p>
+</details>
 </div>
-<div id="raster" class="section level2">
-<h2><span class="header-section-number">5.2</span> raster</h2>
-<p>A straightforward way to convert a raster layer to <code>rgl mesh3d</code> (cell values are Z-coordinate) is <code>quadmesh</code>.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb44-2" data-line-number="2">qmesh &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(anyRasterDEM, <span class="dt">texture =</span> anyRasterRGB)</a>
-<a class="sourceLine" id="cb44-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>(qmesh)</a></code></pre></div>
+<div id="exercise-2" class="section level2">
+<h2><span class="header-section-number">7.1</span> Exercise 2</h2>
+<ol style="list-style-type: decimal">
+<li>Run this code</li>
+<li>Think about what is wrong with the scene.</li>
+<li>What can we do about the ugly plot?</li>
+</ol>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb57-3" data-line-number="3">qm1 &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(worldll, etopo))</a>
+<a class="sourceLine" id="cb57-4" data-line-number="4">qm1<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(etopo, <span class="kw">t</span>(qm1<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb57-7" data-line-number="7"><span class="kw">shade3d</span>(qm1, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<div id="ex-2-answer" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> EX 2 ANSWER</h3>
+<details>
+<summary>EX2 SOLUTION</summary>
+<p>
+<p>We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There’s no one right answer, getting a sensible aspect ratio will depend on the data in the scene.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+</p>
+</details>
 </div>
-<div id="vector" class="section level2">
-<h2><span class="header-section-number">5.3</span> vector</h2>
-<p>Lines, and polygons in spatial classes can be converted using the <code>anglr</code> package.</p>
-<p><code>plot3d()</code> will create the rgl plot and return a <code>mesh3d()</code> object</p>
-<p><code>as.mesh3d()</code> will convert the object directly (very much in-development)</p>
-<p>The approach to converting polygons to mesh uses the functions <code>TRI()</code> or <code>DEL()</code> both produce triangulations, one with ear-cutting and one with “constrained Delaunay” methods. These aren’t ready for general use, so <code>as.mesh3d()</code> and <code>plot3d()</code> are the recommended ways to use the tools for now.</p>
 </div>
-<div id="image-textures" class="section level2">
-<h2><span class="header-section-number">5.4</span> Image textures</h2>
-<p>Image-textures is a very powerful way to map imagery onto a surface, the surface can be created from a raster or polygons, and can use quad or triangle primitives.</p>
-<p>This section requires a Mapbox API key to run from scratch - and can’t be shared, so it will simply be illustrated.</p>
-<p>Munster is here.</p>
-<p>The process is a little complicated, but the key is that the elevation raster provides a space in which to map other data too. In this case the raster is in Mercator, and the image is as well. Under the hood we have to map the spatial part of the image into 0, 1, 0, 1 space of a PNG image, but in the final event we get a scene where real-world data may be added directly.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">munster_qmesh &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(munster_elev, <span class="dt">texture =</span> munster_imag)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">rgl<span class="op">::</span><span class="kw">shade3d</span>(munster_qmesh, <span class="dt">lit =</span> <span class="ot">FALSE</span>); rgl<span class="op">::</span><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.05</span>)</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="co">## more exact location of THIS building</span></a>
-<a class="sourceLine" id="cb45-6" data-line-number="6">merc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw">sf_project</span>(<span class="kw">cbind</span>(<span class="fl">7.59551</span>, <span class="fl">51.96922</span>), <span class="dt">from =</span> <span class="st">&quot;+init=epsg:4326&quot;</span>, <span class="dt">to =</span> raster<span class="op">::</span><span class="kw">projection</span>(munster_elev))</a>
-<a class="sourceLine" id="cb45-7" data-line-number="7">rgl<span class="op">::</span><span class="kw">lines3d</span>(<span class="kw">cbind</span>(merc[<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>), ], <span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>))))</a></code></pre></div>
-</div>
-<div id="various-tools" class="section level2">
-<h2><span class="header-section-number">5.5</span> Various tools</h2>
-<ul>
-<li><p><code>rgl::triangulate</code> and <code>decido::earcut</code> will triangulate polygons with holes but only suitable for plane-filling, because ugly triangles, no control over size and shape.</p></li>
-<li><p><code>RTriangle::triangulate</code> (and <code>sfdct::ct_triangulate</code>) do high-quality “near-Delaunay” triangulations</p></li>
-<li><p><code>quadmesh::quadmesh()</code> to create rgl-ready mesh3d from a raster</p></li>
-<li><p><code>mapview::cubeView()</code> does very compelling interactive raster-cube visualization</p></li>
-<li><p><code>mapdeck::mapdeck()</code> a 3D viewer using Uber’s <code>deck.gl</code></p></li>
-<li><p><code>deckgl</code> package, another package using <code>deck.gl</code></p></li>
-<li><p><code>threejs</code> - 3D visualization with the ‘three.js’ library</p></li>
-<li><p><code>rayshader</code> - very compelling 3D visualization and animation from matrix height map</p></li>
-<li><p><code>tylermorganwall/rayrender</code> - general 3D scene creation, animation</p></li>
-<li><p><code>Rvcg</code> package on CRAN has a number of mesh-processing and visualization tools</p></li>
-<li><p><code>hypertidy/silicate</code>, <code>hypertidy/anglr</code> - these are evolving together</p></li>
-<li><p>short workshop on using A-Frame Virtual Reality with geospatial data: <a href="https://github.com/MilesMcBain/gis_vs_web3D" class="uri">https://github.com/MilesMcBain/gis_vs_web3D</a></p></li>
-<li><p><code>coolbutuseless/threed</code> - transformations on 3D objects</p></li>
-</ul>
-<p>There are a few example data packages:</p>
-<p>.obj format: <a href="https://github.com/odedstein/meshes/tree/master/objects/koala" class="uri">https://github.com/odedstein/meshes/tree/master/objects/koala</a></p>
-</div>
-<div id="triangles-or-quads-from-geospatial" class="section level2">
-<h2><span class="header-section-number">5.6</span> Triangles or quads from geospatial</h2>
-<p>This is my work-in-progress approach to meshing any data structure.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co">## devtools::install_github(&quot;hypertidy/anglr&quot;)</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="co">## devtools::install_github(&quot;hypertidy/silicate&quot;)</span></a>
-<a class="sourceLine" id="cb46-3" data-line-number="3"><span class="kw">library</span>(anglr)  </a>
-<a class="sourceLine" id="cb46-4" data-line-number="4">triangles &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(anySFpolygon), anyRasterDEM)</a>
-<a class="sourceLine" id="cb46-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb46-6" data-line-number="6">mesh &lt;-<span class="st"> </span><span class="kw">plot3d</span>(triangles)</a></code></pre></div>
-
+<div id="exercise-3" class="section level2">
+<h2><span class="header-section-number">7.2</span> Exercise 3</h2>
+<ol start="4" style="list-style-type: decimal">
+<li>Run this code</li>
+<li>Can you explain why we multiply the Etopo2 terrain elevation by 20?</li>
+<li>What are alternatives we could use?</li>
+</ol>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">qm2 &lt;-<span class="st"> </span>qm1</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2">qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="co">## the llh2xyz() function converts lon-lat-height to </span></a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="co">## spherical geocentric XYZ coordinates</span></a>
+<a class="sourceLine" id="cb59-5" data-line-number="5">qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
+<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="kw">rgl.clear</span>()</a>
+<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="kw">shade3d</span>(qm2, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">specular =</span> <span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb59-8" data-line-number="8"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb59-9" data-line-number="9"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb59-10" data-line-number="10"><span class="kw">rglwidget</span>()</a></code></pre></div>
 </div>
 </div>
             </section>
@@ -292,8 +296,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="the-mesh3d-format.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="examples-and-exercises.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="examples-and-exercises.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="examples.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -323,7 +327,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/mdsumner/geo-comp-graphics-oghub/edit/master/04_geospatial-to-mesh.Rmd",
+"link": "https://github.com/mdsumner/geo-comp-graphics-oghub/edit/master/05_examples_exercises.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -20,14 +20,26 @@ pkgs <- c("dplyr", "quadmesh", "raster", "rgl", "scales", "sf", "sfdct",
 remotes::install_cran(pkgs)
 ```
 
+In-development packages from Github: 
+
+```{r github-pkgs, eval=FALSE}
+remotes::install_github(c("hypertidy/silicate", "hypertidy/anglr"))
+```
+
+
 Obtain some extra data sets that will be used in this session.
 
 ```{r get-data,eval=FALSE}
 download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata", 
                "geo-comp-graphics.Rdata", mode = "wb")
 
-
 load("geo-comp-graphics.Rdata")
+
+
+## a world image (Blue Marble)
+bm_url <- "https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg"
+bm_file <- basename(bm_url)
+if (!file.exists(bm_file)) download.file(bm_url, bm_file)
 
 ```
 
