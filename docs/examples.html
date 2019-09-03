@@ -235,41 +235,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb62-8" data-line-number="8"><span class="kw">data</span>(<span class="st">&quot;gebco1&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;anglr&quot;</span>)</a>
 <a class="sourceLine" id="cb62-9" data-line-number="9">mesh_nc &lt;-<span class="st"> </span><span class="kw">DEL</span>(north_carolina, <span class="dt">max_area =</span> <span class="fl">1e9</span>)</a>
 <a class="sourceLine" id="cb62-10" data-line-number="10"><span class="co">## copy down values from a raster (continuous measure)</span></a>
-<a class="sourceLine" id="cb62-11" data-line-number="11">mesh_nc &lt;-<span class="st"> </span><span class="kw">copy_down</span>(mesh_nc, gebco1)</a></code></pre></div>
-<pre><code>## transforming model vertices to raster coordinate system for copy down</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co">## plot it</span></a>
-<a class="sourceLine" id="cb64-2" data-line-number="2">anglr<span class="op">:::</span><span class="kw">plot3d.TRI</span>(mesh_nc); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb62-11" data-line-number="11">mesh_nc &lt;-<span class="st"> </span><span class="kw">copy_down</span>(mesh_nc, gebco1)</a>
+<a class="sourceLine" id="cb62-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb62-13" data-line-number="13"><span class="co">## plot it</span></a>
+<a class="sourceLine" id="cb62-14" data-line-number="14">anglr<span class="op">:::</span><span class="kw">plot3d.TRI</span>(mesh_nc); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
 <p>Copy-down for a polygon value considers Z a <em>discrete</em> measure, so each feature is separated.</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1"><span class="co">## another example, copy feature attributes (discrete measure)</span></a>
-<a class="sourceLine" id="cb65-2" data-line-number="2">mesh_bir &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(north_carolina, <span class="dt">max_area =</span> <span class="fl">1e9</span>), <span class="st">&quot;BIR79&quot;</span>)</a>
-<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="kw">plot3d</span>(mesh_bir); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1"><span class="co">## another example, copy feature attributes (discrete measure)</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2">mesh_bir &lt;-<span class="st"> </span><span class="kw">copy_down</span>(<span class="kw">TRI</span>(north_carolina, <span class="dt">max_area =</span> <span class="fl">1e9</span>), <span class="st">&quot;BIR79&quot;</span>)</a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="kw">plot3d</span>(mesh_bir); <span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">.2</span>)</a></code></pre></div>
 </div>
 <div id="coordinate-systems-and-textures" class="section level2">
 <h2><span class="header-section-number">8.3</span> Coordinate systems and textures</h2>
 <p>Copy an RBG image onto 3D terrain, the resolution and projection of the terrain raster and the image raster can be different, also we can change the coordinate system of the terrain itself - the texture coordinates are an independent mapping for the RGB image and still work.</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># Create and texture a 3D mesh in R from a variety of spatial data sources (e.g.</span></a>
-<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="co"># Shapefile + digital elevation model + satellite raster).</span></a>
-<a class="sourceLine" id="cb66-3" data-line-number="3"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb66-4" data-line-number="4"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb66-5" data-line-number="5">bm_url &lt;-<span class="st"> &quot;https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg&quot;</span></a>
-<a class="sourceLine" id="cb66-6" data-line-number="6">bm_file &lt;-<span class="st"> </span><span class="kw">basename</span>(bm_url)</a>
-<a class="sourceLine" id="cb66-7" data-line-number="7"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(bm_file)) <span class="kw">download.file</span>(bm_url, bm_file)</a>
-<a class="sourceLine" id="cb66-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb66-9" data-line-number="9"><span class="co">## read in RGB image and set geographical extent and projection</span></a>
-<a class="sourceLine" id="cb66-10" data-line-number="10">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">setExtent</span>(raster<span class="op">::</span><span class="kw">brick</span>(bm_file), </a>
-<a class="sourceLine" id="cb66-11" data-line-number="11">                            raster<span class="op">::</span><span class="kw">extent</span>(<span class="op">-</span><span class="dv">180</span>, <span class="dv">180</span>, <span class="dv">-90</span>, <span class="dv">90</span>))</a>
-<a class="sourceLine" id="cb66-12" data-line-number="12"><span class="kw">projection</span>(bm_rgb) &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84&quot;</span></a>
-<a class="sourceLine" id="cb66-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb66-14" data-line-number="14"><span class="co">## consider reducing resolution of the image - it can be a good idea to </span></a>
-<a class="sourceLine" id="cb66-15" data-line-number="15"><span class="co">## reduce heavily, check it works, then try with higher resolution (smaller `fact`)</span></a>
-<a class="sourceLine" id="cb66-16" data-line-number="16"><span class="co">## or avoid the aggregate step altogether</span></a>
-<a class="sourceLine" id="cb66-17" data-line-number="17">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">aggregate</span>(bm_rgb, <span class="dt">fact =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb66-18" data-line-number="18">south &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(etopo, <span class="dt">texture =</span> bm_rgb)</a></code></pre></div>
-<pre><code>## writing texture image to /rdsi/PRIVATE/raad/dev/__tmp_mike/RtmpHVUHEY/file749c7befffd8.png</code></pre>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" data-line-number="1">south<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>south<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb68-2" data-line-number="2">south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
-<a class="sourceLine" id="cb68-3" data-line-number="3"><span class="kw">shade3d</span>(south)</a>
-<a class="sourceLine" id="cb68-4" data-line-number="4"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># Create and texture a 3D mesh in R from a variety of spatial data sources (e.g.</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="co"># Shapefile + digital elevation model + satellite raster).</span></a>
+<a class="sourceLine" id="cb64-3" data-line-number="3"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb64-4" data-line-number="4"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb64-5" data-line-number="5">bm_url &lt;-<span class="st"> &quot;https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg&quot;</span></a>
+<a class="sourceLine" id="cb64-6" data-line-number="6">bm_file &lt;-<span class="st"> </span><span class="kw">basename</span>(bm_url)</a>
+<a class="sourceLine" id="cb64-7" data-line-number="7"><span class="cf">if</span> (<span class="op">!</span><span class="kw">file.exists</span>(bm_file)) <span class="kw">download.file</span>(bm_url, bm_file)</a>
+<a class="sourceLine" id="cb64-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb64-9" data-line-number="9"><span class="co">## read in RGB image and set geographical extent and projection</span></a>
+<a class="sourceLine" id="cb64-10" data-line-number="10">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">setExtent</span>(raster<span class="op">::</span><span class="kw">brick</span>(bm_file), </a>
+<a class="sourceLine" id="cb64-11" data-line-number="11">                            raster<span class="op">::</span><span class="kw">extent</span>(<span class="op">-</span><span class="dv">180</span>, <span class="dv">180</span>, <span class="dv">-90</span>, <span class="dv">90</span>))</a>
+<a class="sourceLine" id="cb64-12" data-line-number="12"><span class="kw">projection</span>(bm_rgb) &lt;-<span class="st"> &quot;+proj=longlat +datum=WGS84&quot;</span></a>
+<a class="sourceLine" id="cb64-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb64-14" data-line-number="14"><span class="co">## consider reducing resolution of the image - it can be a good idea to </span></a>
+<a class="sourceLine" id="cb64-15" data-line-number="15"><span class="co">## reduce heavily, check it works, then try with higher resolution (smaller `fact`)</span></a>
+<a class="sourceLine" id="cb64-16" data-line-number="16"><span class="co">## or avoid the aggregate step altogether</span></a>
+<a class="sourceLine" id="cb64-17" data-line-number="17">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">aggregate</span>(bm_rgb, <span class="dt">fact =</span> <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb64-18" data-line-number="18">south &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(etopo, <span class="dt">texture =</span> bm_rgb)</a>
+<a class="sourceLine" id="cb64-19" data-line-number="19">south<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>south<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb64-20" data-line-number="20">south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
+<a class="sourceLine" id="cb64-21" data-line-number="21"><span class="kw">shade3d</span>(south)</a>
+<a class="sourceLine" id="cb64-22" data-line-number="22"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a></code></pre></div>
 </div>
 <div id="try-with-own-data" class="section level2">
 <h2><span class="header-section-number">8.4</span> Try with own data</h2>
