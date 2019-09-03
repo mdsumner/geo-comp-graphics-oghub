@@ -1,5 +1,15 @@
 # Examples and exercises
 
+
+```{r libs-hide, include=FALSE}
+library(rgl)
+library(raster)
+library(quadmesh)
+library(anglr)
+library(silicate)
+```
+
+
 ```{r libs-05}
 library(rgl)
 library(raster)
@@ -144,7 +154,7 @@ rvolcano <- raster(volcano)
 library(quadmesh)
 qm_volcano <- quadmesh(rvolcano)
 library(rgl)
-rgl.clear()
+clear3d()
 shade3d(qm_volcano, col = "grey"); aspect3d(1, 1, 0.25)
 ```
 

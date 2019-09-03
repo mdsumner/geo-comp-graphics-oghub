@@ -14,8 +14,8 @@ We suggest use of the package **remotes** which will avoid re-installing a packa
 ```{r install, eval=FALSE}
 if (!requireNamespace("remotes")) install.packages("remotes")
 
-pkgs <- c("dplyr", "quadmesh", "raster", "rgl", "scales", "sf", "sfdct", 
-"tidyr", "viridis")
+pkgs <- c("colourvalues", "dplyr", "quadmesh", "raster", "rgl", "rgdal", "scales", "sf", "sfdct", 
+ "spex", "tidyr", "viridis")
 
 remotes::install_cran(pkgs)
 ```
@@ -72,11 +72,4 @@ plot_edges <- function(x, main = "") {
 ```
 
 
-
-Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren't necessary for participants. 
-
-```{r install-github, eval=TRUE,echo=FALSE}
-##remotes::install_github(c("hypertidy/anglr", "hypertidy/silicate"))
-
-```
 
