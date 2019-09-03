@@ -24,7 +24,7 @@ In each chunk below consider each 3D scene as being a "fresh start". Use `rgl::c
 If using RStudio Server (rstudio.cloud, binder, etc.) then calling `rglwidget()` is
 required to capture the 3D plot (or changes to it) and refresh the htmlwidget viewer. 
 
-# Exercise 1
+## Exercise 1
 
 Why are the vertex and index matrices stored in *transpose* form? 
 
@@ -128,11 +128,11 @@ rglwidget()
 
 
 
-# Examples
+## Examples
 
 
 
-## Quadmesh 
+### Quadmesh 
 
 NOTE: The `quadmesh::quadmesh()` function converts a raster object directly to `rgl mesh3d` object. 
 
@@ -171,7 +171,7 @@ shade3d(qm_etopo); aspect3d(1, 1, .2)
 ```
 
 
-## Polygon triangulation
+### Polygon triangulation
 
 `NOTE:` the functions `DEL()` and `TRI()` will triangulate polygon layers into an currently-experimental form, using the development packages `anglr` and `silicate`. The `plot3d()` function converts these
 
@@ -209,7 +209,7 @@ plot3d(mesh_bir); aspect3d(1, 1, .2)
 
 ```
 
-## Coordinate systems and textures
+### Coordinate systems and textures
 
 Copy an RBG image onto 3D terrain, the resolution and projection of the terrain raster and the image raster can be different, also we can change the coordinate system of the terrain itself - the texture coordinates are an independent mapping for the RGB image and still work. 
 
