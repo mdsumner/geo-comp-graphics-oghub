@@ -14,7 +14,7 @@ We suggest use of the package **remotes** which will avoid re-installing a packa
 ```{r install, eval=FALSE}
 if (!requireNamespace("remotes")) install.packages("remotes")
 
-pkgs <- c("colourvalues", "dplyr", "quadmesh", "raster", "rgl", "rgdal", "scales", "sf", "sfdct", 
+pkgs <- c("ceramic", "colourvalues", "dplyr", "quadmesh", "raster", "rgl", "rgdal", "scales", "sf", "sfdct", 
  "spex", "tidyr", "viridis")
 
 remotes::install_cran(pkgs)
@@ -23,7 +23,7 @@ remotes::install_cran(pkgs)
 In-development packages from Github: 
 
 ```{r github-pkgs, eval=FALSE}
-remotes::install_github(c("hypertidy/silicate", "hypertidy/anglr"))
+remotes::install_github(c("hypertidy/silicate", "hypertidy/anglr", "AustralianAntarcticDivision/raadtools"))
 ```
 
 
