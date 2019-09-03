@@ -43,6 +43,15 @@ if (!file.exists(bm_file)) download.file(bm_url, bm_file)
 
 ```
 
+```{r get-data2, eval=TRUE, include =FALSE}
+## do this so the book can build (thanks robinlovelace)
+## https://github.com/mdsumner/geo-comp-graphics-oghub/issues/1
+download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/data-raw/geo-comp-graphics.Rdata", 
+               "geo-comp-graphics.Rdata", mode = "wb")
+
+load("geo-comp-graphics.Rdata")
+
+```
 
 Miscellaneous functions used to build the examples. 
 
