@@ -265,7 +265,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb62-16" data-line-number="16"><span class="co">## or avoid the aggregate step altogether</span></a>
 <a class="sourceLine" id="cb62-17" data-line-number="17">bm_rgb &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">aggregate</span>(bm_rgb, <span class="dt">fact =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb62-18" data-line-number="18">south &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(etopo, <span class="dt">texture =</span> bm_rgb)</a></code></pre></div>
-<pre><code>## writing texture image to /rdsi/PRIVATE/raad/dev/__tmp_mike/RtmpaG8v9W/file69b558177635.png</code></pre>
+<pre><code>## writing texture image to /rdsi/PRIVATE/raad/dev/__tmp_mike/Rtmp8zOJwi/file6c4920e5bdd9.png</code></pre>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" data-line-number="1">south<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>south<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
 <a class="sourceLine" id="cb64-2" data-line-number="2">south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(south<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
 <a class="sourceLine" id="cb64-3" data-line-number="3"><span class="kw">shade3d</span>(south)</a>
