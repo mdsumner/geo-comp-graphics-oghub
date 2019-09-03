@@ -168,7 +168,7 @@ mesh <- plot3d(triangles)
 
 * `quadmesh::quadmesh()` to create rgl-ready mesh3d from a raster
 
-* `mapview::cubeView()` does very compelling interactive raster-cube visualization
+* `cubeview::cubeView()` does very compelling interactive raster-cube visualization
 
 * `mapdeck::mapdeck()` a 3D viewer using Uber's `deck.gl`
 
