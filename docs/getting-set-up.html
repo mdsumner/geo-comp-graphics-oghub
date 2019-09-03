@@ -201,8 +201,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We suggest use of the package <strong>remotes</strong> which will avoid re-installing a package if the latest version is already installed.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;remotes&quot;</span>)) <span class="kw">install.packages</span>(<span class="st">&quot;remotes&quot;</span>)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;quadmesh&quot;</span>, <span class="st">&quot;raster&quot;</span>, <span class="st">&quot;rgl&quot;</span>, <span class="st">&quot;scales&quot;</span>, <span class="st">&quot;sf&quot;</span>, <span class="st">&quot;sfdct&quot;</span>, </a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;viridis&quot;</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">pkgs &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;colourvalues&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;quadmesh&quot;</span>, <span class="st">&quot;raster&quot;</span>, <span class="st">&quot;rgl&quot;</span>, <span class="st">&quot;rgdal&quot;</span>, <span class="st">&quot;scales&quot;</span>, <span class="st">&quot;sf&quot;</span>, <span class="st">&quot;sfdct&quot;</span>, </a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"> <span class="st">&quot;spex&quot;</span>, <span class="st">&quot;tidyr&quot;</span>, <span class="st">&quot;viridis&quot;</span>)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">remotes<span class="op">::</span><span class="kw">install_cran</span>(pkgs)</a></code></pre></div>
 <p>In-development packages from Github:</p>
@@ -240,7 +240,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb4-19" data-line-number="19">       <span class="dt">axes =</span> <span class="ot">FALSE</span>, <span class="dt">xlab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;&quot;</span>, <span class="dt">main =</span> main)</a>
 <a class="sourceLine" id="cb4-20" data-line-number="20">  graphics<span class="op">::</span><span class="kw">segments</span>(x0<span class="op">$</span>x_, x0<span class="op">$</span>y_, x1<span class="op">$</span>x_, x1<span class="op">$</span>y_, <span class="dt">lty =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb4-21" data-line-number="21">}</a></code></pre></div>
-<p>Other packages used for illustration must be installed from Github, and so require extra tools. These packages aren’t necessary for participants.</p>
 
 </div>
             </section>

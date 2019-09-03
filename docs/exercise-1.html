@@ -198,18 +198,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="exercise-1" class="section level1">
 <h1><span class="header-section-number">Chapter 7</span> Exercise 1</h1>
 <p>Why are the vertex and index matrices stored in <em>transpose</em> form?</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co">## create a very simple raster</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dt">length =</span> <span class="dv">5</span>), </a>
-<a class="sourceLine" id="cb53-3" data-line-number="3">            <span class="kw">seq</span>(<span class="fl">0.375</span>, <span class="dv">0</span>, <span class="dt">length =</span> <span class="dv">4</span>)), <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb53-6" data-line-number="6">y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">ncol</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
-<a class="sourceLine" id="cb53-7" data-line-number="7">rast &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">raster</span>(<span class="kw">list</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> m))</a>
-<a class="sourceLine" id="cb53-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb53-9" data-line-number="9">qm &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(rast)</a>
-<a class="sourceLine" id="cb53-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb53-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb53-12" data-line-number="12"><span class="kw">str</span>(qm)</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co">## create a very simple raster</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dt">length =</span> <span class="dv">5</span>), </a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">            <span class="kw">seq</span>(<span class="fl">0.375</span>, <span class="dv">0</span>, <span class="dt">length =</span> <span class="dv">4</span>)), <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb48-5" data-line-number="5">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb48-6" data-line-number="6">y &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">ncol</span>(m)) <span class="op">-</span><span class="st"> </span><span class="fl">0.5</span></a>
+<a class="sourceLine" id="cb48-7" data-line-number="7">rast &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">raster</span>(<span class="kw">list</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y, <span class="dt">z =</span> m))</a>
+<a class="sourceLine" id="cb48-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb48-9" data-line-number="9">qm &lt;-<span class="st"> </span>quadmesh<span class="op">::</span><span class="kw">quadmesh</span>(rast)</a>
+<a class="sourceLine" id="cb48-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb48-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb48-12" data-line-number="12"><span class="kw">str</span>(qm)</a></code></pre></div>
 <pre><code>## List of 8
 ##  $ vb             : num [1:4, 1:16] 0 3 0.312 1 1 ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
@@ -237,11 +237,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>
 <p>So that sets of coordinates and primitive-indexes are stored contiguously in memory. I think this matches more native implementations in other languages.</p>
 <p>Code to plot quads directly in rgl looks like this:</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[, qm<span class="op">$</span>ib]))</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="kw">quads3d</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[, qm<span class="op">$</span>ib]))</a></code></pre></div>
 <p>We can use to to advantage in 2D, for a quick check of our intepretation.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
-<a class="sourceLine" id="cb56-2" data-line-number="2">pp &lt;-<span class="st">  </span>qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">rbind</span>(qm<span class="op">$</span>ib, <span class="ot">NA</span>)]  <span class="co">## put an NA after every set of 4 coordinates</span></a>
-<a class="sourceLine" id="cb56-3" data-line-number="3"><span class="kw">polygon</span>(<span class="kw">t</span>(pp))</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">plot</span>(<span class="kw">t</span>(qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">pp &lt;-<span class="st">  </span>qm<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="kw">rbind</span>(qm<span class="op">$</span>ib, <span class="ot">NA</span>)]  <span class="co">## put an NA after every set of 4 coordinates</span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="kw">polygon</span>(<span class="kw">t</span>(pp))</a></code></pre></div>
 </p>
 </details>
 </div>
@@ -252,22 +252,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Think about what is wrong with the scene.</li>
 <li>What can we do about the ugly plot?</li>
 </ol>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
-<a class="sourceLine" id="cb57-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb57-3" data-line-number="3">qm1 &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(worldll, etopo))</a>
-<a class="sourceLine" id="cb57-4" data-line-number="4">qm1<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(etopo, <span class="kw">t</span>(qm1<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
-<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="kw">library</span>(rgl)</a>
-<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="kw">clear3d</span>()</a>
-<a class="sourceLine" id="cb57-7" data-line-number="7"><span class="kw">shade3d</span>(qm1, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" data-line-number="1"><span class="kw">library</span>(quadmesh)</a>
+<a class="sourceLine" id="cb52-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb52-3" data-line-number="3">qm1 &lt;-<span class="st"> </span><span class="kw">quadmesh</span>(<span class="kw">crop</span>(worldll, etopo))</a>
+<a class="sourceLine" id="cb52-4" data-line-number="4">qm1<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>raster<span class="op">::</span><span class="kw">extract</span>(etopo, <span class="kw">t</span>(qm1<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, ]))</a>
+<a class="sourceLine" id="cb52-5" data-line-number="5"><span class="kw">library</span>(rgl)</a>
+<a class="sourceLine" id="cb52-6" data-line-number="6"><span class="kw">clear3d</span>()</a>
+<a class="sourceLine" id="cb52-7" data-line-number="7"><span class="kw">shade3d</span>(qm1, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>)</a></code></pre></div>
 <div id="ex-2-answer" class="section level3">
 <h3><span class="header-section-number">7.1.1</span> EX 2 ANSWER</h3>
 <details>
 <summary>EX2 SOLUTION</summary>
 <p>
 <p>We need to modify the aspect ratio, because we are plotting coordinates in degrees against elevation in metres. There’s no one right answer, getting a sensible aspect ratio will depend on the data in the scene.</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="co">## run this only if you are in a web rstudio</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"><span class="kw">rglwidget</span>()</a></code></pre></div>
 </p>
 </details>
 </div>
@@ -279,16 +279,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Can you explain why we multiply the Etopo2 terrain elevation by 20?</li>
 <li>What are alternatives we could use?</li>
 </ol>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">qm2 &lt;-<span class="st"> </span>qm1</a>
-<a class="sourceLine" id="cb59-2" data-line-number="2">qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="co">## the llh2xyz() function converts lon-lat-height to </span></a>
-<a class="sourceLine" id="cb59-4" data-line-number="4"><span class="co">## spherical geocentric XYZ coordinates</span></a>
-<a class="sourceLine" id="cb59-5" data-line-number="5">qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
-<a class="sourceLine" id="cb59-6" data-line-number="6"><span class="kw">rgl.clear</span>()</a>
-<a class="sourceLine" id="cb59-7" data-line-number="7"><span class="kw">shade3d</span>(qm2, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">specular =</span> <span class="st">&quot;black&quot;</span>)</a>
-<a class="sourceLine" id="cb59-8" data-line-number="8"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb59-9" data-line-number="9"><span class="co">## run this only if you are in a web rstudio</span></a>
-<a class="sourceLine" id="cb59-10" data-line-number="10"><span class="kw">rglwidget</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" data-line-number="1">qm2 &lt;-<span class="st"> </span>qm1</a>
+<a class="sourceLine" id="cb54-2" data-line-number="2">qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] &lt;-<span class="st"> </span>qm2<span class="op">$</span>vb[<span class="dv">3</span>, ] <span class="op">*</span><span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb54-3" data-line-number="3"><span class="co">## the llh2xyz() function converts lon-lat-height to </span></a>
+<a class="sourceLine" id="cb54-4" data-line-number="4"><span class="co">## spherical geocentric XYZ coordinates</span></a>
+<a class="sourceLine" id="cb54-5" data-line-number="5">qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ] &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">llh2xyz</span>(<span class="kw">t</span>(qm2<span class="op">$</span>vb[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, ])))</a>
+<a class="sourceLine" id="cb54-6" data-line-number="6"><span class="kw">rgl.clear</span>()</a>
+<a class="sourceLine" id="cb54-7" data-line-number="7"><span class="kw">shade3d</span>(qm2, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">specular =</span> <span class="st">&quot;black&quot;</span>)</a>
+<a class="sourceLine" id="cb54-8" data-line-number="8"><span class="kw">aspect3d</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb54-9" data-line-number="9"><span class="co">## run this only if you are in a web rstudio</span></a>
+<a class="sourceLine" id="cb54-10" data-line-number="10"><span class="kw">rglwidget</span>()</a></code></pre></div>
 </div>
 </div>
             </section>
