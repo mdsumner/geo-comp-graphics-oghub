@@ -14,7 +14,8 @@ We suggest use of the package **remotes** which will avoid re-installing a packa
 ```{r install, eval=FALSE}
 if (!requireNamespace("remotes")) install.packages("remotes")
 
-pkgs <- c("ceramic", "colourvalues", "dplyr", "quadmesh", "raster", "rgl", "rgdal", "scales", "sf", "sfdct", 
+pkgs <- c("ceramic", "colourvalues", "dplyr", "quadmesh", "raster", "rgl", "rgdal",
+          "scales", "sf", "sfdct", 
  "spex", "tidyr", "viridis")
 
 remotes::install_cran(pkgs)
@@ -23,7 +24,9 @@ remotes::install_cran(pkgs)
 In-development packages from Github: 
 
 ```{r github-pkgs, eval=FALSE}
-remotes::install_github(c("hypertidy/silicate", "hypertidy/anglr", "AustralianAntarcticDivision/raadtools"))
+remotes::install_github(c("hypertidy/silicate", 
+                          "hypertidy/anglr",
+                          "AustralianAntarcticDivision/raadtools"))
 ```
 
 
@@ -34,7 +37,6 @@ download.file("https://github.com/mdsumner/geo-comp-graphics-oghub/raw/master/da
                "geo-comp-graphics.Rdata", mode = "wb")
 
 load("geo-comp-graphics.Rdata")
-
 
 ## a world image (Blue Marble)
 bm_url <- "https://eoimages.gsfc.nasa.gov/images/imagerecords/73000/73909/world.topo.bathy.200412.3x5400x2700.jpg"
@@ -64,7 +66,8 @@ plot_values <- function(x) {
   raster::plot(extent(x), add = TRUE)
 }
 plot_cells <- function(x) {
-  raster::plot(x, axes = FALSE, main = "cell", legend = FALSE, box = FALSE, col = colpal()); 
+  raster::plot(x, axes = FALSE, main = "cell",
+               legend = FALSE, box = FALSE, col = colpal()); 
   raster::plot(extent(x), add = TRUE)
   text(coordinates(x), label = sprintf("[%i]", seq_len(ncell(x))), cex = 0.8)
 }

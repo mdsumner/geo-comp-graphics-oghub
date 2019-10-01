@@ -16,7 +16,6 @@ library(sfdct)
 library(silicate)
 library(tidyr)
 library(viridis)
-
 ```
 
 ## Questions
@@ -159,7 +158,7 @@ for (i in seq_len(nrow(x0))) {  ## sigh
 
 What's in the middle? 
 
-```{r what-middle, echo=FALSE}
+```{r what-middle, echo=FALSE, warning=FALSE}
 w <- options(warn =-1)
 junk <- capture.output( tri <- sf::st_cast(sfdct::ct_triangulate(minimal_mesh, a = 0.01, D = TRUE)))
 options(w)
@@ -220,7 +219,7 @@ Topology can be 3D (tetrahedron) - imagine volumetric fill versus planar faces b
 
 To fill our polygon we need triangles. 
 
-```{r triangles-1, echo=FALSE}
+```{r triangles-1, echo=FALSE, warning=FALSE}
 data("minimal_mesh", package = "silicate")
 tri <- sf::st_cast(sfdct::ct_triangulate(minimal_mesh, a = 0.01, D = TRUE))
 plot(tri)
@@ -234,28 +233,28 @@ plot(tri, border = NA)
 
 No tricky winding or even-odd rule to worry about, but we have lost our boundary around each distinct shape - we could find them by finding edges within a shape that are not shared by two triangles ...
 
-```{r triangles-3}
+```{r triangles-3, warning=FALSE}
 plot(tri, border = NA, col = rainbow(10))
 ```
 
 
-Raster and vector are not a strong distinction when it comes to meshes
+Raster and vector are not a strong distinction when it comes to meshes.
 
-A raster is a very simple version of a mesh. When we store a raster we need the equivalent of
+A raster is a very simple version of a mesh. When we store a raster we need the equivalent of:
 
 * number of columns and rows
 * the extent in the coordinate system used (xmin, xmax, ymin, ymax)
 * the coordinate system
 * the cell values! (ncols * nrows of them)
 
-In in computer graphics we store
+In in computer graphics we store:
 
 * the corner coordinates ((ncols + 1) * (nrows + 1) of them)
 * an index, 4 indices for every quad specify the coordinates
 * groupings (or at least *material-properties*), what quads belong to which objects 
 * the coordinate system (hopefully)
 
-It's the same for a triangular mesh. 
+It's the same for a triangular mesh: 
 
 * the corner coordinates 
 * an index, 3 indices for every triangle
@@ -263,7 +262,7 @@ It's the same for a triangular mesh.
 * the coordinate system (hopefully)
 
 
-And lines are
+And lines are:
 
 * the end point coordinates of each line segment (or edge)
 * an index, 2 indices for every segment
@@ -275,8 +274,8 @@ And lines are
 The simplest kind of mesh is a basic raster. Consider the  matrix from above.  
 
 ```{r raster-is-mesh}
-m <- matrix(c(seq(0, 0.5, length = 5), 
-            seq(0.375, 0, length = 4)), 3)
+m <- matrix(c(seq(0, 0.5, length = 5),
+              seq(0.375, 0, length = 4)), nrow = 3)
 
 ```
 
@@ -297,7 +296,8 @@ The raster package defaults to the image interpretation and helpfully assumes th
 
 ```{r r-raster}
 library(raster)
-(r <- raster(t(m[, ncol(m):1]), xmn = 0, xmx =ncol(m), ymn = 0, ymx = nrow(m)))
+(r <- raster(t(m[, ncol(m):1]), 
+             xmn = 0, xmx = ncol(m), ymn = 0, ymx = nrow(m)))
 ```
 
 

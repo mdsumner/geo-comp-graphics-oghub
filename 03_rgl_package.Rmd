@@ -7,10 +7,6 @@ editor_options:
 
 # The mesh3d format
 
-
-
-
-
 Rgl is the OpenGL package in R. 
 
 A classic **computer graphics** data model called *mesh3d*, it's not widely used but is very powerful. You can visualize a `mesh3d` model with `shade3d()`, all the aesthetics, material properties, geometry and topology can be attached to the model
@@ -18,16 +14,13 @@ itself as data.
 
 It supports two kinds of primitives **quads** and **triangles**. 
 
-
 ```{r load-data-03}
 load("geo-comp-graphics.Rdata")
 ```
 
 ## Quads
 
-
 Quads are a funny case, usually carried by two triangles (at least implicitly) but they are an important computer graphics element. 
-
 
 Previously, we created a raster with effectively the following code. 
 
@@ -105,7 +98,7 @@ For polygons, we need specialist code. There are two algorithm types:
 * ear-clipping (or ear-cutting)
 * near-Delaunay methods
 
-The `mesh_polys` object is create from the `two_polys` simple features layer using ear-clipping. 
+The `mesh_polys` object is created from the `two_polys` simple features layer using ear-clipping. 
 
 This is a very simple algorithm, it chooses one corner of the polygon and clips off a triangle at the next vertex, then proceeds around the boundary - the `decido` package on CRAN uses the Mapbox library `earcut` to do this. 
 

@@ -60,9 +60,9 @@ rgl::shade3d(qmesh)
 
 Lines, and polygons in spatial classes can be converted using the `anglr` package. 
 
-`plot3d()` will create the rgl plot and return a `mesh3d()` object
+`plot3d()` will create the rgl plot and return a `mesh3d()` object.
 
-`as.mesh3d()` will convert the object directly (very much in-development)
+`as.mesh3d()` will convert the object directly (very much in-development).
 
 The approach to converting polygons to mesh uses the functions `TRI()` or `DEL()` both produce triangulations, one with ear-cutting and one with "constrained Delaunay" methods.  These aren't ready for general use, so `as.mesh3d()` and `plot3d()` are the recommended ways to use the tools for now. 
 
@@ -109,7 +109,10 @@ The 2D plot above can be emulated in 3D with *quad textures*, the resolution of 
 
 ```{r coarse-dem}
 vtexture <- quadmesh::quadmesh(vraster, texture = logo)
-rgl::clear3d(); rgl::shade3d(vtexture, specular = "black"); rgl::aspect3d(1, 1, .2);  rgl::rglwidget(reuse = FALSE)
+rgl::clear3d();
+rgl::shade3d(vtexture, specular = "black"); 
+rgl::aspect3d(1, 1, .2); 
+rgl::rglwidget(reuse = FALSE)
 
 ```
 
@@ -135,7 +138,9 @@ munster_qmesh <- quadmesh::quadmesh(munster_elev, texture = munster_imag)
 rgl::shade3d(munster_qmesh, lit = FALSE); rgl::aspect3d(1, 1, .05)
 
 ## more exact location of THIS building
-merc <- sf::sf_project(cbind(7.59551, 51.96922), from = "+init=epsg:4326", to = raster::projection(munster_elev))
+merc <- sf::sf_project(cbind(7.59551, 51.96922), 
+                       from = "+init=epsg:4326",
+                       to = raster::projection(munster_elev))
 rgl::lines3d(cbind(merc[c(1, 1), ], matrix(c(0, 1000))))
 ```
 
